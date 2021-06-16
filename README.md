@@ -1,4 +1,4 @@
-## Table of contents
+# Obsah
 * [Informace](#Informace)
 * [Technologie](#Technologie)
 * [Setup](#setup)
