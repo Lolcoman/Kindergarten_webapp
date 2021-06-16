@@ -12,8 +12,9 @@ Projekt je vytvořen pomocí:
 * C#,JavaScript,CSS,HTML
 	
 ## Setup
-To run this project, install it locally using npm:
+Pro spuštění použijte:
 
 ```
+$ webhttps
 $ Visual Studio or Code
 ```
