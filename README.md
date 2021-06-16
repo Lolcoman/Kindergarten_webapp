@@ -7,7 +7,7 @@
 Projekt webové aplikace pro podporu výku
 	
 ## Technologie
-Project is created with:
+Projekt je vytvořen pomocí:
 * VS19
 * C#,JavaScript,CSS,HTML
 	
