@@ -4,7 +4,7 @@
 * [Setup](#setup)
 
 ## Informace
-Projekt webové aplikace pro podporu výku
+Projekt webové aplikace pro podporu výuky
 	
 ## Technologie
 Projekt je vytvořen pomocí:
