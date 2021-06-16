@@ -40,6 +40,7 @@ namespace MVCProject.Controllers
                 ViewBag.Exist = "Jmeno a email existují!";
                 return View("Register", "Accounts");
             }
+            //Kryptování hesla pomocí BCrypt
             string CrypPassword = registerViewModel.Password;
             CrypPassword = BCrypt.Net.BCrypt.HashPassword(CrypPassword);
             string query = "Insert into [UserTable](UserName,Email,Password)" + $"values('{registerViewModel.UserName}','{registerViewModel.Email}','{CrypPassword}')";
