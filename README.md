@@ -1,4 +1,4 @@
-# Obsah
+### Obsah
 * [Informace](#Informace)
 * [Technologie](#Technologie)
 * [Setup](#setup)
