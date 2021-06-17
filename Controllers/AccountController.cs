@@ -43,6 +43,7 @@ namespace MVCProject.Controllers
             //Kryptování hesla pomocí BCrypt
             string CrypPassword = registerViewModel.Password;
             CrypPassword = BCrypt.Net.BCrypt.HashPassword(CrypPassword);
+
             string query = "Insert into [UserTable](UserName,Email,Password)" + $"values('{registerViewModel.UserName}','{registerViewModel.Email}','{CrypPassword}')";
 
             int result = help.DMLTransaction(query);

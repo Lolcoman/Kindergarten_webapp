@@ -6994,11 +6994,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj",
+      "projectUniqueName": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj",
       "projectName": "MVCProject",
-      "projectPath": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj",
+      "projectPath": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj",
       "packagesPath": "C:\\Users\\Michal\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\obj\\",
+      "outputPath": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Michal\\AppData\\Roaming\\NuGet\\NuGet.Config",

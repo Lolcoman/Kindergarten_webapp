@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OfR6FkXKYiOZMrBXNd799D5mKz2JhHGO3o7eqov4VMw9qgM6CqsxEirvliWnh8aiKyworEqlvMIoKwwePU0/fQ==",
+  "dgSpecHash": "XWrikckvdjqJ7e7QZpxSTx7moui56N85JJE957KaEy2Cm8jG3kTGtWlqU31ZjcREJV2ymcmG9WcF8WlJ18UiJQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj",
+  "projectFilePath": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Michal\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
