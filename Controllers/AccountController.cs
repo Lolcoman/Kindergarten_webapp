@@ -24,7 +24,7 @@ namespace MVCProject.Controllers
             cfg = configuration;
             help = new DBHelp(cfg);
         }
-
+        //REGISTRACE NOVÉHO UŽIVATELE
         [HttpGet]
         public IActionResult Register()
         {

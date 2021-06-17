@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj": {}
+    "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj": {
+    "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj",
+        "projectUniqueName": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj",
         "projectName": "MVCProject",
-        "projectPath": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\MVCProject.csproj",
+        "projectPath": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\MVCProject.csproj",
         "packagesPath": "C:\\Users\\Michal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Michal\\Desktop\\ASP.NET C#\\MVCProject\\obj\\",
+        "outputPath": "C:\\Users\\Michal\\Desktop\\C# ASP.NET CORE\\MVCProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Michal\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             },
             "System.Data.SqlClient": {
               "target": "Package",
