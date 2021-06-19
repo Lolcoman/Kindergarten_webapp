@@ -5,6 +5,7 @@ using MVCProject.DBHelps;
 using MVCProject.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -59,6 +60,49 @@ namespace MVCProject.Controllers
         public void EntryIntoSession(string userName)
         {
             HttpContext.Session.SetString("UserName", userName);
+        }
+
+
+
+        //LOGIN
+        [HttpPost]
+        public IActionResult Login(LoginViewModel loginViewModel)
+        {
+            string hashPassword;
+            bool IsPasswordValid;
+            string connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            //string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStrings:DefaultConnection"].ConnectionString;
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            //string sqlQuery = "SELECT UserName,Password from [UserTable] where UserName=@UserName and Password=@Password";
+            string sqlQueryHash = "SELECT Password from UserTable where [UserName] = @UserName";
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand(sqlQueryHash, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@UserName", loginViewModel.UserName);
+            //sqlCommand.Parameters.AddWithValue("@Password", loginViewModel.Password);
+
+            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            while (sqlDataReader.Read())
+            {
+                hashPassword = sqlDataReader["Password"].ToString();
+                IsPasswordValid = BCrypt.Net.BCrypt.Verify(loginViewModel.Password, hashPassword);
+                if (IsPasswordValid)
+                {
+                    //string jmeno = sqlDataReader["UserName"].ToString();
+                    EntryIntoSession(loginViewModel.UserName);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["Message"] = "Přihlášení selhalo";
+                }
+            }
+            sqlConnection.Close();
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
         }
     }
 }

@@ -1,38 +1,34 @@
 ﻿@model MVCProject.ViewModels.LoginViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Přihlášení";
 }
 
 <h1>Přihlášení</h1>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Index">
+        <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
+                <label asp-for="UserName" class="control-label">Uživatelské jméno</label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label">Heslo</label>
                 <input asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Přihlásit" class="btn btn-success" />
             </div>
         </form>
     </div>
-    <h1>
-        @Html.ViewData["Message"]
-    </h1>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Home" asp-action="Index">Zpět na hlavní stránku</a>
 </div>
 
 @section Scripts {
