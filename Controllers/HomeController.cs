@@ -23,7 +23,7 @@ namespace MVCProject.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Maze()
         {
             return View();
         }
