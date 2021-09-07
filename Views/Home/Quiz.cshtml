@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Kvíz";
+}
+<!DOCTYPE html>
+<html lang="CS-cz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/quizStyle.css">
+    <script defer src="~/js/quizScript.js"></script>
+    <title>Poznávání</title>
+</head>
+<body>
+    <div class="all-content">
+
+        <div id="result" class="hide">
+            <div class="Form-container">
+                <div class="modal-text modal-text-bigger">Hotovo!</div>
+                <div class="modal-text">Správné odpovědi:</div>
+
+                <div class="modal-text">
+                    <span id="right-answers" class="count">12</span> z <span id="all-questions" class="count">počet-otázek</span>(<span id="answers-percent"></span>%)
+                </div>
+            </div>
+        </div>
+
+        <div id="question-container" class="hide">
+            <div id="question">Otázky</div>
+            <div id="answers-buttons" class="btns">
+                <button class="btn">Odpověd1</button>
+                <button class="btn">Odpověd2</button>
+                <button class="btn">Odpověd3</button>
+                <button class="btn">Odpověd4</button>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">Začít</button>
+            <button id="next-btn" class="next-btn btn hide">Další</button>
+        </div>
+    </div>
+</body>
+
+</html>

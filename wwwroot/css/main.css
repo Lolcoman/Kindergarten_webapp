@@ -1,0 +1,207 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url(../images/farm.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: 105%;
+}
+
+/* #background{
+    background: url(/images/farm.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; 
+
+    background-position: 100%;
+    background-attachment: fixed;
+
+    /* margin: auto;
+    min-width: 50%;
+    min-height: 50%; */
+
+li,
+a,
+button {
+  font-family: Comic Sans MS;
+  font-size: 20px;
+  color: white;
+  text-decoration: black;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 50px;
+}
+
+#games {
+  background-image: url(images/cube.png);
+  background-repeat: no-repeat;
+  background-size: 130px 80px;
+  background-position: left;
+}
+a:hover {
+  color: red;
+  transition: all 0.3s ease 0s;
+}
+
+header {
+  display: flex;
+  padding-top: 20px;
+  background-color: aqua;
+}
+
+.logo {
+  cursor: pointer;
+  width: 10em;
+}
+
+/*Navigační panel*/
+.nav_links {
+  list-style: none;
+}
+
+/* .nav_links li {
+  display: inline;
+  padding: 14rem;
+  padding: 10px 10px;
+  text-align: center;
+  justify-content: center;
+} */
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_links li a:hover {
+  color: red;
+}
+
+button {
+  padding: 4px 20px;
+  background: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease 0s;
+}
+
+.pig {
+  position: absolute;
+  left: 60%;
+  top: 50%;
+  cursor: pointer;
+  /* background-image: url(/images/pig.s); */
+}
+
+#head {
+  animation: head 4s infinite linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes head {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(4deg);
+  }
+  50% {
+    transform: rotateZ(0deg);
+  }
+  75% {
+    transform: rotateZ(-4deg);
+  }
+}
+
+.chicken {
+  position: absolute;
+  left: 60%;
+  top: 10%;
+  cursor: pointer;
+  /* background-image: url(/images/chicken.png); */
+}
+
+#blink {
+  animation: blink 2s infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes blink {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(13px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.dog {
+  position: absolute;
+  left: 30%;
+  top: 25%;
+  cursor: pointer;
+  /* background-image: url(/images/dog.png); */
+}
+
+#tail {
+  animation: tail 2s infinite linear;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes tail {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(10deg);
+  }
+  50% {
+    transform: rotateZ(0deg);
+  }
+  75% {
+    transform: rotateZ(-6deg);
+  }
+}
+
+.footer {
+  background: hsl(0, 0%, 3%);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  opacity: 1;
+
+  display:inline-block;
+  justify-content: space-between;
+  align-items:center;
+}
+
+.footer-bottom {
+  background: black;
+  color: white;
+  position: absolute;
+  top: 99%;
+  left: 5%;
+  transform: translateX(-5%) translateY(-100%);
+}
+
+.dog:hover,
+.chicken:hover,
+.pig:hover,
+.group:hover {
+  transition: all 2s ease-in infinite;
+  filter: drop-shadow(0 0 20px hsl(0, 100%, 50%));
+}
+
+@media all and (max-width: 500px) {
+  body {
+    background-color: blue;
+  }
+}
