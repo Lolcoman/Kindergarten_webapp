@@ -8,24 +8,24 @@ let countRightAnswers = 0;
 const listQuestions = [
     {
         //papírová krabice
-        question: { text: '', image: 'url(../images/farm.png)', isImage: true },
+        question: { text: '', image: 'url(../images/paper-box.png)', isImage: true },
         answers:
         [
-            { text: '', image: 'url("../../Images/black.png")', isImage: true, success: false},
-            { text: '', image: 'url("images/quizImages/blue.png")', isImage: true, success: true},
-            { text: '', image: 'url("images/quizImages/yellow.png")', isImage: true, success: false}
+            { text: '', image: 'url(../images/black.png)', isImage: true, success: false},
+            { text: '', image: 'url(../images/blue.png)', isImage: true, success: true},
+            { text: '', image: 'url(../images/yellow.png)', isImage: true, success: false}
         ],
         
     },
 
     {
         //pet lahev
-        question: {text: '', image: 'url("images/pet-bottle.png")', isImage: true},
+        question: {text: '', image: 'url(../images/pet-bottle.png)', isImage: true},
         answers: 
         [
-            {text: '', image: 'url(Images/quizImages/black.png)', isImage: true, success: false},
-            {text: '', image: 'url("images/blue.png")', isImage: true, success: false},
-            {text: '', image: 'url("images/yellow.png")', isImage: true, success: true}
+            {text: '', image: 'url(../images/black.png)', isImage: true, success: false},
+            {text: '', image: 'url(../images/blue.png)', isImage: true, success: false},
+            {text: '', image: 'url(../images/yellow.png)', isImage: true, success: true}
         ]
     }
 ]

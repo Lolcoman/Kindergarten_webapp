@@ -5,16 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="images\black.png" />
-    <Content Include="images\blue.png" />
-    <Content Include="images\green.png" />
-    <Content Include="images\paper-box.png" />
-    <Content Include="images\pet-bottle.png" />
-    <Content Include="images\yellow.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\images\farm.png" />
+    <None Include="wwwroot\images\black.png" />
+    <None Include="wwwroot\images\blue.png" />
+    <None Include="wwwroot\images\green.png" />
+    <None Include="wwwroot\images\paper-box.png" />
+    <None Include="wwwroot\images\pet-bottle.png" />
+    <None Include="wwwroot\images\yellow.png" />
     <None Include="wwwroot\js\MazeScript.js" />
   </ItemGroup>
 
