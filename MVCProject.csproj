@@ -11,7 +11,7 @@
     <None Include="wwwroot\images\paper-box.png" />
     <None Include="wwwroot\images\pet-bottle.png" />
     <None Include="wwwroot\images\yellow.png" />
-    <None Include="wwwroot\js\MazeScript.js" />
+    <None Include="wwwroot\js\mazeScript.js" />
   </ItemGroup>
 
   <ItemGroup>

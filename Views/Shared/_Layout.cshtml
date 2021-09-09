@@ -42,5 +42,19 @@
         </main>
     </div>
 
+    <div class="footer">
+        <div class="footer-bottom">
+            <span><a style="color: white" href="#">&#9990 Kontakt</a></span>
+            <span><a style="color: white" href="#">&#10157 O webu</a></span>
+        </div>
+    </div>
 </body>
 </html>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@RenderSection("Scripts") {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
