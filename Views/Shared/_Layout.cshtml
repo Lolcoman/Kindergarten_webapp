@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - MVCProject</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
+    @*<header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MVCProject</a>
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </header>*@
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -44,8 +44,8 @@
 
     <div class="footer">
         <div class="footer-bottom">
-            <span><a style="color: white" href="#">&#9990 Kontakt</a></span>
-            <span><a style="color: white" href="#">&#10157 O webu</a></span>
+            <span><a href="#">&#9990 Kontakt</a></span>
+            <span><a href="#">&#10157 O webu</a></span>
         </div>
     </div>
 </body>
@@ -55,6 +55,10 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 
-@RenderSection("Scripts") {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@*@RenderSection("Scripts") {
+@{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+}*@
+
+@RenderSection("Scripts", required: false) 

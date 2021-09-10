@@ -1,7 +1,7 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-span{
+/*span{
     margin-left: 25px;
 }
 
@@ -9,12 +9,12 @@ a.navbar-brand {
     white-space: normal;
     text-align: center;
     word-break: break-all;
-}
+}*/
 
 /* Provide sufficient contrast against white background */
 
 
-.btn-primary {
+/*.btn-primary {
     color: red;
     background-color: #1b6ec2;
     border-color: #1861ac;
@@ -24,11 +24,11 @@ a.navbar-brand {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
     font-size: 14px;
 }
 
@@ -53,11 +53,11 @@ html {
 button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
     position: relative;
     min-height: 100%;
 }
@@ -65,7 +65,7 @@ html {
 body {
     /* Margin bottom by footer height */
     /*margin-bottom: 60px;*/
-    height: 100%;
+    /*height: 100%;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -79,10 +79,20 @@ body {
     line-height: 60px;*/  /*Vertically center the text there */
 /*}*/
 
-.container{
+/*.container{
     float: left;
+}*/
+a
+{
+    text-decoration: none;
+    color: white;
 }
 
+body{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 .footer {
     background-color: black;
     position: absolute;
@@ -91,10 +101,10 @@ body {
     height: 50px;
     justify-content: space-between;
     align-items: center;
-    /*    opacity: 1;
+    opacity: 1;
     display: inline-block;
     justify-content: space-between;
-    align-items: center;*/
+    align-items: center;
 }
 
 .footer-bottom {
