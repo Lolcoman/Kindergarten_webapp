@@ -3,17 +3,64 @@
 @{
     ViewData["Title"] = "Registerace";
 }
+<!DOCTYPE html>
+<html lang="cs">
 
-<h1>Registrace</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/authStyle.css" />
+    <title>Registrace</title>
+</head>
 
-<hr />
-<div class="row">
+<body>
+    <div class="container">
+        <form id="form" asp-action="Register" method="post">
+            <h1>Registrace</h1>
+            <div class="form-group">
+                <label for="UserName" asp-for="UserName" class="control-label">Uživatelské jméno</label>
+                <input id="UserName" name="UserName" type="text" asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Email" asp-for="Email">Email</label>
+                <input id="Email" name="Email" type="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Password" asp-for="Password">Heslo</label>
+                <input id="Password" name="Password" type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <div id="error"></div>
+            </div>
+            <button type="submit" class="btn">Registrace</button>
+            <a id="back-link" asp-controller="Home" asp-action="Index">Zpět</a>
+
+
+            @*@if (TempData["Message"] != null)
+            {
+                <script type="text/javascript">
+                    window.onload = function ()
+                    {
+                        alert('@Html.Raw(TempData["Message"])')
+                    };
+                </script>
+            }*@
+        </form>
+    </div>
+    @*<script defer src="~/js/authScript.js"></script>*@
+</body>
+
+</html>
+
+@*<div class="row">
     <div class="col-md-4">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label">Uživatelské jméno</label>
-                <input asp-for="UserName" class="form-control"/>
+                <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +82,7 @@
 
 <div>
     <a asp-controller="Home" asp-action="Index">Zpět na hlavní stránku</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

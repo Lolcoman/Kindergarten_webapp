@@ -93,9 +93,11 @@ namespace MVCProject.Controllers
                 }
                 else
                 {
-                    ViewData["Message"] = "Přihlášení selhalo";
+                    //ViewBag.Message = "Přihlášení selhalo";
+                    TempData["Message"] = "Špatné uživatelské jméno nebo heslo";
                 }
             }
+            TempData["Message"] = "Špatné přihlašovací jméno nebo heslo";
             sqlConnection.Close();
             return View();
         }

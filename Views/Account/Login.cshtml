@@ -46,22 +46,33 @@
 
 <body>
     <div class="container">
-        <form asp-action="Login">
+        <form id="form" asp-action="Login" method="post">
             <h1>Přihlášení</h1>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label">Uživatelské jméno</label>
-                <input asp-for="UserName" class="form-control" />
+                <label for="UserName" asp-for="UserName" class="control-label">Uživatelské jméno</label>
+                <input id="UserName" name="UserName" type="text" asp-for="UserName" class="form-control"/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label">Heslo</label>
-                <input asp-for="Password" class="form-control" />
+                <label for="Password" asp-for="Password">Heslo</label>
+                <input id="Password" name="Password" type="password" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
+                <div id="error"></div>
             </div>
-            <input type="submit" class="btn btn-success" value="Přihlásit">
-            <a asp-controller="Home" asp-action="Index">Zpět</a>
+            <button type="submit" class="btn">Přihlásit</button>
+            <a id="back-link" asp-controller="Home" asp-action="Index">Zpět</a>
+            @if (TempData["Message"] != null)
+            {
+                <script type="text/javascript">
+                    window.onload = function ()
+                    {
+                        alert('@Html.Raw(TempData["Message"])')
+                    };
+                </script>
+            }
         </form>
     </div>
+    @*<script defer src="~/js/authScript.js"></script>*@
 </body>
 
 </html>
