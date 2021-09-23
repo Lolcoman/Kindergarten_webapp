@@ -1,0 +1,88 @@
+body{
+    background-color:gray;
+}
+canvas{
+    margin: calc(50vh - 280px) calc(50vw - 720px);
+    position: absolute;
+    background-color: white;
+}
+
+.message{
+    position: absolute;
+    text-align: center;
+    font-size: 50px;
+    font-family:  Comic Sans MS;
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: white;
+    background-color: #33cc33;
+    border-radius: 10px;
+    padding: 5px 10px 5px 10px;
+    -webkit-animation: flash linear 1s infinite;
+	animation: flash linear 1s infinite;
+}
+.buttons{
+    position: relative;
+    margin-left: 25px;
+    margin-right: 25px;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+.options{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,120%);
+    display: none;
+}
+.score{
+    text-align: center;
+    font-size: 24px;
+    font-family: Comic Sans MS;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 2720%);
+}
+.gameInfo{
+    position: relative;
+}
+
+@keyframes bounce {
+    from {
+      margin-top: 0;
+    }
+    to {
+      margin-top: -15px;
+    }
+}
+.flash {
+    -webkit-animation: flash linear 1s infinite; /*google chrome support web-kit*/
+	animation: flash linear 1s infinite;
+  }
+  @-webkit-keyframes flash {
+	0% {
+        opacity: 1; 
+    } 
+	50% { 
+        opacity: .5; 
+    } 
+	100% { 
+        opacity: 1; 
+    }
+}
+@keyframes flash {
+	0% { 
+        opacity: 1; 
+    } 
+	50% { 
+        opacity: .5; 
+    } 
+	100% { 
+        opacity: 1; 
+    }
+}

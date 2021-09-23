@@ -1,17 +1,79 @@
+let message = document.querySelector(".message");
+let options = document.querySelector(".options");
+let myValue = localStorage.getItem("myValue");
+let myCanvas = document.getElementById("canvas");
+var something = true;
+let map;
+
+//obrázky
+let brick = new Image();
+brick.src = 'images/floor.png';
+
+let finish = new Image();
+finish.src = 'images/cheese.png';
+
+let start = new Image();
+start.src = 'images/mouse.png';
+
 let c = document.getElementById('canvas');
 let ctx = c.getContext('2d');
-//mapa souřadnic bludiště
-let map = [[0, 1, 0, 1, 0, 0, 0, 1],
-           [0, 1, 0, 0, 0, 1, 0, 1],
-           [0, 1, 1, 0, 1, 1, 0, 0],
-           [0, 0, 0, 0, 0, 1, 1, 0],
-           [1, 1, 1, 0, 0, 1, 1, 2]];
 
+function mapSelect(myValue) {
+    switch (myValue) {
+        case "1":
+            map = [[0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1],
+            [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0],
+            [1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+            [0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0],
+            [0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 2]];
+            // myCanvas.style.width = "720px";
+            // myCanvas.style.height = "560px";
+            mazeLength = map[0].length; //18
+            mazeHeight = map.length;
+            break;
+        case "2":
+            map = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0],
+            [1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+            [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1],
+            [0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+            [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 2]];
+            break;
+        case "3":
+            map = [[0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+            [0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+            [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+            [0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0],
+            [0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1],
+            [0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 2]];
+            break;
+        default:
+            break;
+    }
+}
+//mapa souřadnic bludiště
+// let map = [[0, 0, 0, 0, 0, 0, 1, 1, 0],
+//            [1, 0, 1, 0, 1, 1, 0, 0, 1],
+//            [0, 0, 1, 1, 0, 0, 0, 0, 1],
+//            [0, 1, 0, 0, 0, 0, 1, 0, 0],
+//            [0, 0, 0, 1, 1, 0, 1, 0, 1],
+//            [0, 1, 0, 1, 0, 0, 1, 0, 1],
+//            [1, 1, 0, 0, 0, 1, 1, 0, 2]];
+
+let moves = 0;
 let stackBox = [];
-let titleSize = 50;
-let mazeLength = map[0].length;
-let mazeHeight = map.length;
-//proměná která zobrazuje hráče v bludišti
+let titleSize = 80; //velikost překážky px
+let mazeLength; //délka 
+let mazeHeight; //šířka 
+
+//proměná která zobrazuje hráče v bludišti, start
 let player =
 {
     x: 0,
@@ -20,120 +82,131 @@ let player =
     moveY: 0
 }
 
-function checkStackBox() 
-{
-    for (i = 0; i < mazeHeight; i++) 
-    {
-        for (j = 0; j < mazeLength; j++) 
-        {
+function checkStackBox() {
+    for (i = 0; i < mazeHeight; i++) {
+        for (j = 0; j < mazeLength; j++) {
             let a = stackBox[i][j];
 
-            if (player.moveX == a.x && player.moveY == a.y) 
-            {
-                if (a.status == 1) 
-                {
-                    console.log('Tady je překážka!');
+            if (player.moveX == a.x && player.moveY == a.y) {
+                if (a.status == 1) {
+                    //console.log('Tady je překážka!');
                 }
-                else if(a.status == 2) 
-                {
-                    console.log('Vyhrál jsi!');
+                else if (a.status == 2) {
+                    //console.log('Vyhrál jsi!');
                     move(player.moveX, player.moveY);
+                    message.style.display = "block";
+                    options.style.display = "block";
+                    moves++;
+                    document.querySelector(".score span").innerHTML = moves;
+                    something = false;
+                    localStorage.clear();
                 }
-                else
-                {
+                else {
                     move(player.moveX, player.moveY);
+                    moves++;
+                    document.querySelector(".score span").innerHTML = moves;
                 }
             }
-            else if(player.moveX < 0 || player.moveX >= mazeLength*titleSize || player.moveY < 0 || player.moveY >= mazeHeight*titleSize)
-            {
+            //pro informace o zdi bludiště
+            else if (player.moveX < 0 || player.moveX >= mazeLength * titleSize || player.moveY < 0 || player.moveY >= mazeHeight * titleSize) {
                 console.log('Tady je zeď bludiště');
-            } 
-        }        
+            }
+        }
     }
 }
 
-function drawMaze(m) 
-{
-    for (i = 0; i < m.length; i++) 
-    {
-        stackBox.push([]);
-        for (j = 0; j < m[i].length; j++) 
-        {
-            if (m[i][j] == 1) 
+//vykreslní bludiště
+function drawMaze(map) {
+    for (i = 0; i < map.length; i++) {
+        stackBox.push([]); //do zásobníku
+        for (j = 0; j < map[i].length; j++) {
+            if (map[i][j] == 1)//pokud se rovná 1 vykreslí se překážky
             {
                 ctx.beginPath();
-                ctx.fillStyle = "#000000";
-                ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
+                //ctx.fillStyle = "#000000";
+                //ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
+                ctx.drawImage(brick, j * titleSize, i * titleSize, titleSize, titleSize);
             }
-            else if(m[i][j] == 2)
-            {
+            else if (map[i][j] == 2) { //pokud 2 vykreslí cíl
                 ctx.beginPath();
-                ctx.fillStyle = "#00ff00";
-                ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);
+                //ctx.fillStyle = "#00ff00";
+                //ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);
+                ctx.drawImage(finish, j * titleSize, i * titleSize, titleSize, titleSize);
             }
             stackBox[i].push(
-                {x: j*titleSize, y: i*titleSize, status: m[i][j] == 1 ? 1 : (m[i][j] == 2 ? 2 : 0)});   
+                { x: j * titleSize, y: i * titleSize, status: map[i][j] == 1 ? 1 : (map[i][j] == 2 ? 2 : 0) });
         }
-    }    
+    }
 }
 
 //vykreslení hráče
-function drawMe(x,y)
-{
+function drawMe(x, y) {
     ctx.beginPath();
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(x,y,titleSize,titleSize);
+    //ctx.fillStyle = "#FF0000";
+    //ctx.fillRect(x,y,titleSize,titleSize);
+    ctx.drawImage(start, x, y, titleSize, titleSize);
 }
 
 //funkce pro pohyb
-function move(x,y) 
-{
-    ctx.clearRect(0,0,mazeLength*titleSize,mazeHeight*titleSize);
-    drawMe(x,y);
+function move(x, y) {
+    ctx.clearRect(0, 0, mazeLength * titleSize, mazeHeight * titleSize);
     drawMaze(map);
+    drawMe(x, y);
+    player.x = player.moveX;
+    player.y = player.moveY;
 
-    player.x = player.moveX;    
-    player.y = player.moveY;    
+    //moves = moves+1;
+    document.querySelector(".score span").innerHTML = moves;
 }
+
 //funkce pro stisknutí tlačítka
-window.onkeydown = function(e) 
-{
-    if (e.keyCode == 37) 
-    {
-        player.moveX = player.x - titleSize;
-        player.moveY = player.y;
-
-        console.log('šipka doleva');
+window.onkeydown = function (e) {
+    if (something == false) {
+        return;
     }
-    if (e.keyCode == 38) 
-    {
-        player.moveY = player.y - titleSize;
-        player.moveX = player.x;
+    else {
 
-        console.log('šipka nahoru');
-    }
-    if(e.keyCode == 39)
-    {
-        player.moveX = player.x + titleSize;
-        player.moveY = player.y;
+        switch (e.keyCode) {
+            case 37: //šipka doleva
 
-        console.log('šipka doprava')
-    }
-    if (e.keyCode == 40) 
-    {
-        player.moveY = player.y + titleSize;
-        player.moveX = player.x;
+                player.moveX = player.x - titleSize;
+                player.moveY = player.y;
+                //moves++;
 
-        console.log('šipka dolu');
+                break;
+            case 38: //šipka nahoru
+
+                player.moveY = player.y - titleSize;
+                player.moveX = player.x;
+                //moves++;
+
+                break;
+            case 39: //šipka doprava
+
+                player.moveX = player.x + titleSize;
+                player.moveY = player.y;
+                //moves++;
+
+                break;
+            case 40: //šipka dolů
+
+                player.moveY = player.y + titleSize;
+                player.moveX = player.x;
+                //moves++;
+
+                break;
+            default:
+                return;
+
+        }
     }
     checkStackBox();
-    console.log(player);    
 }
 
 //překreslení okna hned po načtení stránky
-window.onload = function() 
-{
+window.onload = function () {
+    mapSelect(myValue);
     drawMaze(map);
-    drawMe(player.x,player.y);
+    drawMe(player.x, player.y);
     console.log(stackBox);
 }

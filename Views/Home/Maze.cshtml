@@ -1,16 +1,28 @@
 ﻿@{
     ViewData["Title"] = "Bludiště";
 }
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Bludiště</title>
-        <script defer src="~/js/mazeScript.js"></script>
-    </head>
+<!DOCTYPE html>
+<html lang="cs">
 
-    <body>
-        <canvas id="canvas" width="400" height="250" style="border: 4px solid #000"></canvas>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bludiště</title>
+    <script defer src="mazeScript.js"></script>
+    <link rel="stylesheet" href="indexStyle.css">
+</head>
+
+<body>
+    <div class="gameInfo">
+        <div class="message">Gratuluji, vyhrál si!</div>
+        <div class="options">
+            <a href="."><img src="images/backward.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
+            <a href="selector.html"><img src="images/arrow.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
+        </div>
+        <div class="score">Pohyby: <span>0</span></div>
+    </div>
+    <canvas id="canvas" width="1440" height="640" style="border: 8px solid #000"></canvas>
+</body>
+
 </html>

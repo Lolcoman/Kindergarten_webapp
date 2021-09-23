@@ -110,7 +110,6 @@ body{
 .footer-bottom {
     position: absolute;
     top: 80%;
-    left: 5%;
     transform: translateX(-5%) translateY(-100%);
     font-family: Comic Sans MS;
     font-size: 20px;
