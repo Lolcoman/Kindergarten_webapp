@@ -7,13 +7,13 @@ let map;
 
 //obrázky
 let brick = new Image();
-brick.src = 'images/floor.png';
+brick.src = "../../images/floor.png";
 
 let finish = new Image();
-finish.src = 'images/cheese.png';
+finish.src = "../../images/cheese.png";
 
 let start = new Image();
-start.src = 'images/mouse.png';
+start.src = "../../images/mouse.png";
 
 let c = document.getElementById('canvas');
 let ctx = c.getContext('2d');
@@ -99,7 +99,7 @@ function checkStackBox() {
                     moves++;
                     document.querySelector(".score span").innerHTML = moves;
                     something = false;
-                    localStorage.clear();
+                    //localStorage.clear();
                 }
                 else {
                     move(player.moveX, player.moveY);
@@ -123,9 +123,9 @@ function drawMaze(map) {
             if (map[i][j] == 1)//pokud se rovná 1 vykreslí se překážky
             {
                 ctx.beginPath();
-                //ctx.fillStyle = "#000000";
-                //ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
-                ctx.drawImage(brick, j * titleSize, i * titleSize, titleSize, titleSize);
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
+                //ctx.drawImage(brick, j * titleSize, i * titleSize, titleSize, titleSize);
             }
             else if (map[i][j] == 2) { //pokud 2 vykreslí cíl
                 ctx.beginPath();

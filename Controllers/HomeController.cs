@@ -28,6 +28,11 @@ namespace MVCProject.Controllers
             return View();
         }
 
+        public IActionResult MazeSelector()
+        {
+            return View();
+        }
+
         public IActionResult Quiz()
         {
             return View();

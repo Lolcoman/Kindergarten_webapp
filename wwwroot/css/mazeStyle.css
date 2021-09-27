@@ -46,7 +46,7 @@ canvas{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 2720%);
+    transform: translate(-50%, 2620%);
 }
 .gameInfo{
     position: relative;
