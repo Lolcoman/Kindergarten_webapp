@@ -7,7 +7,7 @@ let map;
 
 //obrázky
 let brick = new Image();
-brick.src = "../../images/floor.png";
+brick.src = "../../images/floor1.png";
 
 let finish = new Image();
 finish.src = "../../images/cheese.png";
@@ -43,6 +43,8 @@ function mapSelect(myValue) {
             [0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1],
             [0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
             [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 2]];
+            mazeLength = map[0].length; 
+            mazeHeight = map.length;
             break;
         case "3":
             map = [[0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
@@ -53,6 +55,8 @@ function mapSelect(myValue) {
             [0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1],
             [0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
             [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 2]];
+            mazeLength = map[0].length;
+            mazeHeight = map.length;
             break;
         default:
             break;
@@ -123,9 +127,9 @@ function drawMaze(map) {
             if (map[i][j] == 1)//pokud se rovná 1 vykreslí se překážky
             {
                 ctx.beginPath();
-                ctx.fillStyle = "#000000";
-                ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
-                //ctx.drawImage(brick, j * titleSize, i * titleSize, titleSize, titleSize);
+                //ctx.fillStyle = "#000000";
+                //ctx.fillRect(j*titleSize,i*titleSize,titleSize,titleSize);     
+                ctx.drawImage(brick, j * titleSize, i * titleSize, titleSize, titleSize);
             }
             else if (map[i][j] == 2) { //pokud 2 vykreslí cíl
                 ctx.beginPath();
