@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MVCProject.Models;
 using System;
@@ -20,6 +21,7 @@ namespace MVCProject.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Name = HttpContext.Session.GetString("UserName");
             return View();
         }
 

@@ -103,6 +103,7 @@ function checkStackBox() {
                     moves++;
                     document.querySelector(".score span").innerHTML = moves;
                     something = false;
+                    localStorage.setItem("score", moves);
                     //localStorage.clear();
                 }
                 else {

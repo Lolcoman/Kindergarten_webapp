@@ -38,15 +38,15 @@
             <a id="back-link" asp-controller="Home" asp-action="Index">Zpět</a>
 
 
-            @*@if (TempData["Message"] != null)
+            @if (ViewBag.Exist != null)
             {
                 <script type="text/javascript">
                     window.onload = function ()
                     {
-                        alert('@Html.Raw(TempData["Message"])')
+                        alert('@Html.Raw(ViewBag.Exist)')
                     };
                 </script>
-            }*@
+            }
         </form>
     </div>
     @*<script defer src="~/js/authScript.js"></script>*@

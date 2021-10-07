@@ -38,8 +38,8 @@ namespace MVCProject.Controllers
             bool IsExist = help.IsUserExist(uQuery);
             if (IsExist == true)
             {
-                ViewBag.Exist = "Jmeno a email existují!";
-                return View("Register", "Accounts");
+                ViewBag.Exist = "Jméno nebo email již existují!";
+                return View();
             }
             //Kryptování hesla pomocí BCrypt
             string CrypPassword = registerViewModel.Password;
@@ -88,6 +88,7 @@ namespace MVCProject.Controllers
                 if (IsPasswordValid)
                 {
                     //string jmeno = sqlDataReader["UserName"].ToString();
+                    //Session["userID"] = loginViewModel.UserName;
                     EntryIntoSession(loginViewModel.UserName);
                     return RedirectToAction("Index", "Home");
                 }
