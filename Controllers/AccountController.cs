@@ -34,6 +34,7 @@ namespace MVCProject.Controllers
 
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
+            //TOHLE VYŘEŠIT!!!!!!!!
             string uQuery = $"Select * from [UserTable] where UserName = '{registerViewModel.UserName}'" + $"OR Email = '{registerViewModel.Email}'";
             bool IsExist = help.IsUserExist(uQuery);
             if (IsExist == true)
@@ -45,15 +46,40 @@ namespace MVCProject.Controllers
             string CrypPassword = registerViewModel.Password;
             CrypPassword = BCrypt.Net.BCrypt.HashPassword(CrypPassword);
 
-            string query = "Insert into [UserTable](UserName,Email,Password)" + $"values('{registerViewModel.UserName}','{registerViewModel.Email}','{CrypPassword}')";
 
-            int result = help.DMLTransaction(query);
-            //Pokud je hodnota větší než 0, data se uloží do databáze
-            if (result > 0)
+            SqlConnection sql = new SqlConnection(@"Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            string query = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";;
+            SqlCommand command = new SqlCommand(query,sql);
+            command.Parameters.AddWithValue("@username", registerViewModel.UserName);
+            command.Parameters.AddWithValue("@email", registerViewModel.Email);
+            command.Parameters.AddWithValue("@password", CrypPassword); 
+            try
             {
+                sql.Open();
+                command.ExecuteNonQuery();
                 EntryIntoSession(registerViewModel.UserName);
                 return RedirectToAction("Index", "Home");
             }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                sql.Close();
+            }
+
+
+
+            //string query = "Insert into [UserTable](UserName,Email,Password)" + $"values('{registerViewModel.UserName}','{registerViewModel.Email}','{CrypPassword}')";
+
+           //int result = help.DMLTransaction(query);
+            //Pokud je hodnota větší než 0, data se uloží do databáze
+            //if (result > 0)
+            //{
+            //    EntryIntoSession(registerViewModel.UserName);
+            //    return RedirectToAction("Index", "Home");
+            //}
             return View();
         }
 
