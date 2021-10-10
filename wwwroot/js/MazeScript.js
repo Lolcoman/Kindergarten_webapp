@@ -216,7 +216,7 @@ function SubmitScore() {
 
 
     $.ajax({
-        url: "api/Score/Save",
+        url: "/api/Score/Save",
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
