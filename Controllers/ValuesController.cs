@@ -17,19 +17,23 @@ namespace MVCProject.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        SqlConnection connection = new SqlConnection(@"Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        //SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
         [HttpPost("[action]")]
         public IActionResult Save([FromBody] Score score)
         {
+            //získání uživatele ze session
+            var name = HttpContext.Session.GetString("UserName");
+
+            SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());
             //string query = "INSERT into UserTable(UserName) VALUES('"+value+"')",connection);
-            SqlCommand command = new SqlCommand($"INSERT into UserTable(UserName) VALUES('{score.score}')", connection);
+            SqlCommand command = new SqlCommand($"INSERT into UserTable(UserName) VALUES('{score.score}')", sqlConnection);
             //command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             try
             {
-                connection.Open();
+                sqlConnection.Open();
                 int i = command.ExecuteNonQuery();
                 //EntryIntoSession(registerViewModel.UserName);
                 //return RedirectToAction("Index", "Home");
@@ -48,7 +52,7 @@ namespace MVCProject.Controllers
             }
             finally
             {
-                connection.Close();
+                sqlConnection.Close();
             }
         }
 

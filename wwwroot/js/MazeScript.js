@@ -211,12 +211,12 @@ window.onkeydown = function (e) {
 
 function SubmitScore() {
     var model = {
-        "score": 5
+        "score": moves
     };
 
 
     $.ajax({
-        url: "api/Score/Save",
+        url: "/api/Score/Save",
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
@@ -259,10 +259,6 @@ function SubmitScore() {
 //    //    .then(data => console.log(data))
 //    //    .catch(error => console.log('ERROR'))
 //}
-
-const toSend = {
-    score: moves
-};
 
 //function SubmitScore()
 //{
