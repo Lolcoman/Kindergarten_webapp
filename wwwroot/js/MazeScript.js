@@ -208,6 +208,70 @@ window.onkeydown = function (e) {
     checkStackBox();
 }
 
+
+function SubmitScore() {
+    var model = {
+        value: "moves"
+    }
+
+
+    $.ajax({
+        url: "https://localhost:44356",
+        type: 'POST',
+        data: model,
+        success: function (data) {
+            alert(data);
+            //data = JSON.parse(data);
+            //console.log(data);
+        },
+        error: function (err) {
+            console.error(err);
+        }
+    })
+}
+
+//    var xhttp = new XMLHttpRequest();
+//    xhttp.open("POST", "https://localhost:44356/api/values", true);
+//    xhttp.getResponseHeader("Content-type", "application/json");
+//    xhttp.send(JSON.stringify(json));
+//    xhttp.onload = function () {
+//        if (this.status == 200) {
+//            console.log("správně");
+//        }
+//        else {
+//            console.log("špatně");
+//        }
+//    }
+
+//    //fetch('https://localhost:44356/api/values', {
+//    //    method: 'POST',
+//    //    headers: {
+//    //        'Content-Type': 'application/json'
+//    //    },
+//    //    body: JSON.stringify({
+//    //        value: moves
+//    //    })
+//    //}).then(res => {
+//    //    return res.json()
+//    //    })
+//    //    .then(data => console.log(data))
+//    //    .catch(error => console.log('ERROR'))
+//}
+
+const toSend = {
+    score: moves
+};
+
+//function SubmitScore()
+//{
+//    const jsonString = JSON.stringify(toSend);
+//    const xhr = new XMLHttpRequest();
+
+//    xhr.open("POST", "https://localhost:44356/api/values");
+//    xhr.send(jsonString);
+//    console.log(jsonString);
+//}
+
 //překreslení okna hned po načtení stránky
 window.onload = function () {
     mapSelect(myValue);
