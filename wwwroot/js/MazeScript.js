@@ -211,14 +211,16 @@ window.onkeydown = function (e) {
 
 function SubmitScore() {
     var model = {
-        value: "moves"
-    }
+        "score": 5
+    };
 
 
     $.ajax({
-        url: "https://localhost:44356",
+        url: "api/Score/Save",
         type: 'POST',
-        data: model,
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(model),
         success: function (data) {
             alert(data);
             //data = JSON.parse(data);
