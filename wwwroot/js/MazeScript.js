@@ -103,7 +103,7 @@ function checkStackBox() {
                     moves++;
                     document.querySelector(".score span").innerHTML = moves;
                     something = false;
-                    localStorage.setItem("score", moves);
+                    SubmitScore();
                     //localStorage.clear();
                 }
                 else {
@@ -119,6 +119,8 @@ function checkStackBox() {
         }
     }
 }
+
+
 
 //vykreslní bludiště
 function drawMaze(map) {
@@ -230,6 +232,7 @@ function SubmitScore() {
             console.error(err);
         }
     })
+
 }
 
 //    var xhttp = new XMLHttpRequest();
