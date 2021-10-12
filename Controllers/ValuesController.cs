@@ -29,7 +29,9 @@ namespace MVCProject.Controllers
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());
             //string query = "INSERT into UserTable(UserName) VALUES('"+value+"')",connection);
-            SqlCommand command = new SqlCommand($"INSERT into UserTable(UserName) VALUES('{score.score}')", sqlConnection);
+            SqlCommand command = new SqlCommand($"UPDATE [UserTable] SET Maze ('{score.score}') WHERE UserName = @UserName)", sqlConnection);
+            //UPDATE UserTable SET Maze = 1 WHERE UserName = 'petr'
+            command.Parameters.AddWithValue("@UserName", name);
             //command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             try
             {
