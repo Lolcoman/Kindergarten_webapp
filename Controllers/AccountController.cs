@@ -34,7 +34,7 @@ namespace MVCProject.Controllers
 
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            //TOHLE VYŘEŠIT!!!!!!!!
+            //TOHLE VYŘEŠIT!!!!!!!! nesmí se spojovat + stringy
             string uQuery = $"Select * from [UserTable] where UserName = '{registerViewModel.UserName}'" + $"OR Email = '{registerViewModel.Email}'";
             bool IsExist = help.IsUserExist(uQuery);
             if (IsExist == true)
