@@ -183,3 +183,34 @@ button {
     background-color: blue;
   }
 }
+
+#pex-chicken {
+    margin-top: 280px;
+    margin-left: 1220px;
+    position: absolute;
+    width: 100%;
+    font-family: Comic Sans MS;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+}
+#maze-dog {
+    margin-top: 430px;
+    margin-left: 600px;
+    position: absolute;
+    width: 100%;
+    font-family: Comic Sans MS;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+}
+#quiz-pig {
+    margin-top: 670px;
+    margin-left: 1220px;
+    position: absolute;
+    width: 100%;
+    font-family: Comic Sans MS;
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+}

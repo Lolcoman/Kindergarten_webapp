@@ -40,6 +40,11 @@ namespace MVCProject.Controllers
             return View();
         }
 
+        public IActionResult Memory()
+        {
+            return View();
+        }
+
         public IActionResult MainPage()
         {
             return View();

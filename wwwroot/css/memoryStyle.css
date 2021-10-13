@@ -1,0 +1,90 @@
+#game-board{
+    background: #ccc;
+    border: black 2px solid;
+    width: 1230px;
+    height: 820px;
+    padding: 10px;
+    margin: 60px auto;
+}
+#game-board > div{
+    background: turquoise;
+    border: yellow 2px solid;
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 15px;
+    padding: 10px;
+    font-size: 50px;
+    cursor: pointer;
+    text-align: center;
+}
+#score{
+    position: absolute;
+    font-family: Comic Sans MS;
+    font-size: 40px;
+}
+#bad-score{
+    position: absolute;
+    margin: 60px auto;
+    font-family: Comic Sans MS;
+    font-size: 40px;
+}
+#message{
+    position: absolute;
+    text-align: center;
+    font-size: 100px;
+    font-family:  Comic Sans MS;
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: #33cc33;
+    border-radius: 30px;
+    padding: 5px 10px 5px 10px;
+    -webkit-animation: flash linear 1s infinite;
+	animation: flash linear 1s infinite;
+}
+#options{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,100%);
+    display: none;
+}
+.buttons{
+    position: relative;
+    margin-left: 25px;
+    margin-right: 25px;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+.flash {
+    -webkit-animation: flash linear 1s infinite; /*google chrome support web-kit*/
+	animation: flash linear 1s infinite;
+}
+@keyframes flash {
+	0% { 
+        opacity: 1; 
+    } 
+	50% { 
+        opacity: .5; 
+    } 
+	100% { 
+        opacity: 1; 
+    }
+}
+@-webkit-keyframes flash {
+	0% {
+        opacity: 1; 
+    } 
+	50% { 
+        opacity: .5; 
+    } 
+	100% { 
+        opacity: 1; 
+    }
+}

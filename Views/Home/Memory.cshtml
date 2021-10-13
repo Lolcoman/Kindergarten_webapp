@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Pexeso";
+}
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/memoryStyle.css">
+    <script defer src="~/js/memoryScript.js"></script>
+    <title>Pexeso</title>
+</head>
+
+<body>
+    <div id="message">Dobrá práce!</div>
+    <div id="options">
+        <a onclick="location.reload()"><img src="../../images/backward.png" class="buttons" style="width: 90px;height: 90px;"></img></a>
+        <a onclick="location.href = '@Url.Action("MainPage","Home")'"><img src="../../images/arrow.png" class="buttons" style="width: 90px;height: 90px;"></img></a>
+    </div>
+    <div id="score">
+        Skóre: <span>0</span>
+    </div>
+    <div id="bad-score">
+        Otočení: <span>0</span>
+    </div>
+    <div id="game-board"></div>
+</body>
+
+</html>
