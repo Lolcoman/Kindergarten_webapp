@@ -17,7 +17,6 @@ const listQuestions = [
         ],
         
     },
-
     {
         //pet lahev
         question: {text: '', image: 'url(../images/pet-bottle.png)', isImage: true},
@@ -27,6 +26,26 @@ const listQuestions = [
             {text: '', image: 'url(../images/blue.png)', isImage: true, success: false},
             {text: '', image: 'url(../images/yellow.png)', isImage: true, success: true}
         ]
+    },
+    {
+        //skleněná lahev
+        question: { text: '', image: 'url(../images/glass-bottle.png)', isImage: true },
+        answers:
+            [
+                { text: '', image: 'url(../images/green.png)', isImage: true, success: true },
+                { text: '', image: 'url(../images/blue.png)', isImage: true, success: false },
+                { text: '', image: 'url(../images/yellow.png)', isImage: true, success: false }
+            ]
+    },
+    {
+        //kuře
+        question: { text: '', image: 'url(../images/chicken.png)', isImage: true },
+        answers:
+            [
+                { text: '', image: 'url(../images/green.png)', isImage: true, success: false },
+                { text: '', image: 'url(../images/blue.png)', isImage: true, success: false },
+                { text: '', image: 'url(../images/black.png)', isImage: true, success: true }
+            ]
     }
 ]
 

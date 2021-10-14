@@ -63,40 +63,40 @@ function FlipCard(card,id)
 
         switch (id) {
             case 'sun':
-                card.style.backgroundImage = "url('images/sun.png')";
+                card.style.backgroundImage = "url('../images/sun.png')";
                 break;
             case 'tree':
-                card.style.backgroundImage = "url('images/tree.png')";
+                card.style.backgroundImage = "url('../images/tree.png')";
                 break;
             case 'house':
-                    card.style.backgroundImage = "url('images/house.png')";
+                    card.style.backgroundImage = "url('../images/house.png')";
                 break;
             case 'train':
-                    card.style.backgroundImage = "url('images/train.png')";
+                    card.style.backgroundImage = "url('../images/train.png')";
                 break;
             case 'mushroom':
-                    card.style.backgroundImage = "url('images/mushroom.png')";
+                    card.style.backgroundImage = "url('../images/mushroom.png')";
                 break;
             case 'moon':
-                card.style.backgroundImage = "url('images/moon.png')";
+                card.style.backgroundImage = "url('../images/moon.png')";
                 break;
             case 'pears':
-                card.style.backgroundImage = "url('images/pears.png')";
+                card.style.backgroundImage = "url('../images/pears.png')";
                 break;
             case 'balloons':
-                card.style.backgroundImage = "url('images/balloons.png')";
+                card.style.backgroundImage = "url('../images/balloons.png')";
                 break;
             case 'hot-ballons':
-                card.style.backgroundImage = "url('images/hot-balloons.png')";
+                card.style.backgroundImage = "url('../images/hot-balloons.png')";
                 break;
             case 'airplane':
-                card.style.backgroundImage = "url('images/airplane.png')";
+                card.style.backgroundImage = "url('../images/airplane.png')";
                 break;
             case 'sunflower':
-                card.style.backgroundImage = "url('images/sunflower.png')";
+                card.style.backgroundImage = "url('../images/sunflower.png')";
                 break;  
             case 'ice-cream':
-                card.style.backgroundImage = "url('images/ice-cream.png')";
+                card.style.backgroundImage = "url('../images/ice-cream.png')";
                 break; 
             default:
                 break;
@@ -136,7 +136,7 @@ function FlipCard(card,id)
                 badMoves++;
                 document.querySelector("#bad-score span").innerHTML = badMoves;
                 lockBoard = true;
-                setTimeout(FlipCardBack,600);
+                setTimeout(FlipCardBack,800);
             }
         }
     }
