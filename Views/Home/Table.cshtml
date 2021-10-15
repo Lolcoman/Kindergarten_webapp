@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Skóre";
+    string[] tableHeaders = new string[] {"Jméno"
+          ,"Email"
+          ,"Maze"
+          ,"Pexeso"
+          ,"Quiz"
+          ,"Čas uložení"};
+}
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <link rel="stylesheet" href="~/css/table.css">
+</head>
+<body>
+    <div class="table">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    @{
+                        foreach (var head in tableHeaders)
+                        {
+                            <th>
+                                @head
+                            </th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>@data.UserName</td>
+                                <td>@data.Email</td>
+                                <td>@data.Maze</td>
+                                <td>@data.Pexeso</td>
+                                <td>@data.Quiz</td>
+                                <td>@data.DateTime</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
