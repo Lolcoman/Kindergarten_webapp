@@ -34,9 +34,13 @@ namespace MVCProject.Controllers
 
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            //TOHLE VYŘEŠIT!!!!!!!! nesmí se spojovat + stringy
-            string uQuery = $"Select * from [UserTable] where UserName = '{registerViewModel.UserName}'" + $"OR Email = '{registerViewModel.Email}'";
-            bool IsExist = help.IsUserExist(uQuery);
+            //Ověření zda již uživetel je v databázi, ověří duplicitní jméno a email
+            SqlConnection sql = new SqlConnection(@"Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
+            SqlCommand command1 = new SqlCommand(uQuery, sql);
+            command1.Parameters.AddWithValue("@UserName", registerViewModel.UserName);
+            command1.Parameters.AddWithValue("@email", registerViewModel.Email);
+            bool IsExist = help.IsUserExist(command1,sql);
             if (IsExist == true)
             {
                 ViewBag.Exist = "Jméno nebo email již existují!";
@@ -47,9 +51,9 @@ namespace MVCProject.Controllers
             CrypPassword = BCrypt.Net.BCrypt.HashPassword(CrypPassword);
 
 
-            SqlConnection sql = new SqlConnection(@"Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            string query = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";;
-            SqlCommand command = new SqlCommand(query,sql);
+            //string query = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";
+            uQuery = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";
+            SqlCommand command = new SqlCommand(uQuery,sql);
             command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             command.Parameters.AddWithValue("@email", registerViewModel.Email);
             command.Parameters.AddWithValue("@password", CrypPassword); 

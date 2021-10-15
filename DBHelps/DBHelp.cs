@@ -21,24 +21,25 @@ namespace MVCProject.DBHelps
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public bool IsUserExist(string query)
+        public bool IsUserExist(SqlCommand command,SqlConnection con)
         {
             bool help = false;
-
-            string connectionString = configuration["ConnectionStrings:DefaultConnection"];
-
-            using (SqlConnection con = new SqlConnection(connectionString))
+            try
             {
                 con.Open();
 
-                string sql = query;
-                SqlCommand sqlCommand = new SqlCommand(sql, con);
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                //string sql = query;
+                //SqlCommand sqlCommand = new SqlCommand(sql, con);
+                SqlDataReader sqlDataReader = command.ExecuteReader();
                 if (sqlDataReader.HasRows)
                 {
                     help = true;
                 }
                 con.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Error Generated. Details: " + e.ToString());
             }
             return help;
         }
