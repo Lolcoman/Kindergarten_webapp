@@ -14,6 +14,10 @@ a{
     text-decoration: none;
     color: white;
 }
+a:hover {
+  color: red;
+  transition: all 0.3s ease 0s;
+}
 .main{
     text-align: center;
     padding: 40vh;

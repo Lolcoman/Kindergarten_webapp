@@ -228,8 +228,9 @@ function SubmitScore() {
             //data = JSON.parse(data);
             //console.log(data);
         },
-        error: function (err) {
-            console.error(err);
+        error: function (xhr, status, error) {
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            //alert('Error - ' + errorMessage);
         }
     })
 

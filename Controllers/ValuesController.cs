@@ -24,7 +24,7 @@ namespace MVCProject.Controllers
         {
 
             DateTime mydateTime = DateTime.Now;
-            string sqlDate = mydateTime.ToString("dd-MM-yyyy HH:mm:ss");
+            string sqlDate = mydateTime.ToString("g");
             //získání uživatele ze session
             var name = HttpContext.Session.GetString("UserName");
 

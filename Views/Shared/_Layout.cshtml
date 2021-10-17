@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="utf-8" />
@@ -47,8 +49,23 @@
             <span><a asp-controller="Home" asp-action="MainPage" style="margin-left: 100px">&#127968 Hlavní stránka</a></span>
             <span><a href="mailto:michael.kozak02@upol.cz">&#128231 Kontakt</a></span>
             <span><a href="#">&#128195 O webu</a></span>
+            @if (Context.Session.GetString("UserName") == null)
+            {
+                <span><a asp-controller="Account" asp-action="Login" style="margin-left:1100px">&#128273 Přihlášení</a></span>
+                <span><a asp-controller="Account" asp-action="Register">&#128274 Registrace</a></span>
+            }
+            else
+            {
+                <span><a asp-controller="Home" asp-action="Table" style="margin-left:1100px">&#128209 Výsledky</a></span>
+                <span><a asp-controller="Account" asp-action="Logout">&#128275 Odhlášení</a></span>
+            }
+            @*@if (ViewData["UserName"] == null)
+        {
             <span><a asp-controller="Account" asp-action="Login" style="margin-left:1100px">&#128273 Přihlášení</a></span>
             <span><a asp-controller="Account" asp-action="Register">&#128274 Registrace</a></span>
+        }*@
+            @*<span><a asp-controller="Account" asp-action="Login" style="margin-left:1100px">&#128273 Přihlášení</a></span>
+        <span><a asp-controller="Account" asp-action="Register">&#128274 Registrace</a></span>*@
         </div>
     </div>
 </body>

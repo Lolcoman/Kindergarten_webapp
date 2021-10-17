@@ -58,6 +58,7 @@ namespace MVCProject.Controllers
         //získání dat z databáze
         private void FillData()
         {
+            var name = HttpContext.Session.GetString("UserName");
             if (datas.Count > 0)
             {
                 datas.Clear();
@@ -66,7 +67,9 @@ namespace MVCProject.Controllers
             {
                 sqlConnection.Open();
                 command.Connection = sqlConnection;
-                command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
+                //command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
+                command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
+                command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
                 while (dr.Read())
                 {
@@ -76,13 +79,13 @@ namespace MVCProject.Controllers
                     ,Pexeso = dr["Pexeso"].ToString()
                     ,Quiz = dr["Quiz"].ToString()
                     ,DateTime = dr["DateTime"].ToString()
-                    
                     });
                 }
                 sqlConnection.Close();
             }
             catch (Exception e)
             {
+                //Error();
                 Console.WriteLine(e);
                 throw;
             }

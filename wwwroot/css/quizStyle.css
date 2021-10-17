@@ -1,6 +1,6 @@
 *,*::before, *::after{
     box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    /*font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;*/
 }
 
 :root{
@@ -47,7 +47,7 @@ body.wrong{
 
 .btn{
     --hue:var(--hue-success);
-    border: 2px solid hsl(var(--hue), 100%, 0%);
+    border: 5px solid hsl(var(--hue), 100%, 0%);
     background-color: hsl(var(--hue), 100%, 50%);
     border-radius: 5px;
     padding: 10px 15px;
@@ -101,4 +101,15 @@ body.wrong{
     background-size: 95%;
     background-repeat: no-repeat;
     margin: 0 auto;
+}
+.footer {
+    font-family: Comic Sans MS;
+    font-size: 20px;
+    color: white;
+    text-decoration: black;
+    font-weight: bold;
+}
+a:hover {
+    color: red;
+    transition: all 0.3s ease 0s;
 }
