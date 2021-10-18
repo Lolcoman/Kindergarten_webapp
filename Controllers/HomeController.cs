@@ -68,17 +68,29 @@ namespace MVCProject.Controllers
                 sqlConnection.Open();
                 command.Connection = sqlConnection;
                 //command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
-                command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
+                //command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
+                command.CommandText = "SELECT UserName,Moves,DateTime FROM Maze WHERE UserName = @UserName ORDER BY DateTime DESC";   
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
+                //while (dr.Read())
+                //{
+                //    datas.Add(new Data() { UserName = dr["UserName"].ToString()
+                //    ,Email = dr["Email"].ToString()
+                //    ,Maze = dr["Maze"].ToString()
+                //    ,Pexeso = dr["Pexeso"].ToString()
+                //    ,Quiz = dr["Quiz"].ToString()
+                //    ,DateTime = dr["DateTime"].ToString()
+                //    });
+                //}
                 while (dr.Read())
                 {
-                    datas.Add(new Data() { UserName = dr["UserName"].ToString()
-                    ,Email = dr["Email"].ToString()
-                    ,Maze = dr["Maze"].ToString()
-                    ,Pexeso = dr["Pexeso"].ToString()
-                    ,Quiz = dr["Quiz"].ToString()
-                    ,DateTime = dr["DateTime"].ToString()
+                    datas.Add(new Data()
+                    {
+                        UserName = dr["UserName"].ToString()
+                    ,
+                        Moves = dr["Moves"].ToString()
+                    ,
+                        DateTime = dr["DateTime"].ToString()
                     });
                 }
                 sqlConnection.Close();

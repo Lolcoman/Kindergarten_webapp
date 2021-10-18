@@ -24,7 +24,7 @@ namespace MVCProject.Controllers
         {
 
             DateTime mydateTime = DateTime.Now;
-            string sqlDate = mydateTime.ToString("g");
+            string sqlDate = mydateTime.ToString("G");
             //získání uživatele ze session
             var name = HttpContext.Session.GetString("UserName");
 
@@ -32,9 +32,12 @@ namespace MVCProject.Controllers
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());
             //string query = "INSERT into UserTable(UserName) VALUES('"+value+"')",connection);
-            SqlCommand command = new SqlCommand($"UPDATE [UserTable] SET Maze = ('{score.score}'), DateTime = ('{sqlDate}') WHERE UserName = @UserName", sqlConnection);
+            //SqlCommand command = new SqlCommand($"UPDATE [UserTable] SET Maze = ('{score.score}'), DateTime = ('{sqlDate}') WHERE UserName = @UserName", sqlConnection);
+            SqlCommand command = new SqlCommand($"INSERT INTO [Maze](UserName,Score,DateTime) VALUES (@UserName,@Score,@DateTime)",sqlConnection);
             //UPDATE UserTable SET Maze = 1 WHERE UserName = 'petr'
             command.Parameters.AddWithValue("@UserName", name);
+            command.Parameters.AddWithValue("@Score", score.score);
+            command.Parameters.AddWithValue("@DateTime", sqlDate);
             //command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             try
             {

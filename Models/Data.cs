@@ -8,10 +8,7 @@ namespace MVCProject.Models
     public class Data
     {
         public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Maze { get; set; }
-        public string Pexeso { get; set; }
-        public string Quiz { get; set; }
+        public string Moves { get; set; }
         public string DateTime { get; set; }
 
     }

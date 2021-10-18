@@ -1,13 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Skóre";
-    string[] tableHeaders = new string[] {"Jméno"
-          ,"Email"
-          ,"Maze"
-          ,"Pexeso"
-          ,"Quiz"
-          ,"Čas uložení"};
+    ViewData["Title"] = "Výsledky";
+    string[] tableHeaders = new string[] {
+            "Jméno"
+            ,"Pohyby"
+            ,"Čas uložení"};
 }
 <!DOCTYPE html>
+<script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <html lang="cs">
 
 <head>
@@ -25,10 +24,19 @@
                                 @head
                             </th>
                         }
+                        @*<th data-column="name" data-order="desc">
+                            Jméno
+                        </th>
+                        <th data-column="score" data-order="desc">
+                            Skóre
+                        </th>
+                        <th data-column="time" data-order="desc">
+                            Čas uložení
+                        </th>*@
                     }
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="myTable">
                 @{
                     if (Model != null)
                     {
@@ -36,10 +44,7 @@
                         {
                             <tr>
                                 <td>@data.UserName</td>
-                                <td>@data.Email</td>
-                                <td>@data.Maze</td>
-                                <td>@data.Pexeso</td>
-                                <td>@data.Quiz</td>
+                                <td>@data.Moves</td>
                                 <td>@data.DateTime</td>
                             </tr>
                         }
@@ -50,3 +55,24 @@
     </div>
 </body>
 </html>
+@*<script>
+    $('th').on('click', function () {
+        var column = $(this).data('column')
+        var order = $(this).data('order')
+        console.log('Řádek byl zmáčknut!', column, order)
+
+        if (order == 'desc'){
+            $(this).data('order', "asc")
+            myArray = myArray.Sort((a, b) => a[column] > b[column] ? 1 : -1)
+        } else{
+            $(this).data('order', "desc")
+            myArray = myArray.Sort((a, b) => a[column] < b[column] ? 1 : -1)
+        }
+        buildTable(myArray);
+    })
+
+    function buildSort(data) {
+        var table = document.getElementById('myTable');
+
+    }
+</script>*@
