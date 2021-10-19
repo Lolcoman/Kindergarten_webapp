@@ -93,6 +93,7 @@ namespace MVCProject.Controllers
                         DateTime = dr["DateTime"].ToString()
                     });
                 }
+                ViewData["Data"] = datas;
                 sqlConnection.Close();
             }
             catch (Exception e)
@@ -105,7 +106,7 @@ namespace MVCProject.Controllers
         public IActionResult Table()
         {
             FillData();
-            return View(datas);
+            return View("Scores/Table",datas);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

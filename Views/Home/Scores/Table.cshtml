@@ -1,0 +1,108 @@
+﻿@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = "Výsledky";
+ string[] tableHeaders = new string[] {
+            "Jméno"
+            ,"Pohyby"
+            ,"Čas uložení"};
+}
+<!DOCTYPE html>
+<script src="~/lib/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<html lang="cs">
+
+<head>
+    <link rel="stylesheet" href="~/css/table.css">
+</head>
+<body>
+    <div class="table">
+        <table class="table table-striped">
+            <thead>
+                <tr class="bg-info">
+                    @{
+                        @*foreach (var head in tableHeaders)
+                        {
+                            <th>
+                                @head
+                            </th>
+                        }*@
+                            <th data-column="UserName" data-order="desc">Jméno</th>
+                            <th data-column="Moves" data-order="desc">Skóre &#9650</th>
+                            <th id="data" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
+                    }
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @{
+                    if (Model != null)
+                    {
+                        foreach (var data in Model)
+                        {
+                            <tr>
+                                <td>@data.UserName</td>
+                                <td>@data.Moves</td>
+                                <td>@data.DateTime</td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    $('th').on('click', function () {
+        var column = $(this).data('column')
+        var order = $(this).data('order')
+        var text = $(this).html()
+        text = text.substring(0, text.length - 1)
+
+        var myArray =  @Html.Raw(JsonConvert.SerializeObject(ViewData["Data"]));
+
+
+        if (column == 'UserName') {
+            return
+        }
+
+        if (column == 'DateTime') {
+            document.getElementById("data").style.color = "red"
+            if (order == 'desc') {
+                $(this).data('order', "asc")
+                myArray = myArray.sort((a, b) => new Date(a.date) - new Date(b.date))
+                //myArray = myArray.sort((a, b) => new Date(a[column]) > new Date(b[column]) ? 1 : -1)
+                //text += '&#9660'
+                
+            } else {
+                $(this).data('order', "desc")
+                //myArray = myArray.sort((a, b) => new Date(a[column]) < new Date(b[column]) ? 1 : -1)
+                myArray = myArray.sort((a, b) => new Date(b.date) - new Date(a.date))
+                //text += '&#9650'
+            }
+        }
+        if (order == 'desc') {
+        //document.getElementById("data").style.color = "white"
+            $(this).data('order', "asc")
+            myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
+            text += '&#9660'
+        } else {
+            $(this).data('order', "desc")
+            myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
+            text += '&#9650'
+        }
+        $(this).html(text)
+        buildSort(myArray)
+    })
+
+    function buildSort(data) {
+        var table = document.getElementById('myTable');
+        table.innerHTML = '';
+        for (var i = 0; i < data.length; i++) {
+            var row = `<tr>
+                            <td>${data[i].UserName}</td>
+                            <td>${data[i].Moves}</td>
+                            <td>${data[i].DateTime}</td>
+                      </tr>`
+            table.innerHTML += row
+        }
+    }
+</script>
