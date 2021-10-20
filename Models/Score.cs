@@ -8,5 +8,6 @@ namespace MVCProject.Models
     public class Score
     {
         public int score { get; set; }
+        public string game { get; set; }
     }
 }

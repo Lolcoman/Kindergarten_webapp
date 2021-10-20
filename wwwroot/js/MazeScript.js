@@ -4,6 +4,7 @@ let myValue = localStorage.getItem("myValue");
 let myCanvas = document.getElementById("canvas");
 var something = true;
 let map;
+var gameName = "Bludiště";
 
 //obrázky
 let brick = new Image();
@@ -213,7 +214,8 @@ window.onkeydown = function (e) {
 
 function SubmitScore() {
     var model = {
-        "score": moves
+        "score": moves,
+        "game": gameName
     };
 
 

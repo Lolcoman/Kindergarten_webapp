@@ -69,7 +69,7 @@ namespace MVCProject.Controllers
                 command.Connection = sqlConnection;
                 //command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
                 //command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
-                command.CommandText = "SELECT UserName,Moves,DateTime FROM Maze WHERE UserName = @UserName ORDER BY DateTime DESC";   
+                command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable WHERE UserName = @UserName";   
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
                 //while (dr.Read())
@@ -89,6 +89,8 @@ namespace MVCProject.Controllers
                         UserName = dr["UserName"].ToString()
                     ,
                         Moves = dr["Moves"].ToString()
+                    ,
+                        Games = dr["Games"].ToString()
                     ,
                         DateTime = dr["DateTime"].ToString()
                     });

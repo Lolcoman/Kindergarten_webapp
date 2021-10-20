@@ -4,7 +4,9 @@ const questionContents = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answers-buttons');
 let mixQuestions, actuallyQuestion;
-let countRightAnswers = 0; 
+let countRightAnswers = 0;
+var gameName = "Kvíz";
+
 const listQuestions = [
     {
         //papírová krabice
@@ -151,6 +153,7 @@ function selectAnswer(e)
         document.body.style.backgroundColor = "black";
         startButton.innerText = 'Opakovat?';
         startButton.classList.remove('hide');
+        SubmitScore();
     }
     document.getElementById('right-answers').innerHTML = countRightAnswers;
 }
@@ -178,4 +181,30 @@ function resetInstance()
     {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild);    
     }   
+}
+
+function SubmitScore() {
+    var model = {
+        "score": countRightAnswers,
+        "game": gameName
+    };
+
+
+    $.ajax({
+        url: "/api/Score/Save",
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(model),
+        success: function (data) {
+            alert(data);
+            //data = JSON.parse(data);
+            //console.log(data);
+        },
+        error: function (xhr, status, error) {
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            //alert('Error - ' + errorMessage);
+        }
+    })
+
 }

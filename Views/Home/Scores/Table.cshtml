@@ -4,6 +4,7 @@
  string[] tableHeaders = new string[] {
             "Jméno"
             ,"Pohyby"
+            ,"Hra"
             ,"Čas uložení"};
 }
 <!DOCTYPE html>
@@ -14,20 +15,28 @@
     <link rel="stylesheet" href="~/css/table.css">
 </head>
 <body>
+    <select id="gamesDropdown" oninput="filterTable()">
+        <option>Vše</option>
+        <option>Bludiště</option>
+        <option>Pexeso</option>
+        <option>Kvíz</option>
+    </select>
+
     <div class="table">
         <table class="table table-striped">
             <thead>
                 <tr class="bg-info">
                     @{
                         @*foreach (var head in tableHeaders)
-                        {
-                            <th>
-                                @head
-                            </th>
-                        }*@
-                            <th data-column="UserName" data-order="desc">Jméno</th>
-                            <th data-column="Moves" data-order="desc">Skóre &#9650</th>
-                            <th id="data" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
+                    {
+                        <th>
+                            @head
+                        </th>
+                    }*@
+                        <th data-column="UserName" data-order="desc">Jméno</th>
+                        <th id="score" data-column="Moves" data-order="desc">Skóre &#9650</th>
+                        <th id="game" data-column="Game" data-order="desc">Hra</th>
+                        <th id="date" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
                     }
                 </tr>
             </thead>
@@ -40,6 +49,7 @@
                             <tr>
                                 <td>@data.UserName</td>
                                 <td>@data.Moves</td>
+                                <td>@data.Games</td>
                                 <td>@data.DateTime</td>
                             </tr>
                         }
@@ -59,38 +69,49 @@
 
         var myArray =  @Html.Raw(JsonConvert.SerializeObject(ViewData["Data"]));
 
+        switch (column) {
 
-        if (column == 'UserName') {
-            return
-        }
+            case 'Moves':
+                document.getElementById("score").style.color = 'red'
+                document.getElementById("date").style.color = 'white'
+                if (order == 'desc') {
+                    $(this).data('order', "asc")
+                    myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
+                    text += '&#9660'
+                } else {
+                    $(this).data('order', "desc")
+                    myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
+                    text += '&#9650'
+                }
+            break;
 
-        if (column == 'DateTime') {
-            document.getElementById("data").style.color = "red"
-            if (order == 'desc') {
-                $(this).data('order', "asc")
-                myArray = myArray.sort((a, b) => new Date(a.date) - new Date(b.date))
-                //myArray = myArray.sort((a, b) => new Date(a[column]) > new Date(b[column]) ? 1 : -1)
-                //text += '&#9660'
-                
-            } else {
-                $(this).data('order', "desc")
-                //myArray = myArray.sort((a, b) => new Date(a[column]) < new Date(b[column]) ? 1 : -1)
-                myArray = myArray.sort((a, b) => new Date(b.date) - new Date(a.date))
-                //text += '&#9650'
-            }
+            case 'DateTime':
+                document.getElementById("score").style.color = 'white'
+                document.getElementById("date").style.color = 'red'
+                if (order == 'desc') {
+                    $(this).data('order', "asc")
+                    myArray = myArray.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    //myArray = myArray.sort((a, b) => new Date(a[column]) < new Date(b[column]) ? 1 : -1)
+                    text += '&#9660'
+                } else {
+                    $(this).data('order', "desc")
+                    myArray = myArray.sort((a, b) => new Date(a.date) - new Date(b.date)).reverse()
+                    //myArray = myArray.sort((a, b) => new Date(a[column]) > new Date(b[column]) ? 1 : -1)
+                    text += '&#9650'
+                }
+                break;
+            case 'UserName':
+                return
+                break;
+            case 'Game':
+                return
+                break;
+            default:
+                break;
         }
-        if (order == 'desc') {
-        //document.getElementById("data").style.color = "white"
-            $(this).data('order', "asc")
-            myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
-            text += '&#9660'
-        } else {
-            $(this).data('order', "desc")
-            myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
-            text += '&#9650'
-        }
-        $(this).html(text)
-        buildSort(myArray)
+        $(this).html(text) //Nastaví popis
+        buildSort(myArray) //Vytvoří seřazenou tabulku
+        filterTable(); //Pokud je vybrán filtr aplikuje jej na seřazenou tabulku
     })
 
     function buildSort(data) {
@@ -100,9 +121,31 @@
             var row = `<tr>
                             <td>${data[i].UserName}</td>
                             <td>${data[i].Moves}</td>
+                            <td>${data[i].Games}</td>
                             <td>${data[i].DateTime}</td>
                       </tr>`
             table.innerHTML += row
+        }
+    }
+
+    function filterTable() {
+        let dropdown, table, rows, cells, game, filter;
+        dropdown = document.getElementById("gamesDropdown");
+        table = document.getElementById("myTable");
+        rows = table.getElementsByTagName("tr");
+        filter = dropdown.value;
+
+        //Projde řádky a které neodpovídají filtru tak se skryjí
+        for (let row of rows) { 
+            cells = row.getElementsByTagName("td");
+            game = cells[2] || null; //Filtrování podle hry
+            //Pokud je filtr nastaven na vše nebo se položka rovná filtru, tak ostaní řádky skryje
+            if (filter === "Vše" || !game || (filter === game.textContent)) {
+                row.style.display = ""; //zobrazení
+            }
+            else {
+                row.style.display = "none"; //skrytí
+            }
         }
     }
 </script>

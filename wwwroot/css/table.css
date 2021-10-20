@@ -1,7 +1,7 @@
 ﻿body{
     font-family: 'Comic Sans MS';
     display: flex;
-    background: black;
+    background: white;
     align-items:center;
     justify-content: center;
     height:100vh;
@@ -10,7 +10,7 @@
 .table{
     background: #fff;
     max-height:470px;
-    overflow:auto;
+    overflow:hidden;
     box-shadow: 0px 10px 50px 0px rgba(0,0,0,0.5);
     border-radius:10px;
 
@@ -26,9 +26,11 @@ table tbody td{
     border:none;
     font-weight:600;
     font-size:14px;
+    height: 40px;
+    width: 120px;
 }
 table thead th{
-    background:#1861ac;
+    background-color: dodgerblue;
     color:white;
     font-size:16px;
     position:sticky;
@@ -36,4 +38,14 @@ table thead th{
 }
 table tbody td{
     border: 1px solid rgba(0,0,0,0.1);
+}
+#gamesDropdown,option {
+    background-color: dodgerblue;
+    border-radius: 20px;
+    height: 25px;
+    width: 80px;
+    margin-bottom: 5px;
+    border: 0px solid;
+    font-family: 'Comic Sans MS';
+    font-weight:600;
 }

@@ -9,6 +9,7 @@ namespace MVCProject.Models
     {
         public string UserName { get; set; }
         public string Moves { get; set; }
+        public string Games { get; set; }
         public string DateTime { get; set; }
 
     }
