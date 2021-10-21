@@ -46,6 +46,7 @@
 
 <body>
     <div class="container">
+        <div class="toast-success">Simple message</div>
         <form id="form" asp-action="Login" method="post">
             <h1>Přihlášení</h1>
             <div class="form-group">
@@ -64,9 +65,14 @@
             @if (TempData["Message"] != null)
             {
                 <script type="text/javascript">
+
                     window.onload = function ()
                     {
-                        alert('@Html.Raw(TempData["Message"])')
+                        @*alert('@Html.Raw(TempData["Message"])')*@
+                        //var x = document.getElementById("toast");
+                        var x = document.getElementsByClassName("toast-success");
+                        x.style.visibility = "visible";
+                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
                     };
                 </script>
             }

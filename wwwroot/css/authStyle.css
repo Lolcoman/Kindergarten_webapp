@@ -70,3 +70,34 @@ h1 {
 #back-link{
     color: blue;
 }
+.toast-success {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 480px;
+    padding: 6px;
+    background: #23f22e;
+    color: black;
+    text-align: center;
+    border: 1px solid #aaaaaa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    visibility: hidden;
+    opacity: 1;
+    transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+    border-color: green;
+}
+
+.toast--visible{
+    top:20px;
+    opacity:1;
+    visibility:visible;
+}
+
+.toast--error {
+    background: red;
+    border-color: red;
+    color: black;
+}
