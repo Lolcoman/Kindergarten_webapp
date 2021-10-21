@@ -70,34 +70,38 @@ h1 {
 #back-link{
     color: blue;
 }
-.toast-success {
+#toast-success {
     position: fixed;
-    top: 20px;
+    top: 280px;
     left: 0;
     right: 0;
     margin: auto;
     max-width: 480px;
     padding: 6px;
-    background: #23f22e;
-    color: black;
+    background: rgba(250, 62, 62);
+    color: white;
     text-align: center;
-    border: 1px solid #aaaaaa;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    visibility: hidden;
+    /*box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;*/
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    display: none;
     opacity: 1;
-    transition: opacity 0.2s, top 0.2s, visibility 0.2s;
+    transition: opacity 1.0s ease-in-out;
     border-color: green;
 }
 
-.toast--visible{
-    top:20px;
-    opacity:1;
-    visibility:visible;
+#toast-success.fade{
+    opacity:0;
 }
 
 .toast--error {
     background: red;
     border-color: red;
     color: black;
+}
+
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 2s linear;
 }

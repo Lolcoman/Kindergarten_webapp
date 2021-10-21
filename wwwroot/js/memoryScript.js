@@ -9,6 +9,7 @@ var clicking = document.querySelectorAll('div');
 //var endGame = document.getElementById('message');
 let moves = 0;
 let badMoves = 0;
+var gameName = "Pexeso";
 
 function KnuthShuffle(array)
 {
@@ -128,6 +129,8 @@ function FlipCard(card,id)
                 {
                     document.getElementById('message').style.display = "block";
                     document.getElementById('options').style.display = "block";
+                    //Uložení skóre do tabulky
+                    SubmitScore();
                     //alert('Konec hry!');
                 }
             }
@@ -150,3 +153,29 @@ function checkObject(arr, val)
     });
   }
 CreateBoard();
+
+function SubmitScore() {
+    var model = {
+        "score": badMoves,
+        "game": gameName
+    };
+
+
+    $.ajax({
+        url: "/api/Score/Save",
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(model),
+        success: function (data) {
+            alert(data);
+            //data = JSON.parse(data);
+            //console.log(data);
+        },
+        error: function (xhr, status, error) {
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            //alert('Error - ' + errorMessage);
+        }
+    })
+
+}

@@ -35,7 +35,7 @@
                     }*@
                         <th data-column="UserName" data-order="desc">Jméno</th>
                         <th id="score" data-column="Moves" data-order="desc">Skóre &#9650</th>
-                        <th id="game" data-column="Game" data-order="desc">Hra</th>
+                        <th id="game" data-column="Games" data-order="desc">Hra &#9650</th>
                         <th id="date" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
                     }
                 </tr>
@@ -72,8 +72,9 @@
         switch (column) {
 
             case 'Moves':
-                document.getElementById("score").style.color = 'red'
                 document.getElementById("date").style.color = 'white'
+                document.getElementById("game").style.color = 'white'
+                document.getElementById("score").style.color = 'red'
                 if (order == 'desc') {
                     $(this).data('order', "asc")
                     myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
@@ -86,6 +87,7 @@
             break;
 
             case 'DateTime':
+                document.getElementById("game").style.color = 'white'
                 document.getElementById("score").style.color = 'white'
                 document.getElementById("date").style.color = 'red'
                 if (order == 'desc') {
@@ -103,8 +105,19 @@
             case 'UserName':
                 return
                 break;
-            case 'Game':
-                return
+            case 'Games':
+                document.getElementById("score").style.color = 'white'
+                document.getElementById("date").style.color = 'white'
+                document.getElementById("game").style.color = 'red'
+                if (order == 'desc') {
+                    $(this).data('order', "asc")
+                    myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
+                    text += '&#9660'
+                } else {
+                    $(this).data('order', "desc")
+                    myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
+                    text += '&#9650'
+                }
                 break;
             default:
                 break;
