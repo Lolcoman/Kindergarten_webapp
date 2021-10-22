@@ -25,6 +25,7 @@
             </ul>
         </nav>
     </header> -->
+    <div id="toast-success">Vítejte zpět @ViewBag.Name !</div>
     <!-- začátek celého pozadí -->
     <div class="background">
         <!-- obrázek prasete -->
@@ -488,3 +489,18 @@
 </body>
 
 </html>
+
+@if (TempData["Message"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function ()
+        {
+            @*alert('@Html.Raw(TempData["Message"])')*@
+            var x = document.getElementById("toast-success");
+            x.style.display = "block";
+            setTimeout(function () {
+                x.classList.toggle('fade');
+            }, 2500);
+        };
+    </script>
+}

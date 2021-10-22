@@ -27,7 +27,6 @@ namespace MVCProject.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Name = HttpContext.Session.GetString("UserName");
             return View();
         }
 
@@ -53,6 +52,7 @@ namespace MVCProject.Controllers
 
         public IActionResult MainPage()
         {
+            ViewBag.Name = HttpContext.Session.GetString("UserName");
             return View();
         }
         //získání dat z databáze

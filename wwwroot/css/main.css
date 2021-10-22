@@ -229,3 +229,27 @@ button {
 text {
     font-size: 25px;
 }
+#toast-success {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    max-width: 480px;
+    padding: 6px;
+    background: rgb(35, 197, 82);
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    /*box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;*/
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    display: none;
+    opacity: 1;
+    transition: opacity 1.0s ease-in-out;
+    border-color: green;
+    font-family: Comic Sans MS;
+}
+
+#toast-success.fade{
+    opacity:0;
+}

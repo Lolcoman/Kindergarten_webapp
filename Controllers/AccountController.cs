@@ -120,7 +120,8 @@ namespace MVCProject.Controllers
                     //string jmeno = sqlDataReader["UserName"].ToString();
                     //Session["userID"] = loginViewModel.UserName;
                     EntryIntoSession(loginViewModel.UserName);
-                    return RedirectToAction("Index", "Home");
+                    TempData["Message"] = "Sucess";
+                    return RedirectToAction("MainPage", "Home");
                 }
                 else
                 {
@@ -128,7 +129,7 @@ namespace MVCProject.Controllers
                     TempData["Message"] = "Špatné uživatelské jméno nebo heslo";
                 }
             }
-            TempData["Message"] = "Špatné přihlašovací jméno nebo heslo";
+            //TempData["Message"] = "Špatné přihlašovací jméno nebo heslo";
             sqlConnection.Close();
             return View();
         }
