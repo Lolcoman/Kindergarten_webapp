@@ -92,8 +92,15 @@ body.wrong{
     pointer-events: none;
 }
 
-#result{
+#result {
     text-align: center;
+    font-family: Comic Sans MS;
+    margin-bottom: 10px;
+}
+
+#end {
+    --hue: var(--hue-success);
+    color: hsl(var(--hue), 100%, 50%);
 }
 
 #question{

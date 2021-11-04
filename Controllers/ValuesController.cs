@@ -10,6 +10,7 @@ using MVCProject.Models;
 using Newtonsoft.Json.Serialization;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVCProject.Controllers
 {

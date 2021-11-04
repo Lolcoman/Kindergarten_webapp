@@ -62,7 +62,10 @@ namespace MVCProject.Controllers
                 sql.Open();
                 command.ExecuteNonQuery();
                 EntryIntoSession(registerViewModel.UserName);
-                return RedirectToAction("Index", "Home");
+
+                //změna zprávy když se zaregistruje
+                TempData["Message"] = "SucessRegister";
+                return RedirectToAction("MainPage", "Home");
             }
             catch (SqlException e)
             {
@@ -139,12 +142,23 @@ namespace MVCProject.Controllers
             return View();
         }
 
-
+        //ODHLÁŠENÍ UŽIVATELE
+        [HttpPost]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             HttpContext.Session.Remove("UserName");
             return RedirectToAction("MainPage", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult ForgotPassword(string email)
+        {
+            string message = "";
+            bool status = false;
+
+            string query = "SELECT Email FROM UserTable WHERE [Email] = @UserName";
+            return View();
         }
     }
 }
