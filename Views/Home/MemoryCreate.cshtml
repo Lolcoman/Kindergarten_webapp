@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "MemoryCreate";
+}
+
+<h1>MemoryCreate</h1>
+
+@*<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="MemoryCreate">
+        <input type="file" name="imgFile" />
+        <input type="submit" value="Vložit obrázek" />
+        <hr />
+        <h4>@ViewData["Message"]</h4>
+    </form>*@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="FileUpload1" />
+    <input type="button" id="btnUpload" value="Upload Files" />
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+</script>
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').click(function () {
+
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#FileUpload1").get(0);
+                var files = fileUpload.files;
+
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object
+                fileData.append('username', ‘Manas’);
+
+                $.ajax({
+                    url: '/api/fileupload/upload',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+        });
+    });
+</script>

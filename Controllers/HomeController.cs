@@ -8,6 +8,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace MVCProject.Controllers
 {
@@ -18,12 +22,14 @@ namespace MVCProject.Controllers
         List<Data> datas = new List<Data>();  
         SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
-        private readonly ILogger<HomeController> _logger;
+        //pro debug při logování
+        //private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
 
         public IActionResult Index()
         {
@@ -50,6 +56,11 @@ namespace MVCProject.Controllers
             return View();
         }
 
+        public IActionResult MemoryCreate()
+        {
+            return View();
+        }
+
         public IActionResult MainPage()
         {
             ViewBag.Name = HttpContext.Session.GetString("UserName");
@@ -69,7 +80,15 @@ namespace MVCProject.Controllers
                 command.Connection = sqlConnection;
                 //command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
                 //command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
-                command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable WHERE UserName = @UserName";   
+                //TADY BUDE ROLE!!!
+                if (name == "admin")
+                {
+                    command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable";
+                }
+                else
+                {
+                    command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable WHERE UserName = @UserName";
+                }
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
                 //while (dr.Read())

@@ -65,7 +65,5 @@ namespace MVCProject.Controllers
                 sqlConnection.Close();
             }
         }
-
-
     }
 }

@@ -143,7 +143,7 @@ namespace MVCProject.Controllers
         }
 
         //ODHLÁŠENÍ UŽIVATELE
-        [HttpPost]
+        [HttpGet]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
