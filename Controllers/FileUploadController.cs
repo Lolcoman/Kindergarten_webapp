@@ -37,14 +37,20 @@ namespace MVCProject.Controllers
             var fileExtension = Path.GetExtension(fileName);
             var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
-            //UPRAVIT
-            using (var imageStream = new MemoryStream())
-            {
-                file.CopyTo(imageStream);
+            byte[] imgArray = new byte[file.Length];
 
-                SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
-                command.Parameters.AddWithValue("@image", newFileName);
-            }
+            var img = ImageToByteArray(image);
+            //UPRAVIT
+            //using (var imageStream = new MemoryStream())
+            //{
+            //    var imageStream = new MemoryStream()
+            //    file.CopyTo(imageStream);
+            //    var fileBytes = imageStream.ToArray();
+            //    string img = Convert.ToBase64String(fileBytes);
+            //}
+
+            SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
+            command.Parameters.AddWithValue("@image", img);
             //resizedImg.Save(imageStream, ImageFormat.Jpeg);
             //var imageBytes = imageStream.ToArray();
             try
@@ -76,6 +82,21 @@ namespace MVCProject.Controllers
             //    return Ok();
             //}
             //return Ok();
+        }
+
+        //Převod obrázku na byte[]
+        public byte[] ImageToByteArray(System.Drawing.Image imageInside)
+        {
+            MemoryStream ms = new MemoryStream();
+            imageInside.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
+        }
+        //Převod byte[] na obrázek
+        public Image ByteArrayToImage(byte[] byteArray)
+        {
+            MemoryStream ms = new MemoryStream(byteArray);
+            Image returnImage = Image.FromStream(ms);
+            return returnImage;
         }
     }
 }
