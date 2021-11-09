@@ -16,6 +16,7 @@ namespace MVCProject.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
+        SqlDataReader dr;
         SqlCommand command = new SqlCommand();
         SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         //test API
@@ -97,6 +98,49 @@ namespace MVCProject.Controllers
             MemoryStream ms = new MemoryStream(byteArray);
             Image returnImage = Image.FromStream(ms);
             return returnImage;
+        }
+        //download obrázku z databáze
+        [HttpGet("[action]")]
+        public IActionResult Download()
+        {
+            SqlCommand command = new SqlCommand($"SELECT Image from PexesoTable WHERE Id = 1", sqlConnection);
+            //"SELECT Password from UserTable where [UserName] = @UserName";
+            //command.Parameters.AddWithValue("@image", );
+            try
+            {
+                sqlConnection.Open();
+                byte[] imgArray;
+                Image fullImage;
+                dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    imgArray = (byte[])dr["Image"];
+                    fullImage = ByteArrayToImage(imgArray);
+
+                    return (IActionResult)fullImage;
+                }
+                //int i = command.ExecuteNonQuery();
+                //EntryIntoSession(registerViewModel.UserName);
+                //return RedirectToAction("Index", "Home");
+                //if (i == 1)
+                //{
+                //    return Ok("Data uložena");
+                //}
+                //else
+                //{
+                //    return BadRequest("Chyba");
+                //}
+                return BadRequest("Chyba");
+            }
+            catch (SqlException e)
+            {
+                return BadRequest("Error Generated. Details: " + e.ToString());
+            }
+            finally
+            {
+                sqlConnection.Close();
+                dr.Close();
+            }
         }
     }
 }
