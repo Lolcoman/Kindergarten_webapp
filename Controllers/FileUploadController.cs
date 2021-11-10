@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCProject.Controllers
 {
@@ -28,20 +25,20 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload(IFormFile file)
+        public IActionResult Upload(List<IFormFile> file)
         {
+            //string ext = Path.GetExtension(file.FileName);
             //zmenšení obrázku
-            var image = Image.FromStream(file.OpenReadStream());
-            var resizedImg = new Bitmap(image, new Size(100, 100));
 
-            var fileName = Path.GetFileName(file.FileName);
-            var fileExtension = Path.GetExtension(fileName);
+            
 
-            var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
+            //var fileName = Path.GetFileName(file.FileName);
+            //var fileExtension = Path.GetExtension(fileName);
 
-            byte[] imgArray = new byte[file.Length];
+            //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
-            var img = ImageToByteArray(resizedImg);
+            //byte[] imgArray = new byte[file.Length];
+
             //UPRAVIT
             //using (var imageStream = new MemoryStream())
             //{
@@ -51,24 +48,36 @@ namespace MVCProject.Controllers
             //    string img = Convert.ToBase64String(fileBytes);
             //}
 
-            SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
-            command.Parameters.AddWithValue("@image", img);
             //resizedImg.Save(imageStream, ImageFormat.Jpeg);
             //var imageBytes = imageStream.ToArray();
             try
             {
-                sqlConnection.Open();
-                int i = command.ExecuteNonQuery();
-                //EntryIntoSession(registerViewModel.UserName);
-                //return RedirectToAction("Index", "Home");
-                if (i == 1 && IsImage(fileName))
+                foreach (var item in file)
                 {
-                    return Ok("Data uložena");
+                    string ext = Path.GetExtension(item.FileName);
+                    if (IsImage(ext))
+                    {
+                        var image = Image.FromStream(item.OpenReadStream());
+                        var resizedImg = new Bitmap(image, new Size(100, 100));
+
+                        var img = ImageToByteArray(resizedImg);
+                        SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
+                        command.Parameters.AddWithValue("@image", img);
+                        sqlConnection.Open();
+                        int i = command.ExecuteNonQuery();
+                        //EntryIntoSession(registerViewModel.UserName);
+                        //return RedirectToAction("Index", "Home");
+                        if (i == 1)
+                        {
+                            return Ok("Data uložena");
+                        }
+                        else
+                        {
+                            return BadRequest("Chyba");
+                        }
+                    }
                 }
-                else
-                {
-                    return BadRequest("Chyba");
-                }
+                return BadRequest("Špatný formát");
             }
             catch (SqlException e)
             {
@@ -87,10 +96,10 @@ namespace MVCProject.Controllers
         }
 
         //Převod obrázku na byte[]
-        public byte[] ImageToByteArray(System.Drawing.Image imageInside)
+        public byte[] ImageToByteArray(Image imageInside)
         {
             MemoryStream ms = new MemoryStream();
-            imageInside.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            imageInside.Save(ms, ImageFormat.Jpeg);
             return ms.ToArray();
         }
         //Převod byte[] na obrázek
