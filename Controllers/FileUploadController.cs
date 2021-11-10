@@ -36,11 +36,12 @@ namespace MVCProject.Controllers
 
             var fileName = Path.GetFileName(file.FileName);
             var fileExtension = Path.GetExtension(fileName);
+
             var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
 
             byte[] imgArray = new byte[file.Length];
 
-            var img = ImageToByteArray(image);
+            var img = ImageToByteArray(resizedImg);
             //UPRAVIT
             //using (var imageStream = new MemoryStream())
             //{
@@ -60,7 +61,7 @@ namespace MVCProject.Controllers
                 int i = command.ExecuteNonQuery();
                 //EntryIntoSession(registerViewModel.UserName);
                 //return RedirectToAction("Index", "Home");
-                if (i == 1)
+                if (i == 1 && IsImage(fileName))
                 {
                     return Ok("Data uložena");
                 }
@@ -99,6 +100,17 @@ namespace MVCProject.Controllers
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
+        //Validace obrázku
+        public bool IsImage(string fileName)
+        {
+            var fileExtension = Path.GetExtension(fileName);
+            if (fileExtension == ".jpg" || fileExtension == ".png")
+            {
+                return true;
+            }
+            return false;
+        }
+
         //download obrázku z databáze
         [HttpGet("[action]")]
         public IActionResult Download()
@@ -112,13 +124,17 @@ namespace MVCProject.Controllers
                 byte[] imgArray;
                 Image fullImage;
                 dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    imgArray = (byte[])dr["Image"];
-                    fullImage = ByteArrayToImage(imgArray);
+                dr.Read();
+                imgArray = (byte[])dr["Image"];
+                fullImage = ByteArrayToImage(imgArray);
+                //while (dr.Read())
+                //{
+                //    imgArray = (byte[])dr["Image"];
+                //    fullImage = ByteArrayToImage(imgArray);
 
-                    return (IActionResult)fullImage;
-                }
+                //    return Ok();
+                //    //return (IActionResult)fullImage;
+                //}
                 //int i = command.ExecuteNonQuery();
                 //EntryIntoSession(registerViewModel.UserName);
                 //return RedirectToAction("Index", "Home");
@@ -130,7 +146,9 @@ namespace MVCProject.Controllers
                 //{
                 //    return BadRequest("Chyba");
                 //}
-                return BadRequest("Chyba");
+                var streak = new MemoryStream();
+                fullImage.Save(streak, ImageFormat.Png);
+                return File(streak.ToArray(),"image/png");
             }
             catch (SqlException e)
             {

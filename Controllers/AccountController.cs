@@ -151,6 +151,8 @@ namespace MVCProject.Controllers
             return RedirectToAction("MainPage", "Home");
         }
 
+
+        //DODĚLAT
         [HttpPost]
         public IActionResult ForgotPassword(string email)
         {
