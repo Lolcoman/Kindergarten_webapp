@@ -26,14 +26,15 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload([FromBody]List<IFormFile> files)
+        public IActionResult Upload(List<IFormFile> files)
         {
             int i;
             try
             {
+                var filee = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
-                {
+                {   
                     string ext = Path.GetExtension(file.FileName);
                     if (IsImage(ext))
                     {

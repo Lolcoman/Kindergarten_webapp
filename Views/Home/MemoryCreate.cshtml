@@ -4,14 +4,6 @@
 }
 
 <h1>MemoryCreate</h1>
-
-@*<form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="MemoryCreate">
-        <input type="file" name="imgFile" />
-        <input type="submit" value="Vložit obrázek" />
-        <hr />
-        <h4>@ViewData["Message"]</h4>
-    </form>*@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -21,42 +13,26 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="form-group">
-        <div id="updatePanelFile" class="alert" role="alert" style="display:none"></div>
-        <div class="form-group">
-            <input type="file" id="file1"/>
-        </div>
-        <input id="btnPostFile" class="btn btn-default" type="button" value="Upload"/>
-    </div>
+    <h1>Upload for AJAX</h1>
+    <input type="file" id="inpFile" multiple>
+    <button id="btnUpload">Nahrát soubory</button>
 </body>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-</script>
 <script>
-    $(function() {
-        $("#btnPostFile").click(function () {
-            debugger;
-            if ($("#file1").val() == '')
-            {
-                alert('Vyber soubor!');
-            }
-            var formData = new FormData();
-            var file = $("#file1")[0];
-            formData.append('file', file.files[0]);
-            $.ajax({
-                url: '/api/fileupload/upload',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                sucess: function (d) {
-                    $("#updatePanelFile").addClass('alert-success').html('<strong>Sucess!<a href="' + d + '">Open file</a>').show();
-                    $("#file1").val(null);
-                },
-                error: function () {
-                    alert('Znovu!');
-                }
-            })
-        })
-    })
+    const inpFile = document.getElementById("inpFile");
+    const btnUpload = document.getElementById("btnUpload");
+
+    btnUpload.addEventListener("click", function () {
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+
+        console.log(inpFile.files);
+
+        for (const file of inpFile.files) {
+            formData.append("files", file);
+        }
+
+        xhr.open("post", "/api/fileupload/upload")
+        xhr.send(formData);
+    });
 </script>
