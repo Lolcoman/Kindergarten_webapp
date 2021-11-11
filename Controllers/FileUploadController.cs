@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace MVCProject.Controllers
 {
@@ -25,59 +26,40 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload(List<IFormFile> file)
+        public IActionResult Upload([FromBody]List<IFormFile> files)
         {
-            //string ext = Path.GetExtension(file.FileName);
-            //zmenšení obrázku
-
-            
-
-            //var fileName = Path.GetFileName(file.FileName);
-            //var fileExtension = Path.GetExtension(fileName);
-
-            //var newFileName = String.Concat(Convert.ToString(Guid.NewGuid()), fileExtension);
-
-            //byte[] imgArray = new byte[file.Length];
-
-            //UPRAVIT
-            //using (var imageStream = new MemoryStream())
-            //{
-            //    var imageStream = new MemoryStream()
-            //    file.CopyTo(imageStream);
-            //    var fileBytes = imageStream.ToArray();
-            //    string img = Convert.ToBase64String(fileBytes);
-            //}
-
-            //resizedImg.Save(imageStream, ImageFormat.Jpeg);
-            //var imageBytes = imageStream.ToArray();
+            int i;
             try
             {
-                foreach (var item in file)
+                //Kontrola pouze .jpg a .png
+                foreach (var file in files)
                 {
-                    string ext = Path.GetExtension(item.FileName);
+                    string ext = Path.GetExtension(file.FileName);
                     if (IsImage(ext))
                     {
-                        var image = Image.FromStream(item.OpenReadStream());
-                        var resizedImg = new Bitmap(image, new Size(100, 100));
-
-                        var img = ImageToByteArray(resizedImg);
-                        SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
-                        command.Parameters.AddWithValue("@image", img);
-                        sqlConnection.Open();
-                        int i = command.ExecuteNonQuery();
-                        //EntryIntoSession(registerViewModel.UserName);
-                        //return RedirectToAction("Index", "Home");
-                        if (i == 1)
-                        {
-                            return Ok("Data uložena");
-                        }
-                        else
-                        {
-                            return BadRequest("Chyba");
-                        }
+                        continue;
+                    }
+                    else if(files.Count == 0)
+                    {
+                        return BadRequest("Žádný soubor");
+                    }
+                    else
+                    {
+                        return BadRequest("Špatný formát");
                     }
                 }
-                return BadRequest("Špatný formát");
+                sqlConnection.Open(); //první otevření SQL
+                foreach (var file in files)
+                {
+                    var image = Image.FromStream(file.OpenReadStream()); //načtení do StreamReaderu
+                    var resizedImg = new Bitmap(image, new Size(100, 100)); //zmenšení obrázku
+
+                    var img = ImageToByteArray(resizedImg); //převod obrázku na ByteArray
+                    SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
+                    command.Parameters.AddWithValue("@image", img);
+                    i = command.ExecuteNonQuery();
+                }
+                return Ok("Data uložena");
             }
             catch (SqlException e)
             {
@@ -87,12 +69,6 @@ namespace MVCProject.Controllers
             {
                 sqlConnection.Close();
             }
-
-            //if (fileExtension == ".jpg" || fileExtension == ".png")
-            //{
-            //    return Ok();
-            //}
-            //return Ok();
         }
 
         //Převod obrázku na byte[]
@@ -124,7 +100,7 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public IActionResult Download()
         {
-            SqlCommand command = new SqlCommand($"SELECT Image from PexesoTable WHERE Id = 1", sqlConnection);
+            SqlCommand command = new SqlCommand($"SELECT Image from PexesoTable", sqlConnection);
             //"SELECT Password from UserTable where [UserName] = @UserName";
             //command.Parameters.AddWithValue("@image", );
             try
@@ -133,9 +109,21 @@ namespace MVCProject.Controllers
                 byte[] imgArray;
                 Image fullImage;
                 dr = command.ExecuteReader();
-                dr.Read();
-                imgArray = (byte[])dr["Image"];
-                fullImage = ByteArrayToImage(imgArray);
+                var memory = new MemoryStream();
+                int i = dr.FieldCount;
+                while (dr.Read())
+                {
+                    //dr.Read();
+                    imgArray = (byte[])dr["Image"];
+                    fullImage = ByteArrayToImage(imgArray);
+                    
+                    fullImage.Save(memory, ImageFormat.Png);
+                    //memory.Position = 0;
+                }
+                //dr.Read();
+                //imgArray = (byte[])dr["Image"];
+                //fullImage = ByteArrayToImage(imgArray);
+
                 //while (dr.Read())
                 //{
                 //    imgArray = (byte[])dr["Image"];
@@ -155,9 +143,7 @@ namespace MVCProject.Controllers
                 //{
                 //    return BadRequest("Chyba");
                 //}
-                var streak = new MemoryStream();
-                fullImage.Save(streak, ImageFormat.Png);
-                return File(streak.ToArray(),"image/png");
+                return File(memory.ToArray(),"image/png");
             }
             catch (SqlException e)
             {
