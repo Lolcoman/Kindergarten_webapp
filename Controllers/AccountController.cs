@@ -34,8 +34,9 @@ namespace MVCProject.Controllers
 
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
+            string connectionString = cfg["ConnectionStrings:DefaultConnection"];
             //Ověření zda již uživetel je v databázi, ověří duplicitní jméno a email
-            SqlConnection sql = new SqlConnection(@"Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            SqlConnection sql = new SqlConnection(connectionString);
             string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
             SqlCommand command1 = new SqlCommand(uQuery, sql);
             command1.Parameters.AddWithValue("@UserName", registerViewModel.UserName);
