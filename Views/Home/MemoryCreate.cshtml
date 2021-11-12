@@ -1,38 +1,69 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "MemoryCreate";
 }
 
-<h1>MemoryCreate</h1>
 <!DOCTYPE html>
 <html lang="cs">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-    <h1>Upload for AJAX</h1>
-    <input type="file" id="inpFile" multiple>
-    <button id="btnUpload">Nahrát soubory</button>
+    <h1>Memory create</h1>
+    <form id="myForm">
+        <h1>Upload for AJAX</h1>
+        <input type="file" id="inpFile1">
+        <input type="file" id="inpFile2">
+        <input type="file" id="inpFile3">
+        <button id="btnUpload">Nahrát soubory</button>
+    </form>
 </body>
+
 </html>
 <script>
-    const inpFile = document.getElementById("inpFile");
-    const btnUpload = document.getElementById("btnUpload");
+    const inpFile = document.getElementById('inpFile');
+    const btnUpload = document.getElementById('btnUpload');
+    //var ins = document.getElementById("inpFile").files;
+    var input = document.querySelectorAll('input[type=file]');
 
-    btnUpload.addEventListener("click", function () {
+    btnUpload.addEventListener('click', function () {
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
 
-        console.log(inpFile.files);
-
-        for (const file of inpFile.files) {
-            formData.append("files", file);
+        for (x = 0; x < input.length; x++) {
+            formData.append('files', input[x]);
         }
 
-        xhr.open("post", "/api/fileupload/upload")
-        xhr.send(formData);
+        // for (const file of inpFile.files) {
+        //     formData.append("files", files);
+        // }
+        // for (var key in formData) {
+        //     console.log(key, formData[key]);
+        //     formData.append(key, formData[key]);
+        // }
+        // console.log('files');
+        // xhr.open("post", "/api/fileupload/upload")
+        // xhr.open("post", "/")
+        // xhr.send(formData);
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/fileupload/upload',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (result) {
+                alert(result);
+            },
+            error: function (err) {
+                alert(err);
+            }
+        })
     });
 </script>
