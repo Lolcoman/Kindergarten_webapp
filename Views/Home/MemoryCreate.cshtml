@@ -26,17 +26,24 @@
 
 </html>
 <script>
-    const inpFile = document.getElementById('inpFile');
-    const btnUpload = document.getElementById('btnUpload');
-    //var ins = document.getElementById("inpFile").files;
+    const inpFile = document.getElementById("inpFile");
+    const btnUpload = document.getElementById("btnUpload");
+    var ins = document.getElementById("inpFile1");
     var input = document.querySelectorAll('input[type=file]');
 
     btnUpload.addEventListener('click', function () {
         const data = new FormData();
-
-        for (x = 0; x < input.length; x++) {
-            data.append('uploadFiles', input.files[x]);
+        //debugger;
+        for (let i = 0; i < input.length; i++) {
+            let file = input[i].files[0];
+            //use file
+            data.append('file', file);
         }
+        //data.append('files', ins.files[0]);
+        //for (x = 0; x < input.length; x++) {
+        //    //data.append('uploadFiles', input.files[x]);
+        //    data.append("file", input[x].files[x]);
+        //}
         //for (const file of input) {
         //    formData.append('files[]', file, input.name);
         //}

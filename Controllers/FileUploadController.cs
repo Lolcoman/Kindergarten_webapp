@@ -16,7 +16,7 @@ namespace MVCProject.Controllers
     {
         SqlDataReader dr;
         SqlCommand command = new SqlCommand();
-        SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
+        //SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
         //test API
         public IActionResult Get()
         {
@@ -26,12 +26,13 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload(List<IFormFile> files)
+        public IActionResult Upload([FromForm]List<IFormFile> files)
         {
             int i;
+            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             try
             {
-                //var filee = Request.Form.Files[0];
+                //var file = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
                 {   
@@ -101,6 +102,7 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public IActionResult Download()
         {
+            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             SqlCommand command = new SqlCommand($"SELECT Image from PexesoTable", sqlConnection);
             //"SELECT Password from UserTable where [UserName] = @UserName";
             //command.Parameters.AddWithValue("@image", );
