@@ -31,7 +31,7 @@ namespace MVCProject.Controllers
             int i;
             try
             {
-                var filee = Request.Form.Files[0];
+                //var filee = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
                 {   
