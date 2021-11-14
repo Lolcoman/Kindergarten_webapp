@@ -26,12 +26,17 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload(List<IFormFile> files)
+        public IActionResult Upload(IFormCollection uploadFiles)
         {
+            var files = HttpContext.Request.Form.Files;
             int i;
             try
             {
-                var filee = Request.Form.Files[0];
+                if (files.Count == 0)
+                {
+                    return BadRequest("Žádný soubor");
+                }
+                //var filee = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
                 {   
@@ -39,10 +44,6 @@ namespace MVCProject.Controllers
                     if (IsImage(ext))
                     {
                         continue;
-                    }
-                    else if(files.Count == 0)
-                    {
-                        return BadRequest("Žádný soubor");
                     }
                     else
                     {
