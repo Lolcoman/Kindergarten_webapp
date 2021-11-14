@@ -32,13 +32,14 @@
     var input = document.querySelectorAll('input[type=file]');
 
     btnUpload.addEventListener('click', function () {
-        const xhr = new XMLHttpRequest();
-        const formData = new FormData();
+        const data = new FormData();
 
         for (x = 0; x < input.length; x++) {
-            formData.append('files', input[x]);
+            data.append('uploadFiles', input.files[x]);
         }
-
+        //for (const file of input) {
+        //    formData.append('files[]', file, input.name);
+        //}
         // for (const file of inpFile.files) {
         //     formData.append("files", files);
         // }
@@ -57,7 +58,8 @@
             cache: false,
             contentType: false,
             processData: false,
-            data: formData,
+            data: data,
+            mimeType: "multipart/form-data",
             success: function (result) {
                 alert(result);
             },
