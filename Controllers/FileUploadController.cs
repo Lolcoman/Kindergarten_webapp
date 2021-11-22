@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -19,19 +20,23 @@ namespace MVCProject.Controllers
         //SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
         //test API
         public IActionResult Get()
-        {
+            {
             return Ok("File Upload API running...");
         }
 
         [HttpPost("[action]")]
         //[HttpPost]
         //[Route("upload")]
-        public IActionResult Upload([FromForm]List<IFormFile> files)
+        public IActionResult Upload([FromForm]List<IFormFile> files, [FromForm] string name)
         {
             int i;
             SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             try
             {
+                if (files.Count == 0)
+                {
+                    return BadRequest("Žádný soubor");
+                }
                 //var file = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
@@ -41,14 +46,12 @@ namespace MVCProject.Controllers
                     {
                         continue;
                     }
-                    else if(files.Count == 0)
-                    {
-                        return BadRequest("Žádný soubor");
-                    }
                     else
                     {
                         return BadRequest("Špatný formát");
                     }
+
+            
                 }
                 sqlConnection.Open(); //první otevření SQL
                 foreach (var file in files)
@@ -116,6 +119,7 @@ namespace MVCProject.Controllers
                 int i = dr.FieldCount;
                 while (dr.Read())
                 {
+                    // jen test musí se ještě vyselectovat podle názvu hry jaké obrázky stáhnout
                     //dr.Read();
                     imgArray = (byte[])dr["Image"];
                     fullImage = ByteArrayToImage(imgArray);
@@ -123,29 +127,6 @@ namespace MVCProject.Controllers
                     fullImage.Save(memory, ImageFormat.Png);
                     //memory.Position = 0;
                 }
-                //dr.Read();
-                //imgArray = (byte[])dr["Image"];
-                //fullImage = ByteArrayToImage(imgArray);
-
-                //while (dr.Read())
-                //{
-                //    imgArray = (byte[])dr["Image"];
-                //    fullImage = ByteArrayToImage(imgArray);
-
-                //    return Ok();
-                //    //return (IActionResult)fullImage;
-                //}
-                //int i = command.ExecuteNonQuery();
-                //EntryIntoSession(registerViewModel.UserName);
-                //return RedirectToAction("Index", "Home");
-                //if (i == 1)
-                //{
-                //    return Ok("Data uložena");
-                //}
-                //else
-                //{
-                //    return BadRequest("Chyba");
-                //}
                 return File(memory.ToArray(),"image/png");
             }
             catch (SqlException e)
