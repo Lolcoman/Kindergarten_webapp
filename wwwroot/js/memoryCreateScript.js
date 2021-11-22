@@ -197,18 +197,35 @@ btnDownload.addEventListener('click', function () {
      //        console.log(err);
      //    }
      //})
-    fetch("/api/fileupload/download")
-        .then(res => { return res.blob() })
-        .then(blob => {
-            var img = URL.createObjectURL(blob);
-            // Do whatever with the img
-            var createImg = document.createElement('img');
-            createImg.src = img;
-            parent.appendChild(createImg);
-        })
-    //var img = document.createElement('img');
-    //img.src = downloadImg;
-    //parent.appendChild(img);
+
+    //TEST
+    var formdata = new FormData();
+    formdata.append("name", "Vánoce");
+
+    var requestOptions = {
+        method: 'GET',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch("/api/fileupload/download", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+
+
+
+
+    //fetch("/api/fileupload/download")
+    //    .then(res => { return res.blob() })
+    //    .then(blob => {
+    //        var img = URL.createObjectURL(blob);
+    //        // Do whatever with the img
+    //        var createImg = document.createElement('img');
+    //        createImg.src = img;
+    //        parent.appendChild(createImg);
+    //    })
 })
 
 

@@ -60,8 +60,9 @@ namespace MVCProject.Controllers
                     var resizedImg = new Bitmap(image, new Size(100, 100)); //zmenšení obrázku
 
                     var img = ImageToByteArray(resizedImg); //převod obrázku na ByteArray
-                    SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image) VALUES (@image)", sqlConnection);
+                    SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image,Name) VALUES (@image,@name)", sqlConnection);
                     command.Parameters.AddWithValue("@image", img);
+                    command.Parameters.AddWithValue("@name", name);
                     i = command.ExecuteNonQuery();
                 }
                 return Ok("Data uložena");
@@ -103,36 +104,43 @@ namespace MVCProject.Controllers
 
         //download obrázku z databáze
         [HttpGet("[action]")]
-        public IActionResult Download()
+        public List<Image> Download([FromForm] string name)
         {
             SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
-            SqlCommand command = new SqlCommand($"SELECT Image from PexesoTable", sqlConnection);
+            SqlCommand command = new SqlCommand($"SELECT Image FROM PexesoTable WHERE Name = @name", sqlConnection);
             //"SELECT Password from UserTable where [UserName] = @UserName";
-            //command.Parameters.AddWithValue("@image", );
+            command.Parameters.AddWithValue("@name",name);
             try
             {
+                List<Image> photoList = new List<Image>();
                 sqlConnection.Open();
                 byte[] imgArray;
                 Image fullImage;
                 dr = command.ExecuteReader();
                 var memory = new MemoryStream();
                 int i = dr.FieldCount;
-                while (dr.Read())
+                bool b = dr.HasRows;
+                if (dr.HasRows)
                 {
-                    // jen test musí se ještě vyselectovat podle názvu hry jaké obrázky stáhnout
-                    //dr.Read();
-                    imgArray = (byte[])dr["Image"];
-                    fullImage = ByteArrayToImage(imgArray);
-                    
-                    fullImage.Save(memory, ImageFormat.Png);
-                    //memory.Position = 0;
+                    while (dr.Read())
+                    {
+                        //jen test musí se ještě vyselectovat podle názvu hry jaké obrázky stáhnout
+                        //dr.Read();
+                        imgArray = (byte[])dr["Image"];
+                        fullImage = ByteArrayToImage(imgArray);
+
+                        fullImage.Save(memory, ImageFormat.Png);
+                        photoList.Add(fullImage);
+                        memory.Position = 0;
+                    }
                 }
-                return File(memory.ToArray(),"image/png");
+                return photoList;
+                //return File(memory.ToArray(),"image/png");
             }
-            catch (SqlException e)
-            {
-                return BadRequest("Error Generated. Details: " + e.ToString());
-            }
+            //catch (SqlException e)
+            //{
+            //    return BadRequest("Error Generated. Details: " + e.ToString());
+            //}
             finally
             {
                 sqlConnection.Close();
