@@ -151,20 +151,32 @@ btnUpload.addEventListener('click', function () {
     console.log(data);
 });
 
+
+
+
+
+
+
+
+
+
 btnDownload.addEventListener('click', function () {
     var name = "Vánoce";
-    var imgArray = new Array();
     $.ajax({
         type: 'GET',
-        url: 'https://localhost:44356/api/fileupload/download' + "?" + "name=" + name,
+        url: '/api/fileupload/download' + "?" + "name=" + name,
         timeout: 0,
         success: function (response) {
-            console.log(response);
             for (var i = 0; i < response.length; i++) {
                 console.log(response[i]);
-                //var createImg = document.createElement('img');
-                //createImg.src = response[i];
-                //parent.appendChild(createImg);
+                var img = new Image();
+                //img[i] = response[i];
+                //var Img = document.createElement('img');
+                img.src = response[i];
+                img.style.height = "100px";
+                img.style.width = "100px";
+                parent.appendChild(img);
+                //createImage(response[i])
             }
         },
         error: function (err) {
@@ -186,16 +198,23 @@ btnDownload.addEventListener('click', function () {
     //$.ajax(settings).done(function (response) {
     //    console.log(response);
     //});
+    var url = "/api/fileupload/download?" + $.param({ name: "Vánoce"})
 
-    //var requestOptions = {
-    //    method: 'GET',
-    //    body: formdata,
-    //    redirect: 'follow'
-    //};
+    var requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
 
-    //fetch("/api/fileupload/download", requestOptions)
+    //fetch(url, requestOptions)
     //    .then(response => response.text())
-    //    .then(result => console.log(result))
+    //    .then(data => {
+    //        console.log(data.value)
+    //        for (var i = 0; i < data.length; i++) {
+    //            var Img = document.createElement('img');
+    //            Img.src = data[i].value;
+    //            parent.appendChild(Img);
+    //        }
+    //    })
     //    .catch(error => console.log('error', error));
 
 

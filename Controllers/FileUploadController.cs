@@ -130,11 +130,13 @@ namespace MVCProject.Controllers
                         fullImage = ByteArrayToImage(imgArray);
 
                         fullImage.Save(memory, ImageFormat.Png);
+
                         photoList.Add(fullImage);
-                        memory.Position = 0;
+                        //memory.Position = 0;
                     }
                 }
                 Image[] imagesArray;
+                //imagesArray = File.ReadAllLines(memory);
                 imagesArray = photoList.ToArray();
                 return imagesArray;
                 //return File(memory.ToArray(),"image/png");
