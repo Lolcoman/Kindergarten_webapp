@@ -5,7 +5,6 @@
 * ? zamyslet se
 */
 
-
 const inpFile = document.getElementById("inpFile");
 const btnUpload = document.getElementById("btnUpload");
 const btnDownload = document.getElementById("btnDownload");
@@ -121,8 +120,6 @@ function CreateNew() {
 //* Nahrávní souboru do databáze přes API
 btnUpload.addEventListener('click', function () {
     var data = new FormData();
-    debugger;
-    console.log(input.length);
     // for (let i = 0; i < input.length; i++) {
     //     let file = input[i].files[0];
     //     //use file
@@ -134,37 +131,6 @@ btnUpload.addEventListener('click', function () {
     }
     data.append("name", "Vánoce");
     console.log(data.getAll('files'));
-
-
-    // var xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
-    // xhr.addEventListener("readystatechange", function () {
-    //     if (this.readyState === 4) {
-    //         console.log(this.responseText);
-    //     }
-    // });
-    // xhr.open("POST", "https://localhost:44356/api/fileupload/upload");
-
-    // xhr.send(data);
-    //data.append('files', ins.files[0]);
-    //for (x = 0; x < input.length; x++) {
-    //    //data.append('uploadFiles', input.files[x]);
-    //    data.append("file", input[x].files[x]);
-    //}
-    //for (const file of input) {
-    //    formData.append('files[]', file, input.name);
-    //}
-    // for (const file of inpFile.files) {
-    //     formData.append("files", files);
-    // }
-    // for (var key in formData) {
-    //     console.log(key, formData[key]);
-    //     formData.append(key, formData[key]);
-    // }
-    // console.log('files');
-    // xhr.open("post", "/api/fileupload/upload")
-    // xhr.open("post", "/")
-    // xhr.send(formData);
 
     $.ajax({
         type: 'POST',
@@ -182,36 +148,55 @@ btnUpload.addEventListener('click', function () {
             alert(err);
         }
     })
+    console.log(data);
 });
+
 btnDownload.addEventListener('click', function () {
-     //$.ajax({
-     //    type: 'GET',
-     //    url: 'https://localhost:44356/api/fileupload/download',
-     //    timeout: 0,
-     //    enctype: "multipart/form-data",
-     //    success: function (response) {
-     //        console.log(response);
-     //        downloadImg = response;
-     //    },
-     //    error: function (err) {
-     //        console.log(err);
-     //    }
-     //})
-
+    var name = "Vánoce";
+    var imgArray = new Array();
+    $.ajax({
+        type: 'GET',
+        url: 'https://localhost:44356/api/fileupload/download' + "?" + "name=" + name,
+        timeout: 0,
+        success: function (response) {
+            console.log(response);
+            for (var i = 0; i < response.length; i++) {
+                console.log(response[i]);
+                //var createImg = document.createElement('img');
+                //createImg.src = response[i];
+                //parent.appendChild(createImg);
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    })
     //TEST
-    var formdata = new FormData();
-    formdata.append("name", "Vánoce");
 
-    var requestOptions = {
-        method: 'GET',
-        body: formdata,
-        redirect: 'follow'
-    };
+    //var settings = {
+    //    "url": "https://localhost:44356/api/fileupload/download",
+    //    "method": "GET",
+    //    "timeout": 0,
+    //    "processData": false,
+    //    "mimeType": "multipart/form-data",
+    //    "contentType": false,
+    //    "data": formdata
+    //};
 
-    fetch("/api/fileupload/download", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+    //$.ajax(settings).done(function (response) {
+    //    console.log(response);
+    //});
+
+    //var requestOptions = {
+    //    method: 'GET',
+    //    body: formdata,
+    //    redirect: 'follow'
+    //};
+
+    //fetch("/api/fileupload/download", requestOptions)
+    //    .then(response => response.text())
+    //    .then(result => console.log(result))
+    //    .catch(error => console.log('error', error));
 
 
 
@@ -227,10 +212,3 @@ btnDownload.addEventListener('click', function () {
     //        parent.appendChild(createImg);
     //    })
 })
-
-
-// window.onload = function()
-// {
-//     input = document.querySelectorAll('input[type=file]');
-//     input.style.display = "block";
-// }

@@ -104,7 +104,7 @@ namespace MVCProject.Controllers
 
         //download obrázku z databáze
         [HttpGet("[action]")]
-        public List<Image> Download([FromForm] string name)
+        public Image[] Download([FromQuery] string name)
         {
             SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             SqlCommand command = new SqlCommand($"SELECT Image FROM PexesoTable WHERE Name = @name", sqlConnection);
@@ -134,7 +134,9 @@ namespace MVCProject.Controllers
                         memory.Position = 0;
                     }
                 }
-                return photoList;
+                Image[] imagesArray;
+                imagesArray = photoList.ToArray();
+                return imagesArray;
                 //return File(memory.ToArray(),"image/png");
             }
             //catch (SqlException e)
