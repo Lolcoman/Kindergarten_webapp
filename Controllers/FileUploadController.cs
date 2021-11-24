@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -104,7 +105,7 @@ namespace MVCProject.Controllers
 
         //download obrázku z databáze
         [HttpGet("[action]")]
-        public Image[] Download([FromQuery] string name)
+        public List<string> Download([FromQuery] string name)
         {
             SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             SqlCommand command = new SqlCommand($"SELECT Image FROM PexesoTable WHERE Name = @name", sqlConnection);
@@ -112,6 +113,7 @@ namespace MVCProject.Controllers
             command.Parameters.AddWithValue("@name",name);
             try
             {
+                List<string> list = new List<string>();
                 List<Image> photoList = new List<Image>();
                 sqlConnection.Open();
                 byte[] imgArray;
@@ -128,6 +130,8 @@ namespace MVCProject.Controllers
                         //dr.Read();
                         imgArray = (byte[])dr["Image"];
                         fullImage = ByteArrayToImage(imgArray);
+                        string imgString = Convert.ToBase64String(imgArray);
+                        list.Add(imgString);
 
                         fullImage.Save(memory, ImageFormat.Png);
 
@@ -138,7 +142,7 @@ namespace MVCProject.Controllers
                 Image[] imagesArray;
                 //imagesArray = File.ReadAllLines(memory);
                 imagesArray = photoList.ToArray();
-                return imagesArray;
+                return list;
                 //return File(memory.ToArray(),"image/png");
             }
             //catch (SqlException e)

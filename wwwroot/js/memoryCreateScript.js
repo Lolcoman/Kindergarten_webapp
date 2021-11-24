@@ -169,10 +169,14 @@ btnDownload.addEventListener('click', function () {
         success: function (response) {
             for (var i = 0; i < response.length; i++) {
                 console.log(response[i]);
+                //console.log(JSON.stringify(response[i]));
+                //console.log(JSON.stringify(response[i]));
+                //var actual = JSON.parse(atob(response[i]));
+                //console.log(actual);
                 var img = new Image();
                 //img[i] = response[i];
                 //var Img = document.createElement('img');
-                img.src = response[i];
+                img.src = "data:image/png;base64,"+ response[i];
                 img.style.height = "100px";
                 img.style.width = "100px";
                 parent.appendChild(img);
@@ -183,51 +187,22 @@ btnDownload.addEventListener('click', function () {
             console.log(err);
         }
     })
-    //TEST
 
-    //var settings = {
-    //    "url": "https://localhost:44356/api/fileupload/download",
-    //    "method": "GET",
-    //    "timeout": 0,
-    //    "processData": false,
-    //    "mimeType": "multipart/form-data",
-    //    "contentType": false,
-    //    "data": formdata
+    //var url = "/api/fileupload/download?" + $.param({ name: "Vánoce" })
+    //var xmlHTTP = new XMLHttpRequest();
+    //xmlHTTP.open('GET', url, true);
+    //xmlHTTP.responseType = 'arraybuffer';
+    //xmlHTTP.onload = function (e) {
+    //    var arr = new Uint8Array(this.response);
+    //    var raw = String.fromCharCode.apply(null, arr);
+    //    var b64 = btoa(raw);
+    //    var dataURL = "data:image/png;base64," + b64;
+    //    console.log(b64);
+    //    var img = document.createElement('img');
+    //    img.style.height = "100px";
+    //    img.style.width = "100px";
+    //    img.src = dataURL;
+    //    parent.appendChild(img);
     //};
-
-    //$.ajax(settings).done(function (response) {
-    //    console.log(response);
-    //});
-    var url = "/api/fileupload/download?" + $.param({ name: "Vánoce"})
-
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
-
-    //fetch(url, requestOptions)
-    //    .then(response => response.text())
-    //    .then(data => {
-    //        console.log(data.value)
-    //        for (var i = 0; i < data.length; i++) {
-    //            var Img = document.createElement('img');
-    //            Img.src = data[i].value;
-    //            parent.appendChild(Img);
-    //        }
-    //    })
-    //    .catch(error => console.log('error', error));
-
-
-
-
-
-    //fetch("/api/fileupload/download")
-    //    .then(res => { return res.blob() })
-    //    .then(blob => {
-    //        var img = URL.createObjectURL(blob);
-    //        // Do whatever with the img
-    //        var createImg = document.createElement('img');
-    //        createImg.src = img;
-    //        parent.appendChild(createImg);
-    //    })
+    //xmlHTTP.send();
 })
