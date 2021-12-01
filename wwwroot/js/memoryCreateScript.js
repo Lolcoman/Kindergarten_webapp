@@ -134,7 +134,7 @@ btnUpload.addEventListener('click', function () {
 
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44356/api/fileupload/upload',
+        url: '/api/fileupload/upload',
         cache: false,
         processData: false,
         timeout: 0,
@@ -180,6 +180,7 @@ btnDownload.addEventListener('click', function () {
                 img.style.height = "100px";
                 img.style.width = "100px";
                 parent.appendChild(img);
+                localStorage.setItem(name + i, response[i]);
                 //createImage(response[i])
             }
         },
