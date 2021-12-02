@@ -6,8 +6,10 @@
 */
 
 const inpFile = document.getElementById("inpFile");
-const btnUpload = document.getElementById("btnUpload");
+var btnUpload;
 const btnDownload = document.getElementById("btnDownload");
+var btnNumber = document.getElementById("btnNumber");
+var gameName;
 var downloadImg;
 //var frame = document.getElementById("frame");
 var input;
@@ -48,6 +50,7 @@ function disableInput() {
 
 //*VYTVOŘENÍ POČTU PÁRŮ
 function CreateNew() {
+    //debugger;
     var number = document.getElementById("idname").value;
     if (IsCreated != true) {
         for (let i = 0; i < number; i++) {
@@ -71,6 +74,7 @@ function CreateNew() {
             inputField.value = "";
             inputField.style.display = "none";
             inputField.accept = "image/png,image/jpeg";
+            inputField.required = true;
             inputField.oninput = preview;
 
             inputField.onclick = disableInput;
@@ -84,6 +88,7 @@ function CreateNew() {
             // iDiv.appendChild(newlabel);
             // iDiv.appendChild(textfield);
 
+
             iDiv.appendChild(newlabel);
             iDiv.appendChild(inputField);
             iDiv.appendChild(newImg);
@@ -96,29 +101,80 @@ function CreateNew() {
             nextInp.style.display = "inline";
         }
         IsCreated = true;
+
+        debugger;
+        //*TEST SUBMIT buttonu
+        var sumbitBtn = document.createElement("input");
+        sumbitBtn.setAttribute("type", "submit");
+        sumbitBtn.id = "btnUpload";
+        sumbitBtn.value = "Nahrát soubory";
+        parent.appendChild(sumbitBtn);
+        btnUpload = document.getElementById("btnUpload");
+        //! Schová btn pro vytvoření
+        btnNumber.style.display = "none";
+        //! Test btn znovu
+        var again = document.createElement("button");
+        again.textContent = "Znovu?";
+        again.id = "btnAgain";
+        again.setAttribute("onclick", "again()")
+        document.body.appendChild(again);
+
+        //parent.onsubmit = post();
+        parent.setAttribute("onsubmit", "post();return false");
         return
     }
 
-    if (IsCreated) {
-        if (confirm('Chcete začít znovu?')) {
-            IsCreated = false;
-            //location.reload();
-            //iDiv.remove();
-            $("div").remove();
-            //location.reload();
-            i = 0;
-            k = 0;
-            //newlabel.remove();
-            CreateNew();
-        }
-    }
-    else {
-        return
-    }
+    // if (IsCreated) {
+    //     if (confirm('Chcete začít znovu?')) {
+    //         IsCreated = false;
+    //         //location.reload();
+    //         //iDiv.remove();
+    //         $("div").remove();
+    //         //location.reload();
+    //         i = 0;
+    //         k = 0;
+    //         //newlabel.remove();
+    //         //CreateNew();
+    //     }
+    // }
+    // else {
+    //     return
+    // }
 }
 
-//* Nahrávní souboru do databáze přes API
-btnUpload.addEventListener('click', function () {
+function again() {
+    debugger
+    if (confirm('Chcete začít znovu?')) {
+        i = 0;
+        k = 0;
+        location.reload();
+    }
+    // if (IsCreated) {
+    //     if (confirm('Chcete začít znovu?')) {
+    //         IsCreated = false;
+    //         //location.reload();
+    //         //iDiv.remove();
+    //         $("div").remove();
+    //         var btnAgain = document.getElementById("btnAgain");
+    //         btnAgain.parentNode.removeChild(btnAgain);
+    //         parent.reset();
+    //         btnNumber.style.display = "inline";
+    //         parent.setAttribute("onsubmit", "CreateNew();return false");
+    //         //location.reload();
+    //         i = 0;
+    //         k = 0;
+    //         //newlabel.remove();
+    //         //CreateNew();
+    //     }
+    // }
+    // else {
+    //     return
+    // }
+}
+
+
+function post() {
+    debugger;
     var data = new FormData();
     // for (let i = 0; i < input.length; i++) {
     //     let file = input[i].files[0];
@@ -129,7 +185,8 @@ btnUpload.addEventListener('click', function () {
         //console.log(input[i].files);
         data.append("files", input[i].files[0]);
     }
-    data.append("name", "Vánoce");
+    gameName = document.getElementById('name').value;
+    data.append("name", gameName);
     console.log(data.getAll('files'));
 
     $.ajax({
@@ -142,10 +199,46 @@ btnUpload.addEventListener('click', function () {
         enctype: "multipart/form-data",
         contentType: false,
         success: function (result) {
-            alert(result);
+            console.log(result);
         },
         error: function (err) {
-            alert(err);
+            console.log(err);
+        }
+    })
+    console.log(data);
+}
+
+// //* Nahrávní souboru do databáze přes API
+btnUpload.addEventListener('click', function () {
+    debugger;
+    var data = new FormData();
+    // for (let i = 0; i < input.length; i++) {
+    //     let file = input[i].files[0];
+    //     //use file
+    //     data.append('file', file);
+    // }
+    for (let i = 0; i < input.length; i++) {
+        //console.log(input[i].files);
+        data.append("files", input[i].files[0]);
+    }
+    gameName = document.getElementById('name').value;
+    data.append("name", gameName);
+    console.log(data.getAll('files'));
+
+    $.ajax({
+        type: 'POST',
+        url: '/api/fileupload/upload',
+        cache: false,
+        processData: false,
+        timeout: 0,
+        data: data,
+        enctype: "multipart/form-data",
+        contentType: false,
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (err) {
+            console.log(err);
         }
     })
     console.log(data);
@@ -161,6 +254,7 @@ btnUpload.addEventListener('click', function () {
 
 
 btnDownload.addEventListener('click', function () {
+    debugger;
     var name = "Vánoce";
     $.ajax({
         type: 'GET',
@@ -176,7 +270,7 @@ btnDownload.addEventListener('click', function () {
                 var img = new Image();
                 //img[i] = response[i];
                 //var Img = document.createElement('img');
-                img.src = "data:image/png;base64,"+ response[i];
+                img.src = "data:image/png;base64," + response[i];
                 img.style.height = "100px";
                 img.style.width = "100px";
                 parent.appendChild(img);

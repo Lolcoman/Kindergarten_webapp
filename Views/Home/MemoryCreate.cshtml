@@ -8,20 +8,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="~/js/memoryCreateScript.js" type="text/javascript" defer></script>
+    <script src="memoryCreateScript.js" type="text/javascript" defer></script>
     <title>Document</title>
 </head>
 
 <body>
     <!-- *ZAČÁTEK -->
     <h1>Tvorba pexesa</h1>
-    <form id="form" enctype="multipart/form-data">
+    <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
         <div>Počet pexes:</div>
         <input type="number" id="idname" value="" placeholder="počet" min="1" max="20" required>
-        <button id="btnUpload" type="submit">Nahrát soubory</button>
+        <input type="text" id="name" placeholder="název" required>
+        <input id="btnNumber" type="submit" value="Vytvořit">
     </form>
-    <button id="btnNumber" onclick="CreateNew()">Vytvořit</button>
-    <button id="btnDownload">Vytořit pexeso</button>
+    <button id="btnDownload">TEST pro download</button>
 </body>
 
 </html>
