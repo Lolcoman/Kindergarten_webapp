@@ -209,40 +209,40 @@ function post() {
 }
 
 // //* Nahrávní souboru do databáze přes API
-btnUpload.addEventListener('click', function () {
-    debugger;
-    var data = new FormData();
-    // for (let i = 0; i < input.length; i++) {
-    //     let file = input[i].files[0];
-    //     //use file
-    //     data.append('file', file);
-    // }
-    for (let i = 0; i < input.length; i++) {
-        //console.log(input[i].files);
-        data.append("files", input[i].files[0]);
-    }
-    gameName = document.getElementById('name').value;
-    data.append("name", gameName);
-    console.log(data.getAll('files'));
+//btnUpload.addEventListener('click', function () {
+//    debugger;
+//    var data = new FormData();
+//    // for (let i = 0; i < input.length; i++) {
+//    //     let file = input[i].files[0];
+//    //     //use file
+//    //     data.append('file', file);
+//    // }
+//    for (let i = 0; i < input.length; i++) {
+//        //console.log(input[i].files);
+//        data.append("files", input[i].files[0]);
+//    }
+//    gameName = document.getElementById('name').value;
+//    data.append("name", gameName);
+//    console.log(data.getAll('files'));
 
-    $.ajax({
-        type: 'POST',
-        url: '/api/fileupload/upload',
-        cache: false,
-        processData: false,
-        timeout: 0,
-        data: data,
-        enctype: "multipart/form-data",
-        contentType: false,
-        success: function (result) {
-            console.log(result);
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    })
-    console.log(data);
-});
+//    $.ajax({
+//        type: 'POST',
+//        url: '/api/fileupload/upload',
+//        cache: false,
+//        processData: false,
+//        timeout: 0,
+//        data: data,
+//        enctype: "multipart/form-data",
+//        contentType: false,
+//        success: function (result) {
+//            console.log(result);
+//        },
+//        error: function (err) {
+//            console.log(err);
+//        }
+//    })
+//    console.log(data);
+//});
 
 
 
