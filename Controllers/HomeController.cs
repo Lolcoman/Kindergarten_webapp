@@ -13,6 +13,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVCProject.Controllers
 {
@@ -20,8 +21,8 @@ namespace MVCProject.Controllers
     {
         SqlCommand command = new SqlCommand();
         SqlDataReader dr;
-        List<Data> datas = new List<Data>();  
-        SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        List<Data> datas = new List<Data>();
+        SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
 
         //pro debug při logování
         //private readonly ILogger<HomeController> _logger;
@@ -73,14 +74,22 @@ namespace MVCProject.Controllers
         {
             try
             {
-                string query = "SELECT DISTINCT name FROM PexesoTable";
-                SqlDataAdapter sda = new SqlDataAdapter(query, sqlConnection);
+                string query = "SELECT DISTINCT Name FROM PexesoTable";
+                SqlCommand sqlcomm = new SqlCommand(query, sqlConnection);
                 sqlConnection.Open();
-                DataTable dt = new DataTable();
-                sda.Fill(dt);
-                s
-                sqlConnection.Close();
+                SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
+                DataSet ds = new DataSet();
+                sda.Fill(ds);
+                ViewBag.gameName = ds.Tables[0];
 
+                List<SelectListItem> gameName = new List<SelectListItem>();
+
+                foreach (DataRow dr in ViewBag.gameName.Rows)
+                {
+                    gameName.Add(new SelectListItem { Text = @dr["Name"].ToString(),Value= @dr["Name"].ToString() });
+                }
+                ViewBag.gameName = gameName;
+                sqlConnection.Close();
             }
             catch (Exception e)
             {

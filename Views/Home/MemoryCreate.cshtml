@@ -15,7 +15,11 @@
 <body>  
     <!-- *ZAČÁTEK -->
     <h1>Tvorba pexesa</h1>
-    <select id="selectemp"></select>
+    @using (Html.BeginForm("Select", "SelectElements"))
+    {
+        <hr />
+        @Html.DropDownList("gameName");
+    }
     <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
         <div>Počet pexes:</div>
         <input type="number" id="idname" value="" placeholder="počet" min="1" max="20" required>
