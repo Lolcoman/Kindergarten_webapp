@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Data;
 
 namespace MVCProject.Controllers
 {
@@ -58,6 +59,7 @@ namespace MVCProject.Controllers
 
         public IActionResult MemoryCreate()
         {
+            SelectFromDB();
             return View();
         }
 
@@ -66,7 +68,28 @@ namespace MVCProject.Controllers
             ViewBag.Name = HttpContext.Session.GetString("UserName");
             return View();
         }
-        //získání dat z databáze
+        //získání dat z DB pro select Pexeso
+        public void SelectFromDB()
+        {
+            try
+            {
+                string query = "SELECT DISTINCT name FROM PexesoTable";
+                SqlDataAdapter sda = new SqlDataAdapter(query, sqlConnection);
+                sqlConnection.Open();
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                s
+                sqlConnection.Close();
+
+            }
+            catch (Exception e)
+            {
+                //Error();
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        //získání dat z DB pro tabulku výsledků
         private void FillData()
         {
             var name = HttpContext.Session.GetString("UserName");
