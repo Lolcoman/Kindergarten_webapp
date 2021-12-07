@@ -4,7 +4,9 @@
 * todo: dodělat
 * ? zamyslet se
 */
-
+const info = document.getElementById("info");
+const idname = document.getElementById("idname");
+const name = document.getElementById("name");
 const inpFile = document.getElementById("inpFile");
 var btnUpload;
 const btnDownload = document.getElementById("btnDownload");
@@ -17,7 +19,37 @@ const parent = document.getElementById("form");
 var IsCreated = false;
 var i = 0;
 var k = 0;
-//! DODĚLAT VSTUP PRO NÁZEV PEXESA
+var names;
+var IsDownloaded = false;
+
+//výběr z dropdown
+document.getElementById("gameName").onchange = function () {
+    var selectValue = document.getElementById("gameName").value;
+    if (selectValue == "") {
+        return;
+    }
+    if (!IsDownloaded) {
+        info.innerHTML = "Náhled pexesa";
+        var again = document.createElement("button");
+        again.textContent = "Znovu?";
+        again.id = "btnAgain";
+        again.setAttribute("onclick", "again()")
+        document.body.appendChild(again);
+
+        btnNumber.style.display = "none";
+        idname.style.display = "none";
+        name.style.display = "none";
+        names = selectValue;
+        download();
+        IsDownloaded = true;
+        alert(selectValue);
+    }
+    else {
+        document.querySelectorAll("img").forEach(img => img.remove());
+        names = selectValue;
+        download();
+    }
+}
 
 //* Náhled obrázku
 function preview() {
@@ -123,58 +155,18 @@ function CreateNew() {
         parent.setAttribute("onsubmit", "post();return false");
         return
     }
-
-    // if (IsCreated) {
-    //     if (confirm('Chcete začít znovu?')) {
-    //         IsCreated = false;
-    //         //location.reload();
-    //         //iDiv.remove();
-    //         $("div").remove();
-    //         //location.reload();
-    //         i = 0;
-    //         k = 0;
-    //         //newlabel.remove();
-    //         //CreateNew();
-    //     }
-    // }
-    // else {
-    //     return
-    // }
 }
 
 function again() {
-    debugger
     if (confirm('Chcete začít znovu?')) {
         i = 0;
         k = 0;
         location.reload();
     }
-    // if (IsCreated) {
-    //     if (confirm('Chcete začít znovu?')) {
-    //         IsCreated = false;
-    //         //location.reload();
-    //         //iDiv.remove();
-    //         $("div").remove();
-    //         var btnAgain = document.getElementById("btnAgain");
-    //         btnAgain.parentNode.removeChild(btnAgain);
-    //         parent.reset();
-    //         btnNumber.style.display = "inline";
-    //         parent.setAttribute("onsubmit", "CreateNew();return false");
-    //         //location.reload();
-    //         i = 0;
-    //         k = 0;
-    //         //newlabel.remove();
-    //         //CreateNew();
-    //     }
-    // }
-    // else {
-    //     return
-    // }
 }
 
 
 function post() {
-    debugger;
     var data = new FormData();
     // for (let i = 0; i < input.length; i++) {
     //     let file = input[i].files[0];
@@ -207,58 +199,10 @@ function post() {
     })
     console.log(data);
 }
-
-// //* Nahrávní souboru do databáze přes API
-//btnUpload.addEventListener('click', function () {
-//    debugger;
-//    var data = new FormData();
-//    // for (let i = 0; i < input.length; i++) {
-//    //     let file = input[i].files[0];
-//    //     //use file
-//    //     data.append('file', file);
-//    // }
-//    for (let i = 0; i < input.length; i++) {
-//        //console.log(input[i].files);
-//        data.append("files", input[i].files[0]);
-//    }
-//    gameName = document.getElementById('name').value;
-//    data.append("name", gameName);
-//    console.log(data.getAll('files'));
-
-//    $.ajax({
-//        type: 'POST',
-//        url: '/api/fileupload/upload',
-//        cache: false,
-//        processData: false,
-//        timeout: 0,
-//        data: data,
-//        enctype: "multipart/form-data",
-//        contentType: false,
-//        success: function (result) {
-//            console.log(result);
-//        },
-//        error: function (err) {
-//            console.log(err);
-//        }
-//    })
-//    console.log(data);
-//});
-
-
-
-
-
-
-
-
-
-
-btnDownload.addEventListener('click', function () {
-    debugger;
-    var name = "Vánoce";
+function download() {
     $.ajax({
         type: 'GET',
-        url: '/api/fileupload/download' + "?" + "name=" + name,
+        url: '/api/fileupload/download' + "?" + "name=" + names,
         timeout: 0,
         success: function (response) {
             for (var i = 0; i < response.length; i++) {
@@ -282,22 +226,4 @@ btnDownload.addEventListener('click', function () {
             console.log(err);
         }
     })
-
-    //var url = "/api/fileupload/download?" + $.param({ name: "Vánoce" })
-    //var xmlHTTP = new XMLHttpRequest();
-    //xmlHTTP.open('GET', url, true);
-    //xmlHTTP.responseType = 'arraybuffer';
-    //xmlHTTP.onload = function (e) {
-    //    var arr = new Uint8Array(this.response);
-    //    var raw = String.fromCharCode.apply(null, arr);
-    //    var b64 = btoa(raw);
-    //    var dataURL = "data:image/png;base64," + b64;
-    //    console.log(b64);
-    //    var img = document.createElement('img');
-    //    img.style.height = "100px";
-    //    img.style.width = "100px";
-    //    img.src = dataURL;
-    //    parent.appendChild(img);
-    //};
-    //xmlHTTP.send();
-})
+}

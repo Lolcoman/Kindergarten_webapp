@@ -9,24 +9,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="~/js/memoryCreateScript.js" type="text/javascript" defer></script>
+    <link rel="stylesheet" href="~/css/memoryCreateStyle.css">
     <title>Document</title>
 </head>
 
-<body>  
+<body>
     <!-- *ZAČÁTEK -->
     <h1>Tvorba pexesa</h1>
-    @using (Html.BeginForm("Select", "SelectElements"))
-    {
-        <hr />
-        @Html.DropDownList("gameName");
-    }
+    <hr />
+    <div style="text-align:center">
+        @Html.DropDownList("gameName", "Vyberte název")
+    </div>
+    <hr />
     <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
-        <div>Počet pexes:</div>
+        <div id="info">Počet pexes:</div>
         <input type="number" id="idname" value="" placeholder="počet" min="1" max="20" required>
         <input type="text" id="name" placeholder="název" required>
         <input id="btnNumber" type="submit" value="Vytvořit">
     </form>
-    <button id="btnDownload">TEST pro download</button>
 </body>
 
 </html>
