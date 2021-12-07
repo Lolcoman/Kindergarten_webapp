@@ -15,15 +15,18 @@
 
 <body>
     <!-- *ZAČÁTEK -->
-    <h1>Tvorba pexesa</h1>
+    <h1>Pexeso</h1>
     <hr />
     <div style="text-align:center">
+        <p>Výběrem ze seznamu můžete načíst již vytvořené pexeso:</p>
         @Html.DropDownList("gameName", "Vyberte název")
     </div>
     <hr />
+    <p>Zde můžete vytvořit vlastní pexeso</p>
+    <p>Maximum je 12 párů, po zvolení je možné nahrávat obrázky .jpg,.png, při nahrání bude zobrazen náhled vybraného obrázku</p>
     <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
         <div id="info">Počet pexes:</div>
-        <input type="number" id="idname" value="" placeholder="počet" min="1" max="20" required>
+        <input type="number" id="idname" value="" placeholder="počet" min="1" max="12" required>
         <input type="text" id="name" placeholder="název" required>
         <input id="btnNumber" type="submit" value="Vytvořit">
     </form>

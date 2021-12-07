@@ -1,11 +1,16 @@
-body{
-    background-color: white;
+body {
+    background-color: lightskyblue;
     padding: 0;
-    margin: 1px;
+    margin: 0;
     font-family: Comic Sans MS;
+    font-size: 20px;
 }
 h1{
     text-align: center;
+}
+p {
+    font-size: 16px;
+    font-weight: 300;
 }
 #form{
     align-items: center;
@@ -79,7 +84,6 @@ option:hover:before {
 
 
 input {
-    width: auto;
     margin-bottom: 5px;
     line-height: 18px;
     padding: 2px 5px;
@@ -87,6 +91,7 @@ input {
     -moz-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #CCC;
+    font-size: 24px;
 }
 
 input[type="file"] {
@@ -100,4 +105,57 @@ input[type="file"] {
 }
 #btnUpload{
     display:block;
+}
+
+#btnAgain {
+    text-align: center;
+    width: 10%;
+    margin-left: 45%;
+    margin-right: 30%;
+    margin-top: 100px;
+    font-family: Comic Sans MS;
+    align-items: center;
+    background-color: #FF5A5A;
+    background-position: 0 0;
+    border: 1px solid #FF8080;
+    border-radius: 7px;
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    text-align: center;
+    transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+#btnAgain:hover {
+    background-color: #FFE3E3;
+    border-color: #FAA4A4;
+}
+
+
+#btnUpload, #btnNumber {
+    background-color: #FAFBFC;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292E;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Comic Sans MS;
+    font-size: 16px;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+}
+
+#btnUpload:hover,#btnNumber:hover {
+    background-color: #F3F4F6;
+    text-decoration: none;
+    transition-duration: 0.1s;
+}
+#info {
+    font-size: 28px;
 }
