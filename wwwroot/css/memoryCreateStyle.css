@@ -9,6 +9,21 @@ h1 {
     text-align: center;
     text-decoration: underline;
 }
+hr {
+    border: 0;
+    border-bottom: 5px solid #0ad5fa;
+    width: 0;
+    animation: separator-width 1s ease-out forwards;
+}
+@keyframes separator-width {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
 p {
     font-size: 23px;
     font-weight: 300;
@@ -135,6 +150,30 @@ input[type="file"] {
     background-color: #FFE3E3;
     border-color: #FAA4A4;
 }
+#btnCreate {
+    text-align: center;
+    width: 10%;
+    margin-left: 45%;
+    margin-right: 30%;
+    font-family: Comic Sans MS;
+    align-items: center;
+    background-color: #3AFF61;
+    background-position: 0 0;
+    border: 1px solid #61F27E;
+    border-radius: 7px;
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    text-align: center;
+    transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+
+#btnCreate:hover {
+    background-color: #9FF6B0;
+    border-color: #01FF34;
+}
 
 
 #btnUpload, #btnNumber {
@@ -160,3 +199,4 @@ input[type="file"] {
     text-decoration: none;
     transition-duration: 0.1s;
 }
+

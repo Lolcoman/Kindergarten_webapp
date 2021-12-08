@@ -4,6 +4,7 @@
 * todo: dodělat
 * ? zamyslet se
 */
+localStorage.clear();
 const info = document.getElementById("info");
 const idname = document.getElementById("idname");
 const name = document.getElementById("name");
@@ -29,12 +30,19 @@ document.getElementById("gameName").onchange = function () {
         return;
     }
     if (!IsDownloaded) {
+        localStorage.clear();
         info.innerHTML = "Náhled pexesa";
         var again = document.createElement("button");
         again.textContent = "Znovu?";
         again.id = "btnAgain";
-        again.setAttribute("onclick", "again()")
+        again.setAttribute("onclick", "again()");
+        var next = document.createElement("button");
+        next.textContent = "Vytvořit";
+        next.id = "btnCreate";
+        next.setAttribute("onclick", "create()");
+
         document.body.appendChild(again);
+        document.body.appendChild(next);
 
         btnNumber.style.display = "none";
         idname.style.display = "none";
@@ -42,9 +50,10 @@ document.getElementById("gameName").onchange = function () {
         names = selectValue;
         download();
         IsDownloaded = true;
-        alert(selectValue);
+        //alert(selectValue);
     }
     else {
+        localStorage.clear();
         document.querySelectorAll("img").forEach(img => img.remove());
         names = selectValue;
         download();
@@ -125,16 +134,12 @@ function CreateNew() {
             iDiv.appendChild(inputField);
             iDiv.appendChild(newImg);
 
-
-            var frame = document.getElementById("frame");
-
             input = document.querySelectorAll('input[type=file]');
             var nextInp = document.getElementById('inp' + k);
             nextInp.style.display = "inline";
         }
         IsCreated = true;
 
-        debugger;
         //*TEST SUBMIT buttonu
         var sumbitBtn = document.createElement("input");
         sumbitBtn.setAttribute("type", "submit");
@@ -177,6 +182,7 @@ function post() {
         //console.log(input[i].files);
         data.append("files", input[i].files[0]);
     }
+    localStorage.setItem("images", data);
     gameName = document.getElementById('name').value;
     data.append("name", gameName);
     console.log(data.getAll('files'));
@@ -192,6 +198,11 @@ function post() {
         contentType: false,
         success: function (result) {
             console.log(result);
+            alert("Nyní vyberte vytvořené pexeso");
+            location.reload();
+            //localStorage.setItem("game", name);
+            //localStorage.setItem("images", JSON.stringify(response));
+            //window.location.href = '/Home/Memory';
         },
         error: function (err) {
             console.log(err);
@@ -199,6 +210,7 @@ function post() {
     })
     console.log(data);
 }
+
 function download() {
     $.ajax({
         type: 'GET',
@@ -218,7 +230,10 @@ function download() {
                 img.style.height = "100px";
                 img.style.width = "100px";
                 parent.appendChild(img);
-                localStorage.setItem(name + i, response[i]);
+                //localStorage.setItem(names + i, response[i]);
+                localStorage.setItem("game", name);
+                localStorage.setItem("images", JSON.stringify(response));
+                //window.location.href = '/Home/Memory';
                 //createImage(response[i])
             }
         },
@@ -226,4 +241,14 @@ function download() {
             console.log(err);
         }
     })
+}
+
+function create() {
+    if (confirm('Opravdu chcete vytvořit pexeso?')) {
+        // Save it!
+        window.location.href = '/Home/Memory';
+    } else {
+        // Do nothing!
+        return
+    }
 }

@@ -43,7 +43,8 @@ namespace MVCProject.Controllers
                 foreach (var file in files)
                 {   
                     string ext = Path.GetExtension(file.FileName);
-                    if (IsImage(ext))
+                    string extLower = ext.ToLower();
+                    if (IsImage(extLower))
                     {
                         continue;
                     }
