@@ -48,11 +48,6 @@ namespace MVCProject.Controllers
             return View();
         }
 
-        public IActionResult Quiz()
-        {
-            return View();
-        }
-
         public IActionResult Memory()
         {
             return View();
@@ -60,21 +55,35 @@ namespace MVCProject.Controllers
 
         public IActionResult MemoryCreate()
         {
-            SelectFromDB();
+            string name = "memory";
+            SelectFromDB(name);
             return View();
         }
-
+        public IActionResult Quiz()
+        {
+            string name = "quiz";
+            SelectFromDB(name);
+            return View();
+        }
         public IActionResult MainPage()
         {
             ViewBag.Name = HttpContext.Session.GetString("UserName");
             return View();
         }
         //získání dat z DB pro select Pexeso
-        public void SelectFromDB()
+        public void SelectFromDB(string name)
         {
             try
             {
-                string query = "SELECT DISTINCT Name FROM PexesoTable";
+                string query = "";
+                if (name == "memory")
+                {
+                    query = "SELECT DISTINCT Name FROM PexesoTable";
+                }
+                if (name == "quiz")
+                {
+                    query = "SELECT DISTINCT Name FROM QuizTable";
+                }
                 SqlCommand sqlcomm = new SqlCommand(query, sqlConnection);
                 sqlConnection.Open();
                 SqlDataAdapter sda = new SqlDataAdapter(sqlcomm);
@@ -89,6 +98,7 @@ namespace MVCProject.Controllers
                     gameName.Add(new SelectListItem { Text = @dr["Name"].ToString(),Value= @dr["Name"].ToString() });
                 }
                 ViewBag.gameName = gameName;
+                ViewBag.countQuestion = gameName.Count;
                 sqlConnection.Close();
             }
             catch (Exception e)

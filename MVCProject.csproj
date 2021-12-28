@@ -4,13 +4,14 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
-    <None Include="wwwroot\images\black.png" />
-    <None Include="wwwroot\images\blue.png" />
-    <None Include="wwwroot\images\green.png" />
-    <None Include="wwwroot\images\paper-box.png" />
-    <None Include="wwwroot\images\pet-bottle.png" />
-    <None Include="wwwroot\images\yellow.png" />
     <None Include="wwwroot\js\mazeScript.js" />
   </ItemGroup>
 

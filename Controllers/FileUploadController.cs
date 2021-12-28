@@ -34,6 +34,10 @@ namespace MVCProject.Controllers
             SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
             try
             {
+                if (name == "")
+                {
+                    return BadRequest("Žádné jméno");
+                }
                 if (files.Count == 0)
                 {
                     return BadRequest("Žádný soubor");

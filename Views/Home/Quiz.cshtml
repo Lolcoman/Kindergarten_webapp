@@ -2,44 +2,64 @@
     ViewData["Title"] = "Kvíz";
 }
 <!DOCTYPE html>
-<html lang="CS-cz">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/quizStyle.css">
+    <link rel="stylesheet" type="text/css" href="~/css/quizStyle.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script defer src="~/js/quizScript.js"></script>
-    <title>Poznávání</title>
+    <title>Kvíz</title>
 </head>
+
 <body>
-    <div class="all-content">
-
-        <div id="result" class="hide">
-            <div class="Form-container">
-                <div id="end" class="modal-text modal-text-bigger">Hotovo!</div>
-                <div class="modal-text">Správné odpovědi:</div>
-
-                <div class="modal-text">
-                    <span id="right-answers" class="count">12</span> z <span id="all-questions" class="count"> počet-otázek</span>(<span id="answers-percent"></span>%)
-                </div>
-            </div>
+    <div class="addQuestions">
+        <h1>Kvíz</h1>
+        <p>Pro nahrání klikni na tlačítko příslušného obrázku</p>
+        <p>Kvíz obsahuje 3 odpovědi, ale pouze 1 správnou</p>
+        <hr>
+        <div style="text-align:center">
+            <h4>Vyberte ze seznamu vytvořený kvíz:</h4>
+            @Html.DropDownList("gameName", "Vyberte název")
+            <input type="hidden" id="customInput" data-value="@ViewBag.countQuestion" />
         </div>
+        <hr>
+        <input type="text" id="quizName" value="" placeholder="Název kvízu:" />
+        <br>
+        <label for="questionInput" class="custom-file-upload" style="color: white;">
+            <input id="questionInput" type="file" class="img-up" data-id="img_view0" id="img0" accept="image/*" value="" enctype="multipart/form-data">
+            Obrázek otázky
+        </label>
 
-        <div id="question-container" class="hide">
-            <div id="question">Otázky</div>
-            <div id="answers-buttons" class="btns">
-                <button class="btn">Odpověd1</button>
-                <button class="btn">Odpověd2</button>
-                <button class="btn">Odpověd3</button>
-                <button class="btn">Odpověd4</button>
-            </div>
+        <label for="correctInput" class="custom-file-upload" style="background-color: #2ecc71;">
+            <input id="correctInput" type="file" class="img-up" data-id="img_view1" id="img1" accept="image/*" value="" enctype="multipart/form-data">
+            1. Správný obrázek
+        </label>
+
+        <label for="wrongOneInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+            <input id="wrongOneInput" type="file" class="img-up" data-id="img_view2" id="img2" accept="image/*" value="" enctype="multipart/form-data">
+            2. Špatný obrázek
+        </label>
+
+        <label for="wrongTwoInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+            <input id="wrongTwoInput" type="file" class="img-up" data-id="img_view3" id="img3" accept="image/*" value="" enctype="multipart/form-data">
+            3. Špatný obrázek
+        </label>
+        <div class="images">
+            <img id="img_view0" src="#" alt="Náhled" height="140" width="140" />
+            <img id="img_view1" src="#" alt="Náhled" height="140" width="140" />
+            <img id="img_view2" src="#" alt="Náhled" height="140" width="140" />
+            <img id="img_view3" src="#" alt="Náhled" height="140" width="140" />
         </div>
-        <div class="controls">
-            <button id="start-btn" class="start-btn btn">Začít</button>
-            <button id="next-btn" class="next-btn btn hide">Další</button>
-        </div>
+        <button onclick="handlers.addQuestion()" style="margin-top: 40px;">Přidat otázku</button>
     </div>
+    <div class="info">
+        <li id="NumberQuestionsInQuiz">Počet otázek v kvízu je 0</li>
+        <button onclick="view.displayQuestions()" id="startQuiz">Start</button>
+    </div>
+    <p class="answersCorrect"></p>
+    <div class="questionsWrapper"></div>
 </body>
-
 </html>
