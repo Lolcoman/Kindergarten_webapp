@@ -11,6 +11,8 @@ namespace MVCProject.Models
         public string Moves { get; set; }
         public string Games { get; set; }
         public string DateTime { get; set; }
+        public string CorrectAnswer { get; set; }
+        public string Question { get; set; }
 
     }
 }

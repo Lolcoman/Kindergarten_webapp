@@ -184,7 +184,7 @@ namespace MVCProject.Controllers
                         questionList.Add(new Question
                         {
                             question = questionString,
-                            answer = answerString,
+                            correct = answerString,
                             wrongOne = wrongOneString,
                             wrongTwo = wrongTwoString
                         });
@@ -198,6 +198,7 @@ namespace MVCProject.Controllers
                 //Image[] imagesArray;
                 //imagesArray = File.ReadAllLines(memory);
                 //imagesArray = photoList.ToArray();
+                //ViewBag.countQuestion = questionList.Count;
                 return questionList;
                 //return File(memory.ToArray(),"image/png");
             }

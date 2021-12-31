@@ -2,6 +2,8 @@ var IsSaved = false;
 var quizName = document.getElementById('quizName');
 var IsDownloaded = false;
 var names;
+var IsLoaded = false;
+var correctAnswers = 0;
 if (confirm('Chcete otázky uložit?')) {
     // Save it!
     quizName.style.display = "block";
@@ -42,6 +44,11 @@ var quiz = {
             nextButton[i].addEventListener("click", function (event) {
                 //Find the element that was clicked
                 var elementClicked = event.target;
+                if (elementClicked.textContent == "Konec") {
+                    SubmitScore();
+                    alert("Vysledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
+                    //continue;
+                }
                 //If it was a next button then remove the is-active class from it parent
                 if (elementClicked.className === "nextButton") {
                     elementClicked.parentNode.classList.remove("is-active");
@@ -72,7 +79,7 @@ var handlers = {
                 return
             }
         }
-        if (quizName.value == "") {
+        if (quizName.value == "" && IsSaved) {
             alert("Vyplňte jméno kvízu!");
             return
         }
@@ -110,6 +117,11 @@ var handlers = {
 var view = {
     //This runs when you click start quiz
     displayQuestions: function () {
+        if (IsDownloaded) {
+            if (!IsLoaded) {
+                return
+            }
+        }
         if (quiz.questions.length == 0) {
             return
         }
@@ -136,7 +148,16 @@ var view = {
             questionImg.width = 175;
             questionImg.height = 175;
             questionLi.appendChild(questionImg);
-            questionImg.src = URL.createObjectURL(question.question);
+            if (IsDownloaded) {
+                questionImg.src = "data:image/png;base64," + (question.question);
+            }
+            else {
+                questionImg.src = URL.createObjectURL(question.question);
+            }
+            //questionImg.onload = function () {
+            //    context.drawImage(questionImg, 175, 175);
+            //};
+            //questionImg.src = URL.createObjectURL(question.question);
             var elementHr = document.createElement('hr');
             questionLi.appendChild(elementHr);
             //! Správná odpověď
@@ -149,7 +170,13 @@ var view = {
             correctImg.height = 175;
             correctLi.appendChild(correctImg)
             //correctLi.nextSibling(image);
-            correctImg.src = URL.createObjectURL(question.correct);
+            if (IsDownloaded) {
+                correctImg.src = "data:image/png;base64," + (question.correct);
+            }
+            else {
+                correctImg.src = URL.createObjectURL(question.correct);
+            }
+            //correctImg.src = URL.createObjectURL(question.correct);
             //! Špatná odpověď
             var wrongOneLi = document.createElement("li");
             //wrongOneLi.setAttribute("class", "wrong");
@@ -160,7 +187,13 @@ var view = {
             wrongOneImg.height = 175;
             wrongOneLi.appendChild(wrongOneImg)
             //correctLi.nextSibling(image);
-            wrongOneImg.src = URL.createObjectURL(question.wrongOne);
+            if (IsDownloaded) {
+                wrongOneImg.src = "data:image/png;base64," + (question.wrongOne);
+            }
+            else {
+                wrongOneImg.src = URL.createObjectURL(question.wrongOne);
+            }
+            //wrongOneImg.src = URL.createObjectURL(question.wrongOne);
 
             //! Špatná odpověď
             var wrongTwoLi = document.createElement("li");
@@ -171,7 +204,13 @@ var view = {
             wrongTwoImg.width = 175;
             wrongTwoImg.height = 175;
             wrongTwoLi.appendChild(wrongTwoImg);
-            wrongTwoImg.src = URL.createObjectURL(question.wrongTwo);
+            if (IsDownloaded) {
+                wrongTwoImg.src = "data:image/png;base64," + (question.wrongTwo);
+            }
+            else {
+                wrongTwoImg.src = URL.createObjectURL(question.wrongTwo);
+            }
+            //wrongTwoImg.src = URL.createObjectURL(question.wrongTwo);
 
             //add each question div to the question wrapper
             questionsWrapper.appendChild(questionDiv);
@@ -191,6 +230,8 @@ var view = {
             } else {
                 nextButton.textContent = "Další";
             }
+            //TOHLE JINAM AŽ PO KLIKNUTÍ NA POSLEDNÍ OTÁZKU
+            //SubmitScore();
 
             //Append elements to div
             questionDiv.appendChild(questionLi);
@@ -213,7 +254,6 @@ var view = {
 
     displayAnswersCorrect: function () {
         var questionDiv = document.querySelectorAll(".questionDiv");
-        var correctAnswers = 0;
         var answersCorrect = document.querySelector(".answersCorrect");
         answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
 
@@ -266,7 +306,8 @@ var view = {
     displayNumberOfQuestions: function () {
         var numberLi = document.getElementById("NumberQuestionsInQuiz");
         if (IsDownloaded) {
-            numberLi.textContent = "Počet otázek v kvízu je " + $("#customInput").data("value");
+            //numberLi.textContent = "Počet otázek v kvízu je " + $("#customInput").data("value");
+            numberLi.textContent = "Počet otázek v kvízu je " + quiz.questions.length;
         }
         else {
             if (quiz.questions.length === 1) {
@@ -295,13 +336,35 @@ $(".img-up").change(function () {
     readURL(this, $(this).attr('data-id'));
 });
 
+function SubmitScore() {
+    var model = {
+        "correctAnswers": correctAnswers,
+        "questions": quiz.questions.length,
+        "game": "Kvíz"
+    };
+
+
+    $.ajax({
+        url: "/api/Score/Save",
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify(model),
+        success: function (data) {
+            alert(data);
+            //data = JSON.parse(data);
+            //console.log(data);
+        },
+        error: function (xhr, status, error) {
+            var errorMessage = xhr.status + ': ' + xhr.statusText
+            //alert('Error - ' + errorMessage);
+        }
+    })
+
+}
+
 function post() {
     var data = new FormData();
-    // for (let i = 0; i < input.length; i++) {
-    //     let file = input[i].files[0];
-    //     //use file
-    //     data.append('file', file);
-    // }
     for (let i = 0; i < quiz.questions.length; i++) {
         //console.log(input[i].files);
         data.append("files", quiz.questions[0].question);
@@ -315,7 +378,7 @@ function post() {
 
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:44356/api/Quiz/QuizUpload',
+        url: '/api/Quiz/QuizUpload',
         cache: false,
         processData: false,
         timeout: 0,
@@ -338,41 +401,38 @@ document.getElementById("gameName").onchange = function () {
         return;
     }
     if (!IsDownloaded) {
+        document.getElementById('startQuiz').style.display = 'none';
         names = selectValue;
         IsDownloaded = true;
-        view.displayNumberOfQuestions();
-        quiz.addQuestion(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0]);
+        download();
+        //view.displayNumberOfQuestions();
+        //quiz.addQuestion(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0]);
         //alert(selectValue);
     }
 }
 function download() {
     $.ajax({
         type: 'GET',
-        url: '/api/fileupload/QuizDownload' + "?" + "name=" + names,
+        url: '/api/Quiz/QuizDownload' + "?" + "name=" + names,
         timeout: 0,
         success: function (response) {
+            quiz.questions = [];
             for (var i = 0; i < response.length; i++) {
-                console.log(response[i]);
-                //console.log(JSON.stringify(response[i]));
-                //console.log(JSON.stringify(response[i]));
-                //var actual = JSON.parse(atob(response[i]));
-                //console.log(actual);
-                var img = new Image();
-                //img[i] = response[i];
-                //var Img = document.createElement('img');
-                img.src = "data:image/png;base64," + response[i];
-                img.style.height = "100px";
-                img.style.width = "100px";
-                parent.appendChild(img);
-                //localStorage.setItem(names + i, response[i]);
-                localStorage.setItem("game", name);
-                localStorage.setItem("images", JSON.stringify(response));
-                //window.location.href = '/Home/Memory';
-                //createImage(response[i])
+                console.log(response[i].correct);
+                quiz.addQuestion(response[i].question, response[i].correct, response[i].wrongOne, response[i].wrongTwo)
             }
+            view.displayNumberOfQuestions();
+            console.log(quiz.questions.length)
         },
         error: function (err) {
             console.log(err);
         }
     })
 }
+$(document).ajaxStop(function () {
+    // This function will be triggered every time any ajax request is requested and completed
+    //alert('All Ajax done with success!')
+    view.displayNumberOfQuestions();
+    IsLoaded = true;
+    document.getElementById('startQuiz').style.display = 'inline';
+});

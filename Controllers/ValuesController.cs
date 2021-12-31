@@ -23,23 +23,44 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         public IActionResult Save([FromBody] Score score)
         {
-
-            DateTime mydateTime = DateTime.Now;
-            string sqlDate = mydateTime.ToString("G");
             //získání uživatele ze session
             var name = HttpContext.Session.GetString("UserName");
+            if (name == null)
+            {
+                return BadRequest("Chyba");
+            }
+            SqlCommand command = new SqlCommand();
+            DateTime mydateTime = DateTime.Now;
+            string sqlDate = mydateTime.ToString("G");
+            //string sqlDate = mydateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
+            DateTime myDate = DateTime.Parse(sqlDate);
 
-            SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
+            command.Connection = sqlConnection;
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());
             //string query = "INSERT into UserTable(UserName) VALUES('"+value+"')",connection);
             //SqlCommand command = new SqlCommand($"UPDATE [UserTable] SET Maze = ('{score.score}'), DateTime = ('{sqlDate}') WHERE UserName = @UserName", sqlConnection);
-            SqlCommand command = new SqlCommand($"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)",sqlConnection);
+            if (score.game == "Kvíz")
+            {
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+            }
+            if (score.game == "Bludiště")
+            {
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
+            }
+            if (score.game == "Pexeso")
+            {
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
+            }
+            //command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
             //UPDATE UserTable SET Maze = 1 WHERE UserName = 'petr'
             command.Parameters.AddWithValue("@UserName", name);
             command.Parameters.AddWithValue("@Score", score.score);
             command.Parameters.AddWithValue("@Game", score.game);
-            command.Parameters.AddWithValue("@DateTime", sqlDate);
+            command.Parameters.AddWithValue("@DateTime", myDate);
+            command.Parameters.AddWithValue("@CorrectAnswer", score.correctAnswer);
+            command.Parameters.AddWithValue("@Question", score.question);
             //command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             try
             {

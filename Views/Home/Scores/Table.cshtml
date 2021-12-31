@@ -3,7 +3,9 @@
     ViewData["Title"] = "Výsledky";
  string[] tableHeaders = new string[] {
             "Jméno"
-            ,"Pohyby"
+            ,"Pohyby - Otočení"
+            ,"Správné odpovědi"
+            ,"Počet otázek"
             ,"Hra"
             ,"Čas uložení"};
 }
@@ -37,6 +39,8 @@
                         <th id="score" data-column="Moves" data-order="desc">Skóre &#9650</th>
                         <th id="game" data-column="Games" data-order="desc">Hra &#9650</th>
                         <th id="date" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
+                        <th id="correctAnswer" data-column="CorrectAnswer" data-order="desc">Správné odpovědi &#9650</th>
+                        <th id="question" data-column="Question" data-order="desc">Počet otázek</th>
                     }
                 </tr>
             </thead>
@@ -51,6 +55,8 @@
                                 <td>@data.Moves</td>
                                 <td>@data.Games</td>
                                 <td>@data.DateTime</td>
+                                <td>@data.CorrectAnswer</td>
+                                <td>@data.Question</td>
                             </tr>
                         }
                     }
@@ -74,6 +80,7 @@
             case 'Moves':
                 document.getElementById("date").style.color = 'white'
                 document.getElementById("game").style.color = 'white'
+                document.getElementById("correctAnswer").style.color = 'white'
                 document.getElementById("score").style.color = 'red'
                 if (order == 'desc') {
                     $(this).data('order', "asc")
@@ -84,11 +91,28 @@
                     myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
                     text += '&#9650'
                 }
-            break;
+                break;
+
+            case 'CorrectAnswer':
+                document.getElementById("date").style.color = 'white'
+                document.getElementById("game").style.color = 'white'
+                document.getElementById("score").style.color = 'white'
+                document.getElementById("correctAnswer").style.color = 'red'
+                if (order == 'desc') {
+                    $(this).data('order', "asc")
+                    myArray = myArray.sort((a, b) => a[column] > b[column] ? 1 : -1)
+                    text += '&#9660'
+                } else {
+                    $(this).data('order', "desc")
+                    myArray = myArray.sort((a, b) => a[column] < b[column] ? 1 : -1)
+                    text += '&#9650'
+                }
+                break;
 
             case 'DateTime':
                 document.getElementById("game").style.color = 'white'
                 document.getElementById("score").style.color = 'white'
+                document.getElementById("correctAnswer").style.color = 'white'
                 document.getElementById("date").style.color = 'red'
                 if (order == 'desc') {
                     $(this).data('order', "asc")
@@ -106,10 +130,14 @@
             case 'UserName':
                 return
                 break;
+            case 'Question':
+                return
+                break;
 
             case 'Games':
                 document.getElementById("score").style.color = 'white'
                 document.getElementById("date").style.color = 'white'
+                document.getElementById("correctAnswer").style.color = 'white'
                 document.getElementById("game").style.color = 'red'
                 if (order == 'desc') {
                     $(this).data('order', "asc")
@@ -139,6 +167,8 @@
                             <td>${data[i].Moves}</td>
                             <td>${data[i].Games}</td>
                             <td>${data[i].DateTime}</td>
+                            <td>${data[i].CorrectAnswer}</td>
+                            <td>${data[i].Question}</td>
                       </tr>`
             table.innerHTML += row
         }

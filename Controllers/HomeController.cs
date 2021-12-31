@@ -98,7 +98,7 @@ namespace MVCProject.Controllers
                     gameName.Add(new SelectListItem { Text = @dr["Name"].ToString(),Value= @dr["Name"].ToString() });
                 }
                 ViewBag.gameName = gameName;
-                ViewBag.countQuestion = gameName.Count;
+                //ViewBag.countQuestion = gameName.Count;
                 sqlConnection.Close();
             }
             catch (Exception e)
@@ -129,20 +129,10 @@ namespace MVCProject.Controllers
                 }
                 else
                 {
-                    command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable WHERE UserName = @UserName";
+                    command.CommandText = "SELECT UserName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable WHERE UserName = @UserName";
                 }
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
-                //while (dr.Read())
-                //{
-                //    datas.Add(new Data() { UserName = dr["UserName"].ToString()
-                //    ,Email = dr["Email"].ToString()
-                //    ,Maze = dr["Maze"].ToString()
-                //    ,Pexeso = dr["Pexeso"].ToString()
-                //    ,Quiz = dr["Quiz"].ToString()
-                //    ,DateTime = dr["DateTime"].ToString()
-                //    });
-                //}
                 while (dr.Read())
                 {
                     datas.Add(new Data()
@@ -154,6 +144,10 @@ namespace MVCProject.Controllers
                         Games = dr["Games"].ToString()
                     ,
                         DateTime = dr["DateTime"].ToString()
+                    ,
+                        CorrectAnswer = dr["CorrectAnswer"].ToString()
+                    ,
+                        Question = dr["Question"].ToString()
                     });
                 }
                 ViewData["Data"] = datas;

@@ -9,5 +9,7 @@ namespace MVCProject.Models
     {
         public int score { get; set; }
         public string game { get; set; }
+        public int correctAnswer { get; set; }
+        public int question { get; set; }
     }
 }
