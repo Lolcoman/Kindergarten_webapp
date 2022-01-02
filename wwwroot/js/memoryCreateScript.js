@@ -98,7 +98,7 @@ function CreateNew() {
             //* VYTVOŘENÍ DIVU 
             var iDiv = document.createElement('div');
             iDiv.id = 'block'
-            //iDiv.className = 'block';
+            //iDiv.className = 'item';
             parent.appendChild(iDiv);
 
             //*VYTVOŘENÍ NÁHLEDU

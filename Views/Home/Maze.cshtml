@@ -3,29 +3,24 @@
 }
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/css/mazeStyle.css">
-    <script defer src="~/js/MazeScript.js"></script>
     <title>Bludiště</title>
+    <link rel="stylesheet" type="text/css" href="~/css/selectorStyle.css">
+    <script src="/js/p5js/p5.min.js"></script>
+    <script src="/js/p5js/quicksettings.js"></script>
+    <script defer src="~/js/sketch.js"></script>
+    <script defer src="~/js/aPlay.js"></script>
 </head>
 
 <body>
-    <div class="gameInfo">
-        <div class="message">Gratuluji, vyhrál si!</div>
-        <div class="options">
-            <a onclick="location.reload()"><img src="../../images/backward.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
-            <a onclick="location.href = '@Url.Action("MazeSelector","Home")'"><img src="../../images/arrow.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
-        </div>
-        <div class="score">Pohyby: <span>0</span></div>
-        <!-- test pro API-->
-        @*<button type="submit" onclick="SubmitScore()">Uložit skore</button>*@
-
+    <div class="score">Pohyby: <span>0</span></div>
+    <div class="message">Gratuluji, vyhrál si!</div>
+    <div class="options">
+        <a onclick="location.reload()"><img src="../../images/backward.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
+        <a onclick="location.href = '@Url.Action("MazeSelector","Home")'"><img src="../../images/arrow.png" class="buttons" style="width: 80px;height: 80px;"></img></a>
     </div>
-    <canvas id="canvas" width="1440" height="640" style="border: 8px solid #000"></canvas>
+    <button id="findPath" onclick="autoPlay()">Ukázat cestu</button>
 </body>
-
 </html>

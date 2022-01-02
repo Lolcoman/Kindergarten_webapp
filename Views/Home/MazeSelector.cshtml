@@ -1,7 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Výběř bludiště";
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="cs">
 
 <head>
@@ -9,18 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bludiště</title>
-    <link rel="stylesheet" href="~/css/selectorStyle.css">
+    <link rel="stylesheet" type="text/css" href="~/css/selectorStyle.css">
     <script defer src="~/js/selectorScript.js"></script>
 </head>
 
 <body>
-    <div class="main">
-        <ul>
-            <li><button value="1" onclick="selecting(this.value); location.href = '@Url.Action("Maze","Home")'" id="btn1">1</button></li>
-            <li><button value="2" onclick="selecting(this.value); location.href = '@Url.Action("Maze","Home")'" id="btn2">2</button></li>
-            <li><button value="3" onclick="selecting(this.value); location.href = '@Url.Action("Maze","Home")'" id="btn3">3</button></li>
-        </ul>
-        <p>Bludiště</p>
-    </div>
+    <h1>Vytvoření bludiště</h1>
+    <form name="myForm" onsubmit="myFunction(); return false;">
+        <label for="start">Obrázek startu:</label>
+        <input type="file" name="start" id="start" required>
+        <img id="startPreview" src="#" style="display:none" width="100" height="100" /> <br>
+        <label for="finish">Obrázek cíle:</label>
+        <input type="file" name="finish" id="finish" required>
+        <img id="finishPreview" src="#" style="display:none" width="100" height="100" /> <br>
+        <label for="numberCells">Velikost řádků/sloupců:</label>
+        <input type="number" id="numberCells" name="numberCells" value="100" min="10" step="5" max="100" required> <br>
+        <label for="numberCells">Velikost:</label>
+        <input type="number" id="canvasSize" name="canvasSize" value="800" min="400" max="800" step="100" required> <br>
+        <p>Velikost bludiště : Sloupec/Řádek = celé číslo!</p>
+        <p>př. 500/10 = 50</p>
+        <input type="submit" value="Hrát">
+    </form>
 </body>
 </html>
