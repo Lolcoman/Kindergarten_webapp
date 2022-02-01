@@ -1,0 +1,19 @@
+#settings{
+    display: flex;
+}
+#settingsValues{
+    margin: 10px 50px;
+    width: 30px;
+}
+button,p,select{
+    font-family: "Comic Sans MS", "Comic Sans";
+    font-size: 25px;
+}
+#download{
+    border-radius: 10px;
+    background-color: rgb(75, 231, 96, 0.8);
+}
+#clear{
+    border-radius: 10px;
+    background-color: rgba(253, 45, 45, 0.9);
+}

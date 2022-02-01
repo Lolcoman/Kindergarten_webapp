@@ -88,19 +88,9 @@ var handlers = {
         var correctInput = document.getElementById("correctInput");
         var wrongOneInput = document.getElementById("wrongOneInput");
         var wrongTwoInput = document.getElementById("wrongTwoInput");
-
-        //var quesitonData = imageUploaded(questionInput.files[0]);
-        //localStorage.setItem("questionInput",quesitonData);
-
-        // localStorage.setItem("correctInput",correctInput.files[0]);
-        // localStorage.setItem("wrongOneInput",wrongOneInput.files[0]);
-        // localStorage.setItem("wrongTwoInput",wrongTwoInput.files[0]);
-        //pass the values of the inputs into the addQuestion method in the quiz object which will add them to question array
         quiz.addQuestion(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0]);
         if (IsSaved) {
             post();
-        }
-        //addQuestionHandler(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0],correctInput.files[0]);
 
         //clear the inputs
         questionInput.value = "";
@@ -273,30 +263,13 @@ var view = {
                     //document.body.style.background = "#fc5b56";
                     questionDiv = document.getElementsByClassName("questionDiv");
                     questionDiv[0].style.backgroundColor = "#fc5b56";
-                    //event.target.style.color = "#e74c3c";
-                    // for (i = 0; i < itemChildren.length; i++) {
-                    //   if (itemChildren[i].classList.contains("correct")) {
-                    //     itemChildren[i].style.color = "#2ecc71";
-                    //   }
-                    // }
+
                 }
-                //Remove correct and wrong classes so the same question the score cant go up and colors cant chaneg
-                // var itemChildren = event.target.parentNode.parentNode.children;
-                //? tohle asi není potřeba
-                // let allImg = document.querySelectorAll('img');
-                // for (i = 0; i < allImg.length; i++) {
-                //   allImg[i].classList.remove("correct");
-                //   allImg[i].classList.remove("wrong");  
-                // }
                 let itemChildren = event.target.parentNode.parentNode.children;
                 for (i = 0; i < itemChildren.length; i++) {
                     itemChildren[i].classList.remove("correct");
                     itemChildren[i].classList.remove("wrong");
                 }
-                // let allImg = document.querySelectorAll('img');
-                // allImg.classList.remove("correct");
-                // allImg.classList.remove("wrong");
-
             }
         }
 
@@ -397,6 +370,7 @@ function post() {
 //výběr z dropdown
 document.getElementById("gameName").onchange = function () {
     var selectValue = document.getElementById("gameName").value;
+    document.querySelectorAll('label').style.display = 'none';
     if (selectValue == "") {
         return;
     }
@@ -405,9 +379,6 @@ document.getElementById("gameName").onchange = function () {
         names = selectValue;
         IsDownloaded = true;
         download();
-        //view.displayNumberOfQuestions();
-        //quiz.addQuestion(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0]);
-        //alert(selectValue);
     }
 }
 function download() {

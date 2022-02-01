@@ -37,6 +37,10 @@ namespace MVCProject.Controllers
         {
             return View();
         }
+        public IActionResult Draw()
+        {
+            return View();
+        }
 
         public IActionResult Maze()
         {

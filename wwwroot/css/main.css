@@ -140,7 +140,30 @@ button {
     transform: translateY(0);
   }
 }
+.frog {
+    position: absolute;
+    left: 30%;
+    top: 63%;
+    cursor: pointer;
+}
+#frog-head,#mouth,#l-eye,#r-eye,#l-eye-inside,#r-eye-inside {
+    animation: moveupdown 2s infinite linear;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+@keyframes moveupdown {
+    0% {
+        transform: translateY(0);
+    }
 
+    50% {
+        transform: translateY(5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
 .dog {
   position: absolute;
   left: 30%;
@@ -173,6 +196,7 @@ button {
 .dog:hover,
 .chicken:hover,
 .pig:hover,
+.frog:hover,
 .group:hover {
   transition: all 2s ease-in infinite;
   filter: drop-shadow(0 0 20px hsl(0, 100%, 50%));
@@ -215,6 +239,20 @@ button {
 #quiz-pig {
     top: 680px;
     left: 1220px;
+    position: absolute;
+    font-family: Comic Sans MS;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+#draw-frog {
+    top: 810px;
+    left: 615px;
     position: absolute;
     font-family: Comic Sans MS;
     font-size: 25px;
