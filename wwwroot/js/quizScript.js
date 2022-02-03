@@ -89,17 +89,19 @@ var handlers = {
         var wrongOneInput = document.getElementById("wrongOneInput");
         var wrongTwoInput = document.getElementById("wrongTwoInput");
         quiz.addQuestion(questionInput.files[0], correctInput.files[0], wrongOneInput.files[0], wrongTwoInput.files[0]);
-        if (IsSaved) {
+        if (IsSaved)
+        {
             post();
 
-        //clear the inputs
-        questionInput.value = "";
-        correctInput.value = "";
-        wrongOneInput.value = "";
-        wrongTwoInput.value = "";
-        let allImg = document.querySelectorAll('img');
-        for (i = 0; i < allImg.length; i++) {
-            allImg[i].src = "#";
+            //clear the inputs
+            questionInput.value = "";
+            correctInput.value = "";
+            wrongOneInput.value = "";
+            wrongTwoInput.value = "";
+            let allImg = document.querySelectorAll('img');
+            for (i = 0; i < allImg.length; i++) {
+                allImg[i].src = "#";
+            }
         }
     }
 }
@@ -107,8 +109,10 @@ var handlers = {
 var view = {
     //This runs when you click start quiz
     displayQuestions: function () {
-        if (IsDownloaded) {
-            if (!IsLoaded) {
+        if (IsDownloaded)
+        {
+            if (!IsLoaded)
+            {
                 return
             }
         }
@@ -272,9 +276,7 @@ var view = {
                 }
             }
         }
-
     },
-
     //count objects in array to show how many questions added to screen
     displayNumberOfQuestions: function () {
         var numberLi = document.getElementById("NumberQuestionsInQuiz");
@@ -370,7 +372,13 @@ function post() {
 //výběr z dropdown
 document.getElementById("gameName").onchange = function () {
     var selectValue = document.getElementById("gameName").value;
-    document.querySelectorAll('label').style.display = 'none';
+    //schová možnosti přidat otázku
+    document.querySelector('[for="wrongOneInput"]').style.display = 'none';
+    document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
+    document.querySelector('[for="questionInput"]').style.display = 'none';
+    document.querySelector('[for="correctInput"]').style.display = 'none';
+    document.querySelector('[class="images"]').style.display = 'none';
+    document.querySelector('button').style.display = 'none';
     if (selectValue == "") {
         return;
     }
@@ -406,4 +414,5 @@ $(document).ajaxStop(function () {
     view.displayNumberOfQuestions();
     IsLoaded = true;
     document.getElementById('startQuiz').style.display = 'inline';
+    IsDownloaded = false;
 });

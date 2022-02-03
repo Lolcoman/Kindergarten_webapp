@@ -18,7 +18,9 @@ input {
     border: none;
     outline: none;
 }
-
+#btnAgain {
+    background-color: #cc2e2e;
+}
 button {
     padding: 8px 20px;
     background-color: #2ecc71;
@@ -165,4 +167,7 @@ select {
     font-family: inherit;
     font-size: 16px;
     transition: all 150ms ease;
+}
+option:first-child {
+    display: none;
 }
