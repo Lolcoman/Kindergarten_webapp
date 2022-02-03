@@ -3,11 +3,12 @@ var quizName = document.getElementById('quizName');
 var IsDownloaded = false;
 var names;
 var IsLoaded = false;
+var IsAgainSelect = false;
 var correctAnswers = 0;
 if (confirm('Chcete otázky uložit?')) {
     // Save it!
     quizName.style.display = "block";
-    quizName.addEventListener("focusout", disableInput);
+    //quizName.addEventListener("focusout", disableInput);
     IsSaved = true;
     console.log('Thing was saved to the database.');
 } else {
@@ -166,6 +167,7 @@ var view = {
             //correctLi.nextSibling(image);
             if (IsDownloaded) {
                 correctImg.src = "data:image/png;base64," + (question.correct);
+                //IsDownloaded = false;
             }
             else {
                 correctImg.src = URL.createObjectURL(question.correct);
@@ -295,19 +297,15 @@ var view = {
 }
 
 function readURL(input, img_id) {
-
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
             $('#' + img_id).attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 }
 $(".img-up").change(function () {
-
     readURL(this, $(this).attr('data-id'));
 });
 
@@ -335,7 +333,6 @@ function SubmitScore() {
             //alert('Error - ' + errorMessage);
         }
     })
-
 }
 
 function post() {
@@ -373,20 +370,23 @@ function post() {
 document.getElementById("gameName").onchange = function () {
     var selectValue = document.getElementById("gameName").value;
     //schová možnosti přidat otázku
-    document.querySelector('[for="wrongOneInput"]').style.display = 'none';
-    document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
-    document.querySelector('[for="questionInput"]').style.display = 'none';
-    document.querySelector('[for="correctInput"]').style.display = 'none';
-    document.querySelector('[class="images"]').style.display = 'none';
-    document.querySelector('button').style.display = 'none';
+    hideAll();
     if (selectValue == "") {
         return;
     }
-    if (!IsDownloaded) {
+    if (!IsAgainSelect) {
+        IsAgainSelect = true;
         document.getElementById('startQuiz').style.display = 'none';
         names = selectValue;
         IsDownloaded = true;
         download();
+
+        //if (!IsDownloaded) {
+        //    document.getElementById('startQuiz').style.display = 'none';
+        //    names = selectValue;
+        //    IsDownloaded = true;
+        //    download();
+        //}
     }
 }
 function download() {
@@ -414,5 +414,15 @@ $(document).ajaxStop(function () {
     view.displayNumberOfQuestions();
     IsLoaded = true;
     document.getElementById('startQuiz').style.display = 'inline';
-    IsDownloaded = false;
+    //IsDownloaded = false;
+    IsAgainSelect = false;
 });
+
+function hideAll() {
+    document.querySelector('[for="wrongOneInput"]').style.display = 'none';
+    document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
+    document.querySelector('[for="questionInput"]').style.display = 'none';
+    document.querySelector('[for="correctInput"]').style.display = 'none';
+    document.querySelector('[class="images"]').style.display = 'none';
+    document.querySelector('button').style.display = 'none';
+}
