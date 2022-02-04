@@ -18,9 +18,9 @@ function setup() {
     settingsTitles.id('settingsTitles');
     var settingsValues = createDiv().parent(settings);
     settingsValues.id('settingsValues');
-    createP('Barva štětce &#128396;').parent(settingsTitles);
-    createP('Barva pozadí &#128444;').parent(settingsTitles);
-    createP('Tloušťka štětce &#10687;').parent(settingsTitles);
+    createP('Barva štětce &#128396;').parent(settingsTitles).style('margin-left:5px');
+    createP('Barva pozadí &#128444;').parent(settingsTitles).style('margin-left:5px');
+    createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
     paintColor = createColorPicker('white').parent(settingsValues).style('margin-top:10px;width: 50px; height: 50px');
     backgroundColor = createColorPicker('grey').parent(settingsValues).style('margin-top: 10px; width: 50px; height: 50px');
     paintWidth = createSelect(false).parent(settingsValues).style('margin-top: 10px');
