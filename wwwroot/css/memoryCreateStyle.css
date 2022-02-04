@@ -1,5 +1,5 @@
 body {
-    background-color: lightskyblue;
+    background-color: #133c64;
     padding: 0;
     margin: 0;
     font-family: Comic Sans MS;
@@ -63,27 +63,9 @@ select {
     font-size: 16px;
     transition: all 150ms ease;
 }
-/*option {
-    width: auto;
-}
-
-select:required:invalid {
-    color: #5a667f;
-}
-
-select option {
-    color: #223254;
-}
-
-select option[value=""][disabled] {
+option:first-child {
     display: none;
 }
-
-select:focus {
-    outline: none;
-    border-color: #07f;
-    box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
-}*/
 option {
     font-size: 18px;
     background-color: #ffffff;
