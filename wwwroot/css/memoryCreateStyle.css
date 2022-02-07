@@ -191,3 +191,7 @@ div#block {
     /* The width of the container also implies margin around the images. */
     width: 125px;
 }
+input[type='file'] {
+    color: transparent;
+    margin-left: 5px;
+}
