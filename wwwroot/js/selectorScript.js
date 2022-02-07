@@ -29,6 +29,13 @@ function myFunction() {
     if (isInt(checkNumber)) {
         localStorage.setItem("Cells", number)
         localStorage.setItem("Canvas", canvasSize)
+        //pokud se nevyplní obrázky
+        if (inputs[0].value == "") {
+            window.location = "Maze"
+            var frm = document.getElementsByName('myForm')[0];
+            frm.reset();
+            return
+        }
         for (var i = 0; i < inputs.length; i++) {
             if (i == 0) {
                 let reader = new FileReader();

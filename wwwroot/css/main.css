@@ -285,3 +285,21 @@ text {
 #toast-success.fade{
     opacity:0;
 }
+@media (max-width: 1600px) {
+    #pex-chicken {
+        left: 1020px !important;
+        top: 280px !important;
+    }
+    #maze-dog{
+        top: 420px !important;
+        left: 500px !important;
+    }
+    #draw-frog{
+        top: 760px !important;
+        left: 520px !important;
+    }
+    #quiz-pig{
+        top: 640px !important;
+        left: 1030px !important;
+    }
+}

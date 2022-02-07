@@ -171,3 +171,13 @@ select {
 option:first-child {
     display: none;
 }
+@media (max-width: 1600px) {
+    #btnAgain {
+        margin-top: 0 !important;
+    }
+
+    .images {
+        padding-left: 375px !important;
+        padding-right: 285px !important;
+    }
+}
