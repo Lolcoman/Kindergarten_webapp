@@ -46,8 +46,9 @@ var quiz = {
                 //Find the element that was clicked
                 var elementClicked = event.target;
                 if (elementClicked.textContent == "Konec") {
-                    SubmitScore();
-                    alert("Vysledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
+                    SubmitScore();  
+                    alert("Výsledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
+                    location.reload();
                     //continue;
                 }
                 //If it was a next button then remove the is-active class from it parent

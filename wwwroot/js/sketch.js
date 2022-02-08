@@ -141,15 +141,24 @@ class Cell {
             //noStroke();
             //image(img,0,0);
             if (window.localStorage.length <= 3) {
-                fill(0, 0, 255, 100);
+                fill(255, 0, 0);
+            }
+            else {
+                noFill();
+                image(img, x, y, w, w);
             }
             //noFill();
-            image(img, x, y, w, w);
+            //image(img, x, y, w, w);
             //noFill();
             rect(x, y, w, w);
             if (pos == 1) {
-                image(img1, x, y, w, w);
-                noFill();
+                if (window.localStorage.length <= 3) {
+                    fill(0, 255, 0);
+                }
+                else{
+                    image(img1, x, y, w, w);
+                    noFill();
+                }
                 rect(x, y, w, w);
             }
         };

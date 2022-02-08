@@ -6,6 +6,11 @@ var clearBtn; //btn smazání
 var drawplate; //canvas
 var x = 1400; //šířka canvasu
 var y = 700; //výška canvasu
+var startMouseX = -1;
+var startMouseY = -1;
+var drawing = false;
+var IsNormalDraw = false;
+var IsLineDraw = false;
 
 function setup() {
     lines = [];
@@ -29,6 +34,8 @@ function setup() {
     paintWidth.option('12');
     paintWidth.option('16');
     paintWidth.selected('12');
+    lineBtn = createButton('čára').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 50px');
+    drawBtn = createButton('normální').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 5px');
     clearBtn = createButton('Smazat').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 450px');
     clearBtn.id('clear');
     downloadBtn = createButton('Stáhnout').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 20px');
@@ -39,16 +46,60 @@ function draw() {
     background(backgroundColor.value());
     clearBtn.mousePressed(clearCanvas);
     downloadBtn.mousePressed(saveToFile);
-    //cyklus pro kliknutí a držení myši na canvasu
-    if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
-        var line = new NewLine(paintColor.value(), paintWidth.value());
-        lines.push(line);
+
+    lineBtn.mousePressed(lineToTool);
+    drawBtn.mousePressed(drawNormal);
+
+    if (IsLineDraw) {
+        updatePixels();
+        for (var element of lines) {
+            element.show()
+        }
+        if (mouseIsPressed) {
+            //if it's the start of drawing a new line
+            if (startMouseX == -1) {
+                startMouseX = mouseX;
+                startMouseY = mouseY;
+                drawing = true;
+                //save the current pixel Array
+                loadPixels();
+            }
+            else {
+                //update the screen with the saved pixels to hide any previous
+                //line between mouse pressed and released
+                updatePixels();
+                //draw the line
+                line(startMouseX, startMouseY, mouseX, mouseY);
+            }
+        }
+        else if (drawing) {
+            //save the pixels with the most recent line and reset the
+            //drawing bool and start locations
+            loadPixels();
+            drawing = false;
+            startMouseX = -1;
+            startMouseY = -1;
+        }
     }
-    //vykreslení čar z pole lines na canvas
-    for(var element of lines){
-        element.show()
+    if (IsNormalDraw) {
+        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
+            var linee = new NewLine(paintColor.value(), paintWidth.value());
+            lines.push(linee);
+        }
+        for (var element of lines) {
+            element.show()
+        }
     }
 }
+    //cyklus pro kliknutí a držení myši na canvasu
+    //if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
+    //    var linee = new NewLine(paintColor.value(), paintWidth.value());
+    //    lines.push(linee);
+    //}
+    ////vykreslení čar z pole lines na canvas
+    //for(var element of lines){
+    //    element.show()
+    //}
 //uložení canaasu jako 'png'
 function saveToFile() {
     saveCanvas('mycanvas', 'png')
@@ -57,4 +108,14 @@ function saveToFile() {
 function clearCanvas()
 {
     lines = []
+}
+
+function drawNormal() {
+    IsNormalDraw = true;
+    IsLineDraw = false;
+}
+
+function lineToTool() {
+    IsLineDraw = true;
+    IsNormalDraw = false;
 }
