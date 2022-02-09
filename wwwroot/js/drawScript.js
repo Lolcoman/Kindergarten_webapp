@@ -51,43 +51,50 @@ function draw() {
     drawBtn.mousePressed(drawNormal);
 
     if (IsLineDraw) {
-        updatePixels();
         for (var element of lines) {
             element.show()
         }
-        if (mouseIsPressed) {
-            //if it's the start of drawing a new line
-            if (startMouseX == -1) {
-                startMouseX = mouseX;
-                startMouseY = mouseY;
-                drawing = true;
-                //save the current pixel Array
+        this.draw = function () {
+            //only draw when mouse is clicked
+            if (mouseIsPressed) {
+                drawBtn.mousePressed(drawNormal);
+                //if it's the start of drawing a new line
+                if (startMouseX == -1) {
+                    startMouseX = mouseX;
+                    startMouseY = mouseY;
+                    drawing = true;
+                    //save the current pixel Array
+                    loadPixels();
+                }
+
+                else {
+                    //update the screen with the saved pixels to hide any previous
+                    //line between mouse pressed and released
+                    updatePixels();
+                    //draw the line
+                    line(startMouseX, startMouseY, mouseX, mouseY);
+                }
+            }
+            else if (drawing) {
+                //save the pixels with the most recent line and reset the
+                //drawing bool and start locations
                 loadPixels();
+                drawing = false;
+                startMouseX = -1;
+                startMouseY = -1;
             }
-            else {
-                //update the screen with the saved pixels to hide any previous
-                //line between mouse pressed and released
-                updatePixels();
-                //draw the line
-                line(startMouseX, startMouseY, mouseX, mouseY);
-            }
-        }
-        else if (drawing) {
-            //save the pixels with the most recent line and reset the
-            //drawing bool and start locations
-            loadPixels();
-            drawing = false;
-            startMouseX = -1;
-            startMouseY = -1;
-        }
+        };
     }
+
     if (IsNormalDraw) {
-        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
-            var linee = new NewLine(paintColor.value(), paintWidth.value());
-            lines.push(linee);
-        }
-        for (var element of lines) {
-            element.show()
+        this.draw = function () {
+            if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
+                var linee = new NewLine(paintColor.value(), paintWidth.value());
+                lines.push(linee);
+            }
+            for (var element of lines) {
+                element.show()
+            }
         }
     }
 }
@@ -113,6 +120,7 @@ function clearCanvas()
 function drawNormal() {
     IsNormalDraw = true;
     IsLineDraw = false;
+    return
 }
 
 function lineToTool() {
