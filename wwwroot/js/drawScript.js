@@ -14,10 +14,11 @@ var filled = false;
 var onlyOne = true;
 var IsNormalDraw = false;
 var IsLineDraw = false;
+var cnvBackground;
 
 function setup() {
     lines = [];
-    drawplate = createCanvas(x,y);
+    drawplate = createCanvas(x, y);
     drawplate.id('my_canvas');
     drawplate.position(260, 300,'sticky');
     var settings = createDiv();
@@ -33,6 +34,9 @@ function setup() {
     createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
     paintColor = createColorPicker('white').parent(settingsValues).style('margin-top:10px;width: 55px; height: 55px');
     backgroundColor = createColorPicker('grey').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px');
+    backgroundColor.id('background');
+    //backgroundColor.changed(backgroundChange);
+    cnvBackground = document.getElementById('background');
     paintWidth = createSelect(false).parent(settingsValues).style('margin-top: 10px');
     paintWidth.option('4');
     paintWidth.option('8');
@@ -55,7 +59,7 @@ function setup() {
 }
 
 function draw() {
-    //background(backgroundColor.value());
+    background(backgroundColor.value());
     clearBtn.mousePressed(clearCanvas);
     downloadBtn.mousePressed(saveToFile);
 
@@ -85,6 +89,7 @@ function draw() {
                 filled = true;
                 fillRect.style.backgroundImage = "url('../images/rectFill.png')";
             }
+            drawRect();
         });
         drawRect();
     }
@@ -96,36 +101,44 @@ function saveToFile() {
 //smazání canvasu
 function clearCanvas()
 {
+    clear();
+    background(backgroundColor.value());
+    cnvBackground.disabled = false;
     lines = []
 }
 
 function drawNormal() {
     this.draw = function () {
         //background(backgroundColor.value());
+
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
         //background(backgroundColor.value());
         if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
-            background(backgroundColor.value());
+            cnvBackground.disabled = true;
+            //background(backgroundColor.value());
             var linee = new NewLine(paintColor.value(), paintWidth.value());
             lines.push(linee);
         }
         for (var element of lines) {
             element.show()
         }
+        //background(backgroundColor.value());
     }
 }
 
 function drawLine() {
     this.draw = function () {
+        //background(backgroundColor.value());
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
         //only draw when mouse is clicked
         if (mouseIsPressed) {
+            cnvBackground.disabled = true;
             strokeWeight(paintWidth.value());
             stroke(paintColor.value());
 
-            background(backgroundColor.value());
+            //background(backgroundColor.value());
 
             drawBtn.mousePressed(drawNormal);
             //if it's the start of drawing a new line
@@ -153,6 +166,7 @@ function drawLine() {
             startMouseX = -1;
             startMouseY = -1;
         }
+        //background(backgroundColor.value());
     }
 }
 
@@ -164,9 +178,10 @@ function drawRect() {
 
         //only draw when mouse is clicked
         if (mouseIsPressed) {
+            cnvBackground.disabled = true;
             strokeWeight(paintWidth.value());
             stroke(paintColor.value());
-            background(backgroundColor.value());
+            //background(backgroundColor.value());
             if (filled == true) {
                 fill(paintColor.value());
             }
@@ -200,5 +215,6 @@ function drawRect() {
             startMouseX = -1;
             startMouseY = -1;
         }
+        //background(backgroundColor.value());
     }
 }
