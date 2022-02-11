@@ -79,7 +79,7 @@ function draw() {
             fillRect.style.backgroundImage = "url('../images/rect.png')";
             onlyOne = false;
         }
-        //přepnutí výplně
+        //přepnutí výplně a následné kreslení
         document.getElementById('fillRect').addEventListener('click', function () {
             if (filled) {
                 filled = false;
@@ -106,115 +106,102 @@ function clearCanvas()
     cnvBackground.disabled = false;
     lines = []
 }
-
+//kreslení normální
 function drawNormal() {
     this.draw = function () {
-        //background(backgroundColor.value());
-
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
-        //background(backgroundColor.value());
+        //pokud je kliknuto na canvas levým tlačítkem, tak se začne kreslit
+
+        //KLIKNUTÍ PRAVÝM
+        if (mouseButton == RIGHT && mouseX < x && mouseY < y) {
+            return false;
+        }
         if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
             cnvBackground.disabled = true;
-            //background(backgroundColor.value());
             var linee = new NewLine(paintColor.value(), paintWidth.value());
             lines.push(linee);
         }
         for (var element of lines) {
             element.show()
         }
-        //background(backgroundColor.value());
     }
 }
-
+//kreslení čáry
 function drawLine() {
     this.draw = function () {
-        //background(backgroundColor.value());
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
-        //only draw when mouse is clicked
-        if (mouseIsPressed) {
+        //pokud je kliknuto na canvas levým tlačítkem, tak se začne kreslit
+        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
             cnvBackground.disabled = true;
             strokeWeight(paintWidth.value());
             stroke(paintColor.value());
-
-            //background(backgroundColor.value());
-
             drawBtn.mousePressed(drawNormal);
             //if it's the start of drawing a new line
             if (startMouseX == -1) {
                 startMouseX = mouseX;
                 startMouseY = mouseY;
                 drawing = true;
-                //save the current pixel Array
+                //uložení do pixel array
                 loadPixels();
             }
 
             else {
-                //update the screen with the saved pixels to hide any previous
-                //line between mouse pressed and released
+                //načtení pixel array
                 updatePixels();
-                //draw the line
+                //kreslení čáry
                 line(startMouseX, startMouseY, mouseX, mouseY);
             }
         }
         else if (drawing) {
-            //save the pixels with the most recent line and reset the
-            //drawing bool and start locations
+            //načtení pixel array
             loadPixels();
             drawing = false;
             startMouseX = -1;
             startMouseY = -1;
         }
-        //background(backgroundColor.value());
     }
 }
 
 function drawRect() {
     this.draw = function () {
-        //background(backgroundColor.value());
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
-
-        //only draw when mouse is clicked
-        if (mouseIsPressed) {
+        //pokud je kliknuto na canvas levým tlačítkem, tak se začne kreslit
+        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
             cnvBackground.disabled = true;
             strokeWeight(paintWidth.value());
             stroke(paintColor.value());
-            //background(backgroundColor.value());
+            //nastavení výplně čtverce
             if (filled == true) {
                 fill(paintColor.value());
             }
             else {
                 noFill();
             }
-
-            //if it's the start of drawing a new rectangle
             if (startMouseX == -1) {
                 startMouseX = mouseX;
                 startMouseY = mouseY;
                 drawing = true;
-                //save the current pixel Array
+                //načtení pixel array
                 loadPixels();
             }
 
             else {
-                //update the screen with the saved pixels to hide any previous rectangles
+                //načtení pixel array
                 updatePixels();
-                //draw the rectangle
+                //kreslení čtverce
                 rect(startMouseX, startMouseY, mouseX - startMouseX, mouseY - startMouseY);
             }
 
         }
-
         else if (drawing) {
-            //save the pixels with the most recent rectangle and reset the
-            //drawing bool and start locations
+            //načtení pixel array
             loadPixels();
             drawing = false;
             startMouseX = -1;
             startMouseY = -1;
         }
-        //background(backgroundColor.value());
     }
 }
