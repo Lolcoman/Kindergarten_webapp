@@ -203,4 +203,18 @@ input[type='file'] {
         padding-left: 375px !important;
         padding-right: 285px !important;
     }
+    img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    #score, #bad-score {
+        font-size: 30px;
+    }
+    #game-board {
+        height: 745px;
+    }
+    #game-board > div {
+        height: 120px;
+        width: 120px;
+    }
 }

@@ -94,3 +94,24 @@
 #game-board > div:active {
     transform: rotate(90deg);
 }
+
+@media (max-width: 1600px) {
+    img {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    .images {
+        padding-left: 375px !important;
+        padding-right: 285px !important;
+    }
+    #score, #bad-score {
+        font-size: 30px;
+    }
+    #game-board {
+        height: 745px;
+    }
+    #game-board > div {
+         height: 120px;
+         width: 120px;
+    }
+}

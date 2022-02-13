@@ -245,10 +245,8 @@ function download() {
 
 function create() {
     if (confirm('Opravdu chcete vytvořit pexeso?')) {
-        // Save it!
         window.location.href = '/Home/Memory';
     } else {
-        // Do nothing!
         return
     }
 }
