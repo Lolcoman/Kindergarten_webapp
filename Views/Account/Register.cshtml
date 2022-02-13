@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/authStyle.css" />
+    <script defer src="~/js/authScript.js"></script>
     <title>Registrace</title>
     <script defer src="~/js/someeAdsRemove.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
@@ -29,6 +30,15 @@
                 <label for="Email" asp-for="Email">Email</label>
                 <input id="Email" name="Email" type="email" asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Admin">Pedagog</label>
+                <input type="checkbox" id="AdminCheckbox" name="AdminCheckbox" />
+            </div>
+            <div class="form-group">
+                <label for="AdminKey" name="AdminLabel" asp-for="AdminKey">Aktivační kód</label>
+                <input id="AdminKey" name="AdminKey" type="text" asp-for="AdminKey" class="form-control" />
+                <span asp-validation-for="AdminKey" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="Password" asp-for="Password">Heslo</label>

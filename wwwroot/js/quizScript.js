@@ -381,13 +381,6 @@ document.getElementById("gameName").onchange = function () {
         names = selectValue;
         IsDownloaded = true;
         download();
-
-        //if (!IsDownloaded) {
-        //    document.getElementById('startQuiz').style.display = 'none';
-        //    names = selectValue;
-        //    IsDownloaded = true;
-        //    download();
-        //}
     }
 }
 function download() {

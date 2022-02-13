@@ -10,7 +10,7 @@ var startMouseY = -1;
 var drawing = false;
 var self = this;
 var filled = false;
-var onlyOne = false;
+var onlyOne = true;
 var IsNormalDraw = false;
 var IsLineDraw = false;
 var cnvBackground;
@@ -22,6 +22,10 @@ var IsSprayShow = false;
 var IsFillShow = false;
 
 function setup() {
+    if (window.innerWidth <= 1600) {
+        x = 1100;
+        y = 600;
+    }
     lines = [];
     drawplate = createCanvas(x, y);
     drawplate.id('my_canvas');
@@ -39,8 +43,8 @@ function setup() {
     createP('Barva štětce &#128396;').parent(settingsTitles).style('margin-left:5px');
     createP('Barva pozadí &#128444;').parent(settingsTitles).style('margin-left:5px');
     createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
-    paintColor = createColorPicker('white').parent(settingsValues).style('margin-top:10px;width: 55px; height: 55px');
-    backgroundColor = createColorPicker('grey').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px');
+    paintColor = createColorPicker('black').parent(settingsValues).style('margin-top:10px;width: 55px; height: 55px');
+    backgroundColor = createColorPicker('white').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px');
     backgroundColor.id('background');
     //backgroundColor.changed(backgroundChange);
     cnvBackground = document.getElementById('background');
@@ -62,7 +66,7 @@ function setup() {
     //čtverec
     rectBtn = createButton('').parent(rectDraw).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rect.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     rectBtn.id('rect');
-    clearBtn = createButton('Smazat').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 450px');
+    clearBtn = createButton('Smazat').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 175px');
     clearBtn.id('clear');
     downloadBtn = createButton('Stáhnout').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 20px');
     downloadBtn.id('download');
@@ -75,6 +79,9 @@ function draw() {
 
     //normální kreslení
     document.getElementById('normal').onclick = function () {
+        if (IsSprayShow) {
+            sprayHide();
+        }
         if (IsFillShow) {
             fillHide();
         }
@@ -82,6 +89,9 @@ function draw() {
     }
     //čára
     document.getElementById('line').onclick = function () {
+        if (IsSprayShow) {
+            sprayHide();
+        }
         if (IsFillShow) {
             fillHide();
         }
@@ -89,23 +99,21 @@ function draw() {
     }
     //čtverec
     document.getElementById('rect').onclick = function () {
-        if (!IsFillShow) {
-            drawRect();
-            fillShow();
+        if (IsSprayShow) {
+            sprayHide();
         }
-        if (!onlyOne) {
+        if (onlyOne) {
             btnFill = createButton('').parent(rectDraw).style('margin-top: 10px; width: 55px; height: 55px; display: block; margin-left: 20px');
             btnFill.id('fillRect');
             fillRect.style.backgroundImage = "url('../images/noFill.png')";
-            onlyOne = true;
+            onlyOne = false;
             IsFillShow = true;
         }
         else {
-            return
+            fillShow();
         }
         //přepnutí výplně a následné kreslení
-        document.getElementById('fillRect').addEventListener('click', function () {
-            IsFillShow = true;
+        document.getElementById('fillRect').onclick = function () {
             if (filled) {
                 filled = false;
                 fillRect.style.backgroundImage = "url('../images/noFill.png')";
@@ -115,8 +123,8 @@ function draw() {
                 fillRect.style.backgroundImage = "url('../images/yesFill.png')";
             }
             drawRect();
-        });
-        drawRect();
+        };
+       drawRect();
     }
     //sprej
     document.getElementById('spray').onclick = function () {
@@ -134,6 +142,9 @@ function draw() {
             valueDisplayer1 = createP().parent(sprayDiv).style("margin-top:0;margin-bottom:0;margin-left:20px;display:block;font-size:18px;");
             valueDisplayer1.id('valueDisplayer1');
             onlyOneSpray = false;
+        }
+        else {
+            sprayShow();
         }
         spray();
     }
@@ -218,10 +229,6 @@ function drawLine() {
 }
 //kreslení čtverce
 function drawRect() {
-    if (!IsFillShow) {
-        fillShow();
-    }
-    IsFillShow = true;
     this.draw = function () {
         clearBtn.mousePressed(clearCanvas);
         downloadBtn.mousePressed(saveToFile);
@@ -298,11 +305,9 @@ function sprayShow() {
 }
 function fillHide() {
     IsFillShow = false;
-    onlyOne = false;
     document.getElementById('fillRect').style.display = 'none';
 }
 function fillShow() {
     IsFillShow = true;
-    onlyOne = true;
     document.getElementById('fillRect').style.display = 'block';
 }

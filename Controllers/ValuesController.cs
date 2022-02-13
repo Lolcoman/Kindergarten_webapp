@@ -44,24 +44,33 @@ namespace MVCProject.Controllers
             if (score.game == "Kvíz")
             {
                 command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@Score", score.score);
+                command.Parameters.AddWithValue("@Game", score.game);
+                command.Parameters.AddWithValue("@DateTime", myDate);
+                command.Parameters.AddWithValue("@CorrectAnswer", score.correctAnswer);
+                command.Parameters.AddWithValue("@Question", score.question);
             }
             if (score.game == "Bludiště")
             {
-                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@Score", score.score);
+                command.Parameters.AddWithValue("@Game", score.game);
+                command.Parameters.AddWithValue("@DateTime", myDate);
+                command.Parameters.AddWithValue("@CorrectAnswer", 0);
+                command.Parameters.AddWithValue("@Question", 0);
             }
             if (score.game == "Pexeso")
             {
-                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@Score", score.score);
+                command.Parameters.AddWithValue("@Game", score.game);
+                command.Parameters.AddWithValue("@DateTime", myDate);
+                command.Parameters.AddWithValue("@CorrectAnswer", 0);
+                command.Parameters.AddWithValue("@Question", 0);
             }
-            //command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime) VALUES (@UserName,@Score,@Game,@DateTime)";
-            //UPDATE UserTable SET Maze = 1 WHERE UserName = 'petr'
-            command.Parameters.AddWithValue("@UserName", name);
-            command.Parameters.AddWithValue("@Score", score.score);
-            command.Parameters.AddWithValue("@Game", score.game);
-            command.Parameters.AddWithValue("@DateTime", myDate);
-            command.Parameters.AddWithValue("@CorrectAnswer", score.correctAnswer);
-            command.Parameters.AddWithValue("@Question", score.question);
-            //command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             try
             {
                 sqlConnection.Open();

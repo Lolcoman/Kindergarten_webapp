@@ -18,8 +18,10 @@ button,p,select{
     background-color: rgba(253, 45, 45, 0.9);
 }
 @media (max-width: 1600px) {
-    #my_canvas {
-        height: 600px !important;
-        width: 1300px !important;
+    #clear {
+        margin-left: 40px !important;
     }
+}
+body{
+    background-color:gray;
 }

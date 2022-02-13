@@ -51,13 +51,22 @@ namespace MVCProject.Controllers
             string CrypPassword = registerViewModel.Password;
             CrypPassword = BCrypt.Net.BCrypt.HashPassword(CrypPassword);
 
-
             //string query = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";
-            uQuery = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";
+            uQuery = "INSERT INTO [UserTable](UserName,Email,Password,Role) VALUES (@username, @email, @password, @role)";
             SqlCommand command = new SqlCommand(uQuery,sql);
             command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             command.Parameters.AddWithValue("@email", registerViewModel.Email);
-            command.Parameters.AddWithValue("@password", CrypPassword); 
+            command.Parameters.AddWithValue("@password", CrypPassword);
+            if (registerViewModel.AdminKey == "9qf+TZ")
+            {
+                registerViewModel.AdminKey = "pedagog";
+                command.Parameters.AddWithValue("@role",registerViewModel.AdminKey);
+            }
+            else
+            {
+                command.Parameters.AddWithValue("@role", "dite");
+            }
+
             try
             {
                 sql.Open();
@@ -76,18 +85,6 @@ namespace MVCProject.Controllers
             {
                 sql.Close();
             }
-
-
-
-            //string query = "Insert into [UserTable](UserName,Email,Password)" + $"values('{registerViewModel.UserName}','{registerViewModel.Email}','{CrypPassword}')";
-
-           //int result = help.DMLTransaction(query);
-            //Pokud je hodnota větší než 0, data se uloží do databáze
-            //if (result > 0)
-            //{
-            //    EntryIntoSession(registerViewModel.UserName);
-            //    return RedirectToAction("Index", "Home");
-            //}
             return View();
         }
 

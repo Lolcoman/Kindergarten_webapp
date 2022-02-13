@@ -23,7 +23,7 @@ namespace MVCProject.Controllers
         SqlDataReader dr;
         List<Data> datas = new List<Data>();
         SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
-
+        string role;
         //pro debug při logování
         //private readonly ILogger<HomeController> _logger;
 
@@ -115,7 +115,30 @@ namespace MVCProject.Controllers
         //získání dat z DB pro tabulku výsledků
         private void FillData()
         {
-            var name = HttpContext.Session.GetString("UserName");
+            //načtení role z databáze
+            string name = HttpContext.Session.GetString("UserName");
+            string selectSql = "SELECT UserName,Role FROM UserTable WHERE UserName = @name";
+            SqlCommand com = new SqlCommand(selectSql, sqlConnection);
+            com.Parameters.AddWithValue("@name", name);
+            try
+            {
+                sqlConnection.Open();
+                using (SqlDataReader read = com.ExecuteReader())
+                {
+                    while (read.Read())
+                    {
+                        role = (read["Role"].ToString());
+                    }
+                }
+                sqlConnection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
             if (datas.Count > 0)
             {
                 datas.Clear();
@@ -124,12 +147,10 @@ namespace MVCProject.Controllers
             {
                 sqlConnection.Open();
                 command.Connection = sqlConnection;
-                //command.CommandText = "SELECT TOP (1000) [UserName],[Email],[Maze],[Pexeso],[Quiz],[DateTime] FROM [dbo].[UserTable]";
-                //command.CommandText = "SELECT UserName,Email,Maze,Quiz,Pexeso,DateTime FROM UserTable WHERE UserName = @UserName";
-                //TADY BUDE ROLE!!!
-                if (name == "admin")
+                //TADY JE ROLE!!!
+                if (role == "pedagog")
                 {
-                    command.CommandText = "SELECT UserName,Moves,Games,DateTime FROM ScoreTable";
+                    command.CommandText = "SELECT UserName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable";
                 }
                 else
                 {
@@ -137,6 +158,7 @@ namespace MVCProject.Controllers
                 }
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
+                //naplnění tabulky výsledků z databáze
                 while (dr.Read())
                 {
                     datas.Add(new Data()
@@ -159,7 +181,6 @@ namespace MVCProject.Controllers
             }
             catch (Exception e)
             {
-                //Error();
                 Console.WriteLine(e);
                 throw;
             }
