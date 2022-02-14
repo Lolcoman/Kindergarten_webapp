@@ -149,6 +149,13 @@ function CreateNew() {
         btnUpload = document.getElementById("btnUpload");
         //! Schová btn pro vytvoření
         btnNumber.style.display = "none";
+
+        document.querySelector("h3").style.display = "none";
+        document.getElementById("gameName").style.display = "none";
+        document.getElementById("firstLine").style.display = "none";
+        document.getElementById("secondLine").style.display = "none";
+
+
         //! Test btn znovu
         var again = document.createElement("button");
         again.textContent = "Znovu?";

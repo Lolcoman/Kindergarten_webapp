@@ -312,8 +312,8 @@ $(".img-up").change(function () {
 
 function SubmitScore() {
     var model = {
-        "correctAnswers": correctAnswers,
-        "questions": quiz.questions.length,
+        "correctAnswer": correctAnswers,
+        "question": quiz.questions.length,
         "game": "Kvíz"
     };
 
