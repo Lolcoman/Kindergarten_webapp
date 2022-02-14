@@ -9,8 +9,8 @@
     #game-board > div {
         background: turquoise;
         border: yellow 2px solid;
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         float: left;
         margin: 15px;
         padding: 10px;
@@ -105,13 +105,13 @@
         padding-right: 285px !important;
     }
     #score, #bad-score {
-        font-size: 30px;
+        font-size: 30px !important;
     }
     #game-board {
-        height: 745px;
+        height: 745px !important;
     }
     #game-board > div {
-         height: 120px;
-         width: 120px;
+         height: 120px !important;
+         width: 120px !important;
     }
 }

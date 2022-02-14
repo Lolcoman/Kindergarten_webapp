@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@{
     ViewData["Title"] = "Kvíz";
 }
 <!DOCTYPE html>
@@ -26,35 +27,38 @@
             @Html.DropDownList("gameName", "Vyberte název")
         </div>
         <hr>
-        <input type="text" id="quizName" value="" placeholder="Název kvízu:" />
-        <br>
-        <label for="questionInput" class="custom-file-upload" style="color: white;">
-            <input id="questionInput" type="file" class="img-up" data-id="img_view0" id="img0" accept="image/*" value="" enctype="multipart/form-data">
-            Obrázek otázky
-        </label>
+        @if (Context.Session.GetString("Role") == "pedagog")
+        {
+            <input type="text" id="quizName" value="" placeholder="Název kvízu:" />
+            <br>
+            <label for="questionInput" class="custom-file-upload" style="color: white;">
+                <input id="questionInput" type="file" class="img-up" data-id="img_view0" id="img0" accept="image/*" value="" enctype="multipart/form-data">
+                Obrázek otázky
+            </label>
 
-        <label for="correctInput" class="custom-file-upload" style="background-color: #2ecc71;">
-            <input id="correctInput" type="file" class="img-up" data-id="img_view1" id="img1" accept="image/*" value="" enctype="multipart/form-data">
-            1. Správný obrázek
-        </label>
+            <label for="correctInput" class="custom-file-upload" style="background-color: #2ecc71;">
+                <input id="correctInput" type="file" class="img-up" data-id="img_view1" id="img1" accept="image/*" value="" enctype="multipart/form-data">
+                1. Správný obrázek
+            </label>
 
-        <label for="wrongOneInput" class="custom-file-upload" style="background-color: #cc2e2e;">
-            <input id="wrongOneInput" type="file" class="img-up" data-id="img_view2" id="img2" accept="image/*" value="" enctype="multipart/form-data">
-            2. Špatný obrázek
-        </label>
+            <label for="wrongOneInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+                <input id="wrongOneInput" type="file" class="img-up" data-id="img_view2" id="img2" accept="image/*" value="" enctype="multipart/form-data">
+                2. Špatný obrázek
+            </label>
 
-        <label for="wrongTwoInput" class="custom-file-upload" style="background-color: #cc2e2e;">
-            <input id="wrongTwoInput" type="file" class="img-up" data-id="img_view3" id="img3" accept="image/*" value="" enctype="multipart/form-data">
-            3. Špatný obrázek
-        </label>
-        <div class="images">
-            <img id="img_view0" src="#" alt="Náhled" height="140" width="140" />
-            <img id="img_view1" src="#" alt="Náhled" height="140" width="140" />
-            <img id="img_view2" src="#" alt="Náhled" height="140" width="140" />
-            <img id="img_view3" src="#" alt="Náhled" height="140" width="140" />
-        </div>
-        <button onclick="handlers.addQuestion()" style="margin-top: 40px;">Přidat otázku</button>
-        <button id="btnAgain" onclick="location.reload()" style="margin-top: 40px">Znovu</button>
+            <label for="wrongTwoInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+                <input id="wrongTwoInput" type="file" class="img-up" data-id="img_view3" id="img3" accept="image/*" value="" enctype="multipart/form-data">
+                3. Špatný obrázek
+            </label>
+            <div class="images">
+                <img id="img_view0" src="#" alt="Náhled" height="140" width="140" />
+                <img id="img_view1" src="#" alt="Náhled" height="140" width="140" />
+                <img id="img_view2" src="#" alt="Náhled" height="140" width="140" />
+                <img id="img_view3" src="#" alt="Náhled" height="140" width="140" />
+            </div>
+            <button onclick="handlers.addQuestion()" style="margin-top: 40px;">Přidat otázku</button>
+            <button id="btnAgain" onclick="location.reload()" style="margin-top: 40px">Znovu</button>
+        }
     </div>
     <div class="info">
         <li id="NumberQuestionsInQuiz">Počet otázek v kvízu je 0</li>
