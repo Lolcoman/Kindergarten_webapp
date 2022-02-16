@@ -74,6 +74,10 @@ function disableInput() {
     //if (k == 0) {
     if (k != input) {
         var inp = document.getElementById('inp' + k);
+        //if (inp.name == "") {
+        //    console.log("prázdno")
+        //    return
+        //}
         //var nextInp = document.getElementById('inp' + (k + 1));
         //nextInp.style.display = "none";
         inp.style.display = "none";
