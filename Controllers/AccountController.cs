@@ -72,6 +72,11 @@ namespace MVCProject.Controllers
                 sql.Open();
                 command.ExecuteNonQuery();
                 EntryIntoSession(registerViewModel.UserName);
+                //Přidá Pedagoga do session
+                if (registerViewModel.AdminKey == "9qf+TZ")
+                {
+                    EntryIntoSessionRole(registerViewModel.AdminKey);
+                }
 
                 //změna zprávy když se zaregistruje
                 TempData["Message"] = "SucessRegister";
@@ -92,6 +97,10 @@ namespace MVCProject.Controllers
         {
             HttpContext.Session.SetString("UserName", userName);
         }
+        public void EntryIntoSessionRole(string role)
+        {
+            HttpContext.Session.SetString("Role", role);
+        }
 
 
 
@@ -99,28 +108,33 @@ namespace MVCProject.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel loginViewModel)
         {
+            string role;
             string hashPassword;
             bool IsPasswordValid;
             string connectionString = cfg["ConnectionStrings:DefaultConnection"];
             //string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStrings:DefaultConnection"].ConnectionString;
             SqlConnection sqlConnection = new SqlConnection(connectionString);
             //string sqlQuery = "SELECT UserName,Password from [UserTable] where UserName=@UserName and Password=@Password";
-            string sqlQueryHash = "SELECT Password from UserTable where [UserName] = @UserName";
+            string sqlQueryHash = "SELECT Password,Role from UserTable where [UserName] = @UserName";
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand(sqlQueryHash, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@UserName", loginViewModel.UserName);
-            //sqlCommand.Parameters.AddWithValue("@Password", loginViewModel.Password);
 
             SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             while (sqlDataReader.Read())
             {
                 hashPassword = sqlDataReader["Password"].ToString();
+                role = sqlDataReader["Role"].ToString();
                 IsPasswordValid = BCrypt.Net.BCrypt.Verify(loginViewModel.Password, hashPassword);
                 if (IsPasswordValid)
                 {
                     //string jmeno = sqlDataReader["UserName"].ToString();
                     //Session["userID"] = loginViewModel.UserName;
                     EntryIntoSession(loginViewModel.UserName);
+                    if (role == "pedagog")
+                    {
+                        EntryIntoSessionRole(role);
+                    }
                     TempData["Message"] = "Sucess";
                     return RedirectToAction("MainPage", "Home");
                 }
@@ -146,6 +160,7 @@ namespace MVCProject.Controllers
         {
             HttpContext.Session.Clear();
             HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("Role");
             return RedirectToAction("MainPage", "Home");
         }
 

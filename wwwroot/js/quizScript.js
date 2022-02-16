@@ -413,10 +413,39 @@ $(document).ajaxStop(function () {
 });
 
 function hideAll() {
-    document.querySelector('[for="wrongOneInput"]').style.display = 'none';
-    document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
-    document.querySelector('[for="questionInput"]').style.display = 'none';
-    document.querySelector('[for="correctInput"]').style.display = 'none';
-    document.querySelector('[class="images"]').style.display = 'none';
-    document.querySelector('button').style.display = 'none';
+    if (document.querySelector('#quizName')) {
+        // Exists.
+        document.querySelector('#quizName').style.display = 'none';
+    }
+    if (document.querySelector('[for="wrongOneInput"]')) {
+        // Exists.
+        document.querySelector('[for="wrongOneInput"]').style.display = 'none';
+    }
+    if (document.querySelector('[for="wrongTwoInput"]')) {
+        // Exists.
+        document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
+    }
+    if (document.querySelector('[for="questionInput"]')) {
+        // Exists.
+        document.querySelector('[for="questionInput"]').style.display = 'none';
+    }
+    if (document.querySelector('[for="correctInput"]')) {
+        // Exists.
+        document.querySelector('[for="correctInput"]').style.display = 'none';
+    }
+    if (document.querySelector('[class="images"')) {
+        // Exists.
+        document.querySelector('[class="images"').style.display = 'none';
+    }
+    if (document.querySelector('button')) {
+        // Exists.
+        document.querySelector('button').style.display = 'none';
+    }
+
+    //document.querySelector('[for="wrongOneInput"]').style.display = 'none';
+    //document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
+    //document.querySelector('[for="questionInput"]').style.display = 'none';
+    //document.querySelector('[for="correctInput"]').style.display = 'none';
+    //document.querySelector('[class="images"]').style.display = 'none';
+    //document.querySelector('button').style.display = 'none';
 }
