@@ -36,6 +36,12 @@
             <input id="btnNumber" type="submit" value="Vytvořit" style="margin-left: 10px">
         </form>
    }
+    <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
+        <h4 id="info">Zde bude náhled pexesa</h4>
+        <input type="number" id="idname" value="" placeholder="počet" min="1" max="12" style="margin-left: 10px; display:none;" required>
+        <input type="text" id="name" placeholder="název" style="margin-left: 10px;display:none;" required>
+        <input id="btnNumber" type="submit" value="Vytvořit" style="margin-left: 10px;display:none;">
+    </form>
 @*    <h3>Zde můžete vytvořit vlastní pexeso:</h3>
     <p class="infoP">Maximum je 12 párů, po kliknutí na "vytvořit" je možné nahrávat obrázky .jpg a .png</p>
     <p class="infoP">Při nahrání bude zobrazen náhled obrázku</p>
