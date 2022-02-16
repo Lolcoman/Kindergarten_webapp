@@ -64,6 +64,7 @@ document.getElementById("gameName").onchange = function () {
 function preview() {
     if (i != input) {
         var img = document.getElementById('frame' + i);
+        document.body.onfocus = function () { setTimeout(checkOnCancel(event.target.files[0]), 100); };
         img.src = URL.createObjectURL(event.target.files[0]);
         i++;
     }
@@ -74,16 +75,12 @@ function disableInput() {
     //if (k == 0) {
     if (k != input) {
         var inp = document.getElementById('inp' + k);
-        //if (inp.name == "") {
-        //    console.log("prázdno")
-        //    return
-        //}
-        //var nextInp = document.getElementById('inp' + (k + 1));
-        //nextInp.style.display = "none";
+        //inp.addEventListener('input', myMethod, false);
         inp.style.display = "none";
         input.disabled = "true";
         var nextInp = document.getElementById('inp' + (k + 1));
-        nextInp.style.display = "inline";
+        //ZDE POUZE PRO VÍCE NEŽ 1!!!!
+        //nextInp.style.display = "inline";
         k++;
         //textfield.style.display = "none";
     }
@@ -92,7 +89,15 @@ function disableInput() {
     //     alert("Nahrávní funguje pouze popořadě")
     // }
 }
-
+function checkOnCancel(fileSelectEle) {
+    if (fileSelectEle.value.length == 0) {
+        alert('You clicked cancel - ' + "FileName:" + fileSelectEle.value + "; Length: " + fileSelectEle.value.length);
+    }
+    else {
+        alert('You selected a file - ' + "FileName:" + fileSelectEle.value + "; Length: " + fileSelectEle.value.length);
+    }
+    document.body.onfocus = null;
+}
 //*VYTVOŘENÍ POČTU PÁRŮ
 function CreateNew() {
     //debugger;
@@ -123,6 +128,7 @@ function CreateNew() {
             inputField.oninput = preview;
 
             inputField.onclick = disableInput;
+
             //iDiv.appendChild(textfield);
 
             //*VYTVOŘENÍ POPISU
