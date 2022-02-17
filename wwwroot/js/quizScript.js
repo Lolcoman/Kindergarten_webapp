@@ -1,20 +1,20 @@
-var IsSaved = false;
+var IsSaved = true;
 var quizName = document.getElementById('quizName');
 var IsDownloaded = false;
 var names;
 var IsLoaded = false;
 var IsAgainSelect = false;
 var correctAnswers = 0;
-if (confirm('Chcete otázky uložit?')) {
-    // Save it!
-    quizName.style.display = "block";
-    //quizName.addEventListener("focusout", disableInput);
-    IsSaved = true;
-    console.log('Thing was saved to the database.');
-} else {
-    // Do nothing!
-    console.log('Thing was not saved to the database.');
-}
+//if (confirm('Chcete otázky uložit?')) {
+//    // Save it!
+//    quizName.style.display = "block";
+//    //quizName.addEventListener("focusout", disableInput);
+//    IsSaved = true;
+//    console.log('Thing was saved to the database.');
+//} else {
+//    // Do nothing!
+//    console.log('Thing was not saved to the database.');
+//}
 
 
 function disableInput() {
@@ -119,6 +119,7 @@ var view = {
             }
         }
         if (quiz.questions.length == 0) {
+            alert("Nejsou vybrány všechny obrázky!");
             return
         }
         //Hide the options to add questions and the info
@@ -266,10 +267,15 @@ var view = {
                     let correct = document.querySelector(".correct");
                     correct.style.backgroundColor = "green";
                     //event.target.style.backgroundColor = "green";
-                } else if (event.target.className === "wrong") {
+                } else if (event.target.className === "wrong" || event.target.parentNode.className === "wrong") {
+                    event.target.parentNode.style.backgroundColor = "#fc5b56";
+
                     //document.body.style.background = "#fc5b56";
-                    questionDiv = document.getElementsByClassName("questionDiv");
-                    questionDiv[0].style.backgroundColor = "#fc5b56";
+                    //questionDiv = document.getElementsByClassName("questionDiv");
+                    //questionDiv[0].style.backgroundColor = "#fc5b56";
+
+                    //let correct = document.querySelector(".correct");
+                    //correct.style.backgroundColor = "red";
 
                 }
                 let itemChildren = event.target.parentNode.parentNode.children;
