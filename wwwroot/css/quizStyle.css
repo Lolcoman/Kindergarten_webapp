@@ -38,7 +38,6 @@ button {
 .addQuestions {
     margin: 40px auto;
     text-align: center;
-    color: #fff;
 }
 
 .info {
@@ -47,7 +46,7 @@ button {
 
     .info li {
         list-style-type: none;
-        color: #fff;
+        font-size: 17px;
     }
 
     .info button {
@@ -121,6 +120,7 @@ label {
 
 p {
     text-align: center;
+    font-size: 20px;
 }
 
 hr {
@@ -180,4 +180,7 @@ option:first-child {
         padding-left: 375px !important;
         padding-right: 285px !important;
     }
+}
+h4{
+    font-size: 18px;
 }
