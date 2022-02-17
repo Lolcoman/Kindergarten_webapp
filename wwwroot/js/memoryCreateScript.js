@@ -64,7 +64,7 @@ document.getElementById("gameName").onchange = function () {
 function preview() {
     if (i != input) {
         var img = document.getElementById('frame' + i);
-        document.body.onfocus = function () { setTimeout(checkOnCancel(event.target.files[0]), 100); };
+        //document.body.onfocus = function () { setTimeout(checkOnCancel(event.target.files[0]), 100); };
         img.src = URL.createObjectURL(event.target.files[0]);
         i++;
     }
