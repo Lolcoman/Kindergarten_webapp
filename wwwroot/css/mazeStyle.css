@@ -1,5 +1,5 @@
-body{
-    background-color:gray;
+body {
+    background-color: #fccec0;
 }
 canvas{
     margin: calc(50vh - 280px) calc(50vw - 720px);
@@ -7,11 +7,11 @@ canvas{
     background-color: white;
 }
 
-.message{
+.message {
     position: absolute;
     text-align: center;
     font-size: 50px;
-    font-family:  Comic Sans MS;
+    font-family: Comic Sans MS;
     display: none;
     position: absolute;
     left: 50%;
@@ -21,7 +21,8 @@ canvas{
     border-radius: 10px;
     padding: 5px 10px 5px 10px;
     -webkit-animation: flash linear 1s infinite;
-	animation: flash linear 1s infinite;
+    animation: flash linear 1s infinite;
+    z-index: -1
 }
 .buttons{
     position: relative;
@@ -32,7 +33,7 @@ canvas{
     overflow: hidden;
     outline:none;
 }
-.options{
+.options {
     position: absolute;
     top: 50%;
     left: 50%;

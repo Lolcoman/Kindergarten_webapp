@@ -4,8 +4,8 @@
     color: white;
 }
 a:hover {
-  color: red;
-  transition: all 0.3s ease 0s;
+    color: red;
+    transition: all 0.3s ease 0s;
 }
 
 body{

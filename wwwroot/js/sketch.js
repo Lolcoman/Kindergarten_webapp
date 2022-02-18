@@ -26,7 +26,7 @@ function setup() {
     rows = floor(height / w);
     frameRate();
 
-    if (window.localStorage.length <= 3) {
+    if (window.localStorage.length >= 3) {
         img = loadImage(localStorage.getItem("Start"));
         img1 = loadImage(localStorage.getItem("Finish"));
     }
@@ -143,6 +143,9 @@ class Cell {
             if (window.localStorage.length <= 3) {
                 fill(255, 0, 0);
             }
+            else if (pos == 1) {
+                noFill();
+            }
             else {
                 noFill();
                 image(img, x, y, w, w);
@@ -155,9 +158,9 @@ class Cell {
                 if (window.localStorage.length <= 3) {
                     fill(0, 255, 0);
                 }
-                else{
-                    image(img1, x, y, w, w);
+                else {
                     noFill();
+                    image(img1, x, y, w, w);
                 }
                 rect(x, y, w, w);
             }
