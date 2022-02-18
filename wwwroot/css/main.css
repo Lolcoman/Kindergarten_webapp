@@ -9,7 +9,6 @@ body {
   background-position: center;
   background-size: 105%;
 }
-
 /* #background{
     background: url(/images/farm.png);
     background-repeat: no-repeat;
@@ -41,9 +40,24 @@ button {
   background-size: 130px 80px;
   background-position: left;
 }
+.pig:hover {
+    filter: drop-shadow(0 0 30px #fccec0);
+    transition: all 0.3s ease-in 0s;
+}
+.frog:hover {
+    filter: drop-shadow(0 0 30px #b4db27);
+    transition: all 0.3s ease-in 0s;
+}
+.chicken:hover {
+    filter: drop-shadow(0 0 30px #c22734);
+    transition: all 0.3s ease-in 0s;
+}
+.dog:hover {
+    filter: drop-shadow(0 0 30px #ad6a2f);
+    transition: all 0.3s ease-in 0s;
+}
 a:hover {
-  color: red;
-  transition: all 0.3s ease 0s;
+    transition: all 0.3s ease-in 0s;
 }
 
 header {
@@ -75,7 +89,7 @@ header {
 }
 
 .nav_links li a:hover {
-  color: red;
+  /*color: red;*/
 }
 
 button {
@@ -83,7 +97,7 @@ button {
   background: none;
   cursor: pointer;
   border: none;
-  transition: all 0.3s ease 0s;
+  /*transition: all 0.3s ease 0s;*/
 }
 
 .pig {
@@ -198,8 +212,8 @@ button {
 .pig:hover,
 .frog:hover,
 .group:hover {
-  transition: all 2s ease-in infinite;
-  filter: drop-shadow(0 0 20px hsl(0, 100%, 50%));
+    /*transition: all 2s ease-in infinite;*/
+    /*filter: drop-shadow(0 0 20px hsl(0, 100%, 50%));*/
 }
 
 #pex-chicken {
