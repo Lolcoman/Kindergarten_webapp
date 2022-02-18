@@ -70,6 +70,8 @@ function setup() {
     clearBtn.id('clear');
     downloadBtn = createButton('Stáhnout').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 20px');
     downloadBtn.id('download');
+    lastDiv = createDiv('posledni').parent(my_canvas);
+    lastDiv.id('lastDiv');
 }
 
 function draw() {

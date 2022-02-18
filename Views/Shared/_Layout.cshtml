@@ -63,8 +63,52 @@
         </div>
     </div>
 </body>
+<div id="lastDiv"></div>
 </html>
+<script>
 
+        $(document).ready(function () {
+            $("#lastDiv").nextAll("center").remove();
+
+            setTimeout(function () {
+
+                $("#lastDiv").nextAll("div").remove();
+
+            }, 50);
+
+            $("#lastDiv").nextAll("center").remove();
+
+            setTimeout(function () {
+
+                $("#lastDiv").nextAll("div").remove();
+
+            }, 100);
+
+            $("#lastDiv").nextAll("center").remove();
+
+            setTimeout(function () {
+
+                $("#lastDiv").nextAll("div").remove();
+
+            }, 200);
+
+            $("#lastDiv").nextAll("center").remove();
+
+            setTimeout(function () {
+
+                $("#lastDiv").nextAll("div").remove();
+
+            }, 400);
+
+            setTimeout(function () {
+
+                $("#lastDiv").nextAll("div").remove();
+
+            }, 500);
+
+        });
+
+ </script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
