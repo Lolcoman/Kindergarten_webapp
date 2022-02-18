@@ -49,7 +49,7 @@
         <div class="footer-bottom">
             <span id="home"><a asp-controller="Home" asp-action="MainPage" style="margin-left: 100px">&#127968 Hlavní stránka</a></span>
             <span><a href="mailto:michael.kozak02@upol.cz">&#128231 Kontakt</a></span>
-            <span><a href="#">&#128195 O webu</a></span>
+            <span><a asp-controller="Home" asp-action="Manual">&#128195 O webu</a></span>
             @if (Context.Session.GetString("UserName") == null)
             {
                 <span><a id="login" asp-controller="Account" asp-action="Login" style="margin-left:1100px">&#128273 Přihlášení</a></span>

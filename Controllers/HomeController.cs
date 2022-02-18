@@ -32,7 +32,10 @@ namespace MVCProject.Controllers
         //    _logger = logger;
         //}
 
-
+        public IActionResult Manual()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();
