@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Comic Sans MS;
-    background-color: #3497f7;
+    background-color: #fcdbd1;
 }
 
 h1 {
@@ -87,7 +87,7 @@ button {
         }
 
 .answersCorrect {
-    color: #fff;
+    color: black;
     text-align: center;
 }
 
@@ -125,7 +125,7 @@ p {
 
 hr {
     border: 0;
-    border-bottom: 3px solid #0ad5fa;
+    border-bottom: 5px solid #4d4b4b;
     width: 0;
     animation: separator-width 1s ease-out forwards;
 }

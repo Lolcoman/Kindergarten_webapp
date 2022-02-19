@@ -20,10 +20,10 @@
     <h1>Vytvoření bludiště</h1>
     <form name="myForm" onsubmit="myFunction(); return false;">
         <label for="start">Obrázek startu:</label>
-        <input type="file" name="start" id="start">
+        <input type="file" name="start" id="start" accept="image/jpeg, image/png, img/jpg">
         <img id="startPreview" src="#" style="display:none" width="100" height="100" /> <br>
         <label for="finish">Obrázek cíle:</label>
-        <input type="file" name="finish" id="finish">
+        <input type="file" name="finish" id="finish" accept="image/jpeg, image/png, img/jpg">
         <img id="finishPreview" src="#" style="display:none" width="100" height="100" /> <br>
         <label for="numberCells">Velikost řádků/sloupců:</label>
         <input type="number" id="numberCells" name="numberCells" value="100" min="10" step="5" max="100" required> <br>
