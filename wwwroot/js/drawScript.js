@@ -44,8 +44,9 @@ function setup() {
     createP('Barva pozadí &#128444;').parent(settingsTitles).style('margin-left:5px');
     createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
     paintColor = createColorPicker('black').parent(settingsValues).style('margin-top:10px;width: 55px; height: 55px');
-    backgroundColor = createColorPicker('white').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px');
+    backgroundColor = createColorPicker('white').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px;');
     backgroundColor.id('background');
+    document.getElementById("background").title = 'Pouze před kreslením!';
     //backgroundColor.changed(backgroundChange);
     cnvBackground = document.getElementById('background');
     paintWidth = createSelect(false).parent(settingsValues).style('margin-top: 10px');
@@ -55,16 +56,19 @@ function setup() {
     paintWidth.option('16');
     paintWidth.selected('12');
     //sprej
-    sprayBtn = createButton('').parent(sprayDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/spray.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    sprayBtn = createButton('').parent(sprayDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/spray_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     sprayBtn.id('spray');
     //obrázek čáry
-    lineBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px; backgroundImage: url(../images/line.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    lineBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px; backgroundImage: url(../images/line_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     lineBtn.id('line');
     //normální
-    drawBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    drawBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     drawBtn.id('normal');
+    //guma
+    rubberBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rubber_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    rubberBtn.id('rubber');
     //čtverec
-    rectBtn = createButton('').parent(rectDraw).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rect.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    rectBtn = createButton('').parent(rectDraw).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rect_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     rectBtn.id('rect');
     clearBtn = createButton('Smazat').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 175px');
     clearBtn.id('clear');
@@ -107,7 +111,7 @@ function draw() {
         if (onlyOne) {
             btnFill = createButton('').parent(rectDraw).style('margin-top: 10px; width: 55px; height: 55px; display: block; margin-left: 20px');
             btnFill.id('fillRect');
-            fillRect.style.backgroundImage = "url('../images/noFill.png')";
+            fillRect.style.backgroundImage = "url('../images/noFill_vector.png')";
             onlyOne = false;
             IsFillShow = true;
         }
@@ -118,11 +122,11 @@ function draw() {
         document.getElementById('fillRect').onclick = function () {
             if (filled) {
                 filled = false;
-                fillRect.style.backgroundImage = "url('../images/noFill.png')";
+                fillRect.style.backgroundImage = "url('../images/noFill_vector.png')";
             }
             else {
                 filled = true;
-                fillRect.style.backgroundImage = "url('../images/yesFill.png')";
+                fillRect.style.backgroundImage = "url('../images/yesFill_vector.png')";
             }
             drawRect();
         };
@@ -149,6 +153,17 @@ function draw() {
             sprayShow();
         }
         spray();
+    }
+    //guma
+    //normální kreslení
+    document.getElementById('rubber').onclick = function () {
+        if (IsSprayShow) {
+            sprayHide();
+        }
+        if (IsFillShow) {
+            fillHide();
+        }
+        rubber();
     }
 }
 //uložení canvasu jako 'png'
@@ -290,6 +305,35 @@ function spray() {
             }
         }
     };
+}
+function rubber() {
+    this.draw = function () {
+        clearBtn.mousePressed(clearCanvas);
+        downloadBtn.mousePressed(saveToFile);
+        //pokud je kliknuto na canvas levým tlačítkem, tak se začne kreslit
+        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
+            frameRate(60);
+            cnvBackground.disabled = true;
+            strokeWeight(paintWidth.value());
+            stroke(backgroundColor.value());
+            //pokud je pMouseX -1, nastaví se na aktuální
+            if (previousMouseX == -1) {
+                previousMouseX = mouseX;
+                previousMouseY = mouseY;
+            }
+            //pokud jsou nastaveny předchozí hodnoty, nakreslí se čára na aktuální hodnoty myši
+            else {
+                line(previousMouseX, previousMouseY, mouseX, mouseY);
+                previousMouseX = mouseX;
+                previousMouseY = mouseY;
+            }
+        }
+        //když se pustí tlačítko, nastaví se hodnoty zpátky na výchozí -1
+        else {
+            previousMouseX = -1;
+            previousMouseY = -1;
+        }
+    }
 }
 function sprayHide() {
     IsSprayShow = false;
