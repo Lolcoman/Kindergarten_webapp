@@ -37,14 +37,16 @@ namespace MVCProject.Controllers
             string connectionString = cfg["ConnectionStrings:DefaultConnection"];
             //Ověření zda již uživetel je v databázi, ověří duplicitní jméno a email
             SqlConnection sql = new SqlConnection(connectionString);
-            string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
+            //TEST
+            //string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
+            string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName";
             SqlCommand command1 = new SqlCommand(uQuery, sql);
             command1.Parameters.AddWithValue("@UserName", registerViewModel.UserName);
-            command1.Parameters.AddWithValue("@email", registerViewModel.Email);
+            //command1.Parameters.AddWithValue("@email", registerViewModel.Email);
             bool IsExist = help.IsUserExist(command1,sql);
             if (IsExist == true)
             {
-                ViewBag.Exist = "Jméno nebo email již existují!";
+                ViewBag.Exist = "Jméno již existuje!";
                 return View();
             }
             //Kryptování hesla pomocí BCrypt

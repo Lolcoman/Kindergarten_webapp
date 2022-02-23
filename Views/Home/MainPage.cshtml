@@ -10,8 +10,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script defer src="~/js/mainScript.js"></script>
     <link rel="stylesheet" href="~/css/main.css">
-    <script src="script.js"></script>
     @*<script src="~/js/someeAdsRemove.js"></script>*@
 </head>
 
@@ -31,7 +31,8 @@
     <!-- začátek celého pozadí -->
     <div class="background">
         <!-- obrázek prasete -->
-        <a asp-controller="Home" asp-action="Quiz">
+        <a class="test" asp-controller="Home" asp-action="Quiz">
+            <audio id="audio" src="https://www.fesliyanstudios.com/play-mp3/6608" muted></audio>
             <svg class="pig" width="200" height="200" viewBox="0 0 200 200" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
                 <g id="Group">

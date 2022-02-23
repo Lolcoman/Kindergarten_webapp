@@ -11,6 +11,10 @@ var drawing = false;
 var self = this;
 var filled = false;
 var onlyOne = true;
+//pro kolčeko
+var circleOnlyOne = true;
+var IsCircleFillShow = false;
+var filledCircle = false;
 var IsNormalDraw = false;
 var IsLineDraw = false;
 var cnvBackground;
@@ -38,6 +42,8 @@ function setup() {
     settingsValues.id('settingsValues');
     var rectDraw = createDiv().parent(settings);
     rectDraw.id('rectDraw');
+    var circleDraw = createDiv().parent(settings);
+    circleDraw.id('circleDiv');
     var sprayDiv = createDiv().parent(settings);
     sprayDiv.id('sprayDiv');
     createP('Barva štětce &#128396;').parent(settingsTitles).style('margin-left:5px');
@@ -64,6 +70,9 @@ function setup() {
     //normální
     drawBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     drawBtn.id('normal');
+    //kolečko
+    circleBtn = createButton('').parent(circleDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    circleBtn.id('circle');
     //guma
     rubberBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rubber_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     rubberBtn.id('rubber');
@@ -91,6 +100,9 @@ function draw() {
         if (IsFillShow) {
             fillHide();
         }
+        if (IsCircleFillShow) {
+            fillCircleHide();
+        }
         drawNormal();
     }
     //čára
@@ -100,6 +112,9 @@ function draw() {
         }
         if (IsFillShow) {
             fillHide();
+        }
+        if (IsCircleFillShow) {
+            fillCircleHide();
         }
         drawLine();
     }
@@ -137,6 +152,9 @@ function draw() {
         if (IsFillShow) {
             fillHide();
         }
+        if (IsCircleFillShow) {
+            fillCircleHide();
+        }
         if (onlyOneSpray) {
             IsSprayShow = true;
             sliderPoints = createSlider(0, 30, 5, 5).parent(sprayDiv).style("display:block;margin-left:20px;");
@@ -155,7 +173,6 @@ function draw() {
         spray();
     }
     //guma
-    //normální kreslení
     document.getElementById('rubber').onclick = function () {
         if (IsSprayShow) {
             sprayHide();
@@ -163,7 +180,41 @@ function draw() {
         if (IsFillShow) {
             fillHide();
         }
+        if (IsCircleFillShow) {
+            fillCircleHide();
+        }
         rubber();
+    }
+    //kolčeko
+    document.getElementById('circle').onclick = function () {
+        if (IsSprayShow) {
+            sprayHide();
+        }
+        if (IsFillShow) {
+            fillHide();
+        }
+        if (circleOnlyOne) {
+            btnCircleFill = createButton('').parent(circleDiv).style('margin-top: 10px; width: 55px; height: 55px; display: block; margin-left: 20px');
+            btnCircleFill.id('fillCircle');
+            fillCircle.style.backgroundImage = "url('../images/noFill_vector.png')";
+            circleOnlyOne = false;
+            IsCircleFillShow = true;
+        }
+        else {
+            fillCircleShow();
+        }
+        document.getElementById('fillCircle').onclick = function () {
+            if (filledCircle) {
+                filledCircle = false;
+                fillCircle.style.backgroundImage = "url('../images/noFill_vector.png')";
+            }
+            else {
+                filledCircle = true;
+                fillCircle.style.backgroundImage = "url('../images/yesFill_vector.png')";
+            }
+            drawCircle();
+        };
+        drawCircle();
     }
 }
 //uložení canvasu jako 'png'
@@ -335,6 +386,44 @@ function rubber() {
         }
     }
 }
+function drawCircle() {
+    this.draw = function () {
+        clearBtn.mousePressed(clearCanvas);
+        downloadBtn.mousePressed(saveToFile);
+        if (mouseIsPressed && mouseX < x && mouseY < y && mouseButton == LEFT) {
+            frameRate(60);
+            cnvBackground.disabled = true;
+            strokeWeight(paintWidth.value());
+            stroke(paintColor.value());
+            //nastavení výplně čtverce
+            if (filledCircle == true) {
+                fill(paintColor.value());
+            }
+            else {
+                noFill();
+            }
+            if (startMouseX == -1) {
+                startMouseX = mouseX;
+                startMouseY = mouseY;
+                drawing = true;
+                loadPixels();
+            }
+
+            else {
+                updatePixels();
+                ellipse((startMouseX + mouseX) / 2, (startMouseY + mouseY) / 2, startMouseX - mouseX, startMouseY - mouseY);
+            }
+
+        }
+
+        else if (drawing) {
+            loadPixels();
+            drawing = false;
+            startMouseX = -1;
+            startMouseY = -1;
+        }
+    };
+}
 function sprayHide() {
     IsSprayShow = false;
     document.getElementById('sliderPoints').style.display = 'none';
@@ -356,4 +445,13 @@ function fillHide() {
 function fillShow() {
     IsFillShow = true;
     document.getElementById('fillRect').style.display = 'block';
+}
+
+function fillCircleHide() {
+    IsCircleFillShow = false;
+    document.getElementById('fillCircle').style.display = 'none';
+}
+function fillCircleShow() {
+    IsCircleFillShow = true;
+    document.getElementById('fillCircle').style.display = 'block';
 }
