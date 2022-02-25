@@ -1,23 +1,40 @@
 ﻿var prepinac = document.getElementById("btnPlay");
 var audioElements = document.getElementsByTagName('audio');
-//$('#btnPlay').click(function () {
-//    for (var i = 0; i < audioElements.length; ++i) {
-//        audioElements[i].muted = false;
-//        //audioElements[i].play();
-//    }
-//})
 
 $("#pigLink").mouseenter(function () {
-    document.getElementById('pigAudio').play();
+    timer = setTimeout(function () {
+        document.getElementById('pigAudio').play();
+    }, 1000);
 })
+$("#pigLink").mouseleave(function () {
+    clearTimeout(timer);
+})
+
 $("#chickenLink").mouseenter(function () {
-    document.getElementById('chickenAudio').play();
+    timer = setTimeout(function () {
+        document.getElementById('chickenAudio').play();
+    }, 1000);
 })
+$("#chickenLink").mouseleave(function () {
+    clearTimeout(timer);
+})
+
 $("#dogLink").mouseenter(function () {
-    document.getElementById('dogAudio').play();
+    timer = setTimeout(function () {
+        document.getElementById('dogAudio').play();
+    }, 1000);
 })
+$("#dogLink").mouseleave(function () {
+    clearTimeout(timer);
+})
+
 $("#frogLink").mouseenter(function () {
-    document.getElementById('frogAudio').play();
+    timer = setTimeout(function () {
+        document.getElementById('frogAudio').play();
+    }, 1000);
+})
+$("#frogLink").mouseleave(function () {
+    clearTimeout(timer);
 })
 
 function prepni() {
