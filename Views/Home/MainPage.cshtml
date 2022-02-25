@@ -17,6 +17,7 @@
 
 
 <body>
+    <img src="~/images/volume_mute.png" id="btnPlay" alt="Přepínač"/>
     <!-- <header>
         <img class="logo" src="/images/boy.png" alt="logo">
         <nav>
@@ -31,8 +32,8 @@
     <!-- začátek celého pozadí -->
     <div class="background">
         <!-- obrázek prasete -->
-        <a class="test" asp-controller="Home" asp-action="Quiz">
-            <audio id="audio" src="https://www.fesliyanstudios.com/play-mp3/6608" muted></audio>
+        <a id="pigLink" asp-controller="Home" asp-action="Quiz">
+            <audio id="pigAudio" src="https://www.fesliyanstudios.com/play-mp3/6608" muted></audio>
             <svg class="pig" width="200" height="200" viewBox="0 0 200 200" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
                 <g id="Group">
@@ -216,7 +217,8 @@
             </svg>
         </a>
         <!-- obrázek slepice -->
-        <a asp-controller="Home" asp-action="MemoryCreate">
+        <a id="chickenLink" asp-controller="Home" asp-action="MemoryCreate">
+            <audio id="chickenAudio" src="https://www.fesliyanstudios.com/play-mp3/6512" muted></audio>
             <svg class="chicken" width="200" height="195" viewBox="0 0 200 195" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
                 <g id="chicken-view">
@@ -303,7 +305,8 @@
         <!-- <button class="chicken" style="width:200px;height:200px;"></button> -->
         <!-- <button class="dog" style="width:200px;height:200px;"></button> -->
         <!-- obrázek psa -->
-        <a asp-controller="Home" asp-action="MazeSelector">
+        <a id="dogLink" asp-controller="Home" asp-action="MazeSelector">
+            <audio id="dogAudio" src="~/mp3/dog.mp3" muted></audio>
             <svg class="dog" width="200" height="200" viewBox="0 0 200 200" fill="none"
                  xmlns="http://www.w3.org/2000/svg">
                 <g id="Group">
@@ -485,7 +488,8 @@
             </svg>
         </a>
         <!--Obrázek žáby-->
-        <a asp-controller="Home" asp-action="Draw">
+        <a id="frogLink" asp-controller="Home" asp-action="Draw">
+            <audio id="frogAudio" src="~/mp3/frog.mp3" muted></audio>
             <svg class="frog" width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="Group">
                     <path id="Vector" d="M52.0672 130.219C52.0672 130.219 22.7333 114.928 18.4194 138.315C14.1055 161.701 31.3608 170.246 31.3608 170.246C31.3608 170.246 -3.58107 172.495 0.30109 188.236H74.9304L52.0672 130.219Z" fill="#B1D23B" />
@@ -516,7 +520,6 @@
 </body>
 
 </html>
-
 @if (TempData["Message"] != null)
 {
     <script type="text/javascript">

@@ -316,4 +316,13 @@ text {
         top: 640px !important;
         left: 1030px !important;
     }
+    #btnPlay {
+        left: 95% !important;
+        top: 87% !important;
+    }
+}
+#btnPlay {
+    position: absolute;
+    left: 96%;
+    top: 88%;
 }
