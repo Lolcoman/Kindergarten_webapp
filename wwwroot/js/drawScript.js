@@ -71,7 +71,7 @@ function setup() {
     drawBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     drawBtn.id('normal');
     //kolečko
-    circleBtn = createButton('').parent(circleDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    circleBtn = createButton('').parent(circleDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/circle_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     circleBtn.id('circle');
     //guma
     rubberBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rubber_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
