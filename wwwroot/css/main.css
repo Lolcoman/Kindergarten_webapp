@@ -1,170 +1,154 @@
 body {
-  /*height: 100%;*/
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background-image: url(../images/farm.png);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: 105%;
-}
-/* #background{
-    background: url(/images/farm.png);
+    /*height: 100%;*/
+    box-sizing: border-box;
+    background-image: url(../images/farm.png);
     background-repeat: no-repeat;
-    background-size: cover;
-    position: relative; 
-
-    background-position: 100%;
     background-attachment: fixed;
+    background-position: center;
+    background-size: 105%;
+}
 
-    /* margin: auto;
-    min-width: 50%;
-    min-height: 50%; */
+.background {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr) 0.5fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    width: 100vw;
+    height: 100vh;
+    justify-items: center;
+    align-items: center;
+}
 
-li,
+.dogDiv {
+    justify-self: right;
+}
+
+.dogDiv {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.chickenDiv {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.frogDiv {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.pigDiv {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
 a,
 button {
-  font-family: Comic Sans MS;
-  font-size: 20px;
-  color: white;
-  text-decoration: black;
-  font-weight: bold;
-  /*margin-left: 10px;
-  margin-right: 50px;*/
+    font-family: Comic Sans MS;
+    font-size: 20px;
+    color: white;
+    text-decoration: black;
+    font-weight: bold;
+    /*margin-left: 10px;
+    margin-right: 50px;*/
 }
 
 #games {
-  background-image: url(images/cube.png);
-  background-repeat: no-repeat;
-  background-size: 130px 80px;
-  background-position: left;
+    background-image: url(images/cube.png);
+    background-repeat: no-repeat;
+    background-size: 130px 80px;
+    background-position: left;
 }
+
 .pig:hover {
     filter: drop-shadow(0 0 30px #fccec0);
     transition: all 0.3s ease-in 0s;
 }
+
 .frog:hover {
     filter: drop-shadow(0 0 30px #b4db27);
     transition: all 0.3s ease-in 0s;
 }
+
 .chicken:hover {
     filter: drop-shadow(0 0 30px #c22734);
     transition: all 0.3s ease-in 0s;
 }
+
 .dog:hover {
     filter: drop-shadow(0 0 30px #ad6a2f);
     transition: all 0.3s ease-in 0s;
 }
+
 a:hover {
     transition: all 0.3s ease-in 0s;
 }
 
-header {
-  display: flex;
-  padding-top: 20px;
-  background-color: aqua;
-}
-
-.logo {
-  cursor: pointer;
-  width: 10em;
-}
 
 /*Navigační panel*/
 .nav_links {
-  list-style: none;
+    list-style: none;
 }
 
-/* .nav_links li {
-  display: inline;
-  padding: 14rem;
-  padding: 10px 10px;
-  text-align: center;
-  justify-content: center;
-} */
-
-.nav_links li a {
-  transition: all 0.3s ease 0s;
-}
-
-.nav_links li a:hover {
-  /*color: red;*/
-}
+    .nav_links li a {
+        transition: all 0.3s ease 0s;
+    }
 
 button {
-  padding: 4px 20px;
-  background: none;
-  cursor: pointer;
-  border: none;
-  /*transition: all 0.3s ease 0s;*/
-}
-
-.pig {
-  position: absolute;
-  left: 60%;
-  top: 50%;
-  cursor: pointer;
-  /* background-image: url(/images/pig.s); */
+    padding: 4px 20px;
+    background: none;
+    cursor: pointer;
+    border: none;
 }
 
 #head {
-  animation: head 4s infinite linear;
-  transform-origin: center;
-  transform-box: fill-box;
+    animation: head 4s infinite linear;
+    transform-origin: center;
+    transform-box: fill-box;
 }
 
 @keyframes head {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  25% {
-    transform: rotateZ(4deg);
-  }
-  50% {
-    transform: rotateZ(0deg);
-  }
-  75% {
-    transform: rotateZ(-4deg);
-  }
-}
+    0% {
+        transform: rotateZ(0deg);
+    }
 
-.chicken {
-  position: absolute;
-  left: 60%;
-  top: 10%;
-  cursor: pointer;
-  /* background-image: url(/images/chicken.png); */
+    25% {
+        transform: rotateZ(4deg);
+    }
+
+    50% {
+        transform: rotateZ(0deg);
+    }
+
+    75% {
+        transform: rotateZ(-4deg);
+    }
 }
 
 #blink {
-  animation: blink 2s infinite;
-  transform-origin: center;
-  transform-box: fill-box;
+    animation: blink 2s infinite;
+    transform-origin: center;
+    transform-box: fill-box;
 }
 
 @keyframes blink {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(13px);
-  }
-  100% {
-    transform: translateY(0);
-  }
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(13px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
-.frog {
-    position: absolute;
-    left: 30%;
-    top: 63%;
-    cursor: pointer;
-}
-#frog-head,#mouth,#l-eye,#r-eye,#l-eye-inside,#r-eye-inside {
+
+#frog-head, #mouth, #l-eye, #r-eye, #l-eye-inside, #r-eye-inside {
     animation: moveupdown 2s infinite linear;
     transform-origin: center;
     transform-box: fill-box;
 }
+
 @keyframes moveupdown {
     0% {
         transform: translateY(0);
@@ -178,103 +162,44 @@ button {
         transform: translateY(0);
     }
 }
-.dog {
-  position: absolute;
-  left: 30%;
-  top: 25%;
-  cursor: pointer;
-  /* background-image: url(/images/dog.png); */
-}
 
 #tail {
-  animation: tail 2s infinite linear;
-  transform-origin: center;
-  transform-box: fill-box;
+    animation: tail 2s infinite linear;
+    transform-origin: center;
+    transform-box: fill-box;
 }
 
 @keyframes tail {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  25% {
-    transform: rotateZ(10deg);
-  }
-  50% {
-    transform: rotateZ(0deg);
-  }
-  75% {
-    transform: rotateZ(-6deg);
-  }
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    25% {
+        transform: rotateZ(10deg);
+    }
+
+    50% {
+        transform: rotateZ(0deg);
+    }
+
+    75% {
+        transform: rotateZ(-6deg);
+    }
 }
 
-.dog:hover,
-.chicken:hover,
-.pig:hover,
-.frog:hover,
-.group:hover {
-    /*transition: all 2s ease-in infinite;*/
-    /*filter: drop-shadow(0 0 20px hsl(0, 100%, 50%));*/
+.caption {
+    text-align: center;
+    font-family: Comic Sans MS;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    background-color: rgb(195, 195, 195,0.7);
+    width: 150px;
+    margin-left: 30px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
-#pex-chicken {
-    top: 290px;
-    left: 1220px;
-    position: absolute;
-    font-family: Comic Sans MS;
-    font-size: 25px;
-    color: black;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-#maze-dog {
-    top: 445px;
-    left: 600px;
-    position: absolute;
-    font-family: Comic Sans MS;
-    font-size: 25px;
-    color: black;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-#quiz-pig {
-    top: 680px;
-    left: 1220px;
-    position: absolute;
-    font-family: Comic Sans MS;
-    font-size: 25px;
-    color: black;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-#draw-frog {
-    top: 810px;
-    left: 615px;
-    position: absolute;
-    font-family: Comic Sans MS;
-    font-size: 25px;
-    color: black;
-    font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-text {
-    font-size: 25px;
-}
 #toast-success {
     position: fixed;
     top: 30px;
@@ -287,7 +212,6 @@ text {
     color: white;
     text-align: center;
     border-radius: 5px;
-    /*box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;*/
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     display: none;
     opacity: 1;
@@ -296,33 +220,116 @@ text {
     font-family: Comic Sans MS;
 }
 
-#toast-success.fade{
-    opacity:0;
-}
-@media (max-width: 1600px) {
-    #pex-chicken {
-        left: 1020px !important;
-        top: 280px !important;
+    #toast-success.fade {
+        opacity: 0;
     }
-    #maze-dog{
-        top: 420px !important;
-        left: 500px !important;
-    }
-    #draw-frog{
-        top: 760px !important;
-        left: 520px !important;
-    }
-    #quiz-pig{
-        top: 640px !important;
-        left: 1030px !important;
-    }
-    #btnPlay {
-        left: 95% !important;
-        top: 87% !important;
-    }
-}
+
 #btnPlay {
-    position: absolute;
-    left: 96%;
-    top: 88%;
+    /*grid-area: 4 / 2 / 5 / 2;*/
+    grid-area: 3 / 1 / 4 / 3;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+a:hover {
+    color: red;
+    transition: all 0.3s ease 0s;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/*footer {
+    background-color: black;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+}*/
+
+ul a {
+    color: #fff;
+    text-decoration: none;
+    font-family: Comic Sans MS;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+li {
+    padding-right: 10px;
+}
+
+nav > ul {
+    flex-wrap: wrap;
+    list-style: none;
+    display: flex;
+}
+
+.f-right {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: 50px;
+    list-style-type: none;
+}
+
+@media (max-width: 600px) {
+    .background {
+        grid-template-rows: repeat(5, 0.5fr) !important;
+        /* grid-template-columns: repeat(1, 1fr) !important; */
+        grid-template-columns: 1fr !important;
+        grid-row-gap: 25px;
+    }
+
+    .caption {
+        margin-left: 20px !important;
+    }
+
+    .chickenDiv {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .pigDiv {
+        grid-area: 3 / 1 / 4 / 2;
+    }
+
+    .frogDiv {
+        grid-area: 4 / 1 / 5 / 2;
+    }
+
+    #btnPlay {
+        grid-area: 5 / 1 / 6 / 2 !important;
+        margin-left: 0 !important;
+    }
+
+    /*footer {
+        grid-area: 6 / 1 / 7 / 2 !important;
+        position: static !important;
+    }*/
+
+    .dogDiv {
+        justify-self: center;
+    }
+    .frogDiv{
+        margin-bottom:30px;
+    }
+    #btnPlay{
+        margin-bottom:100px !important;
+    }
+}
+
+@media only screen and (max-width: 830px) {
+    .f-right {
+        padding-left: 0;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 1050px) {
+    body {
+        background-size: cover !important;
+    }
 }

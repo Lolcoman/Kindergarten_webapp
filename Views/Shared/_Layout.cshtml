@@ -11,57 +11,24 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    @*<header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MVCProject</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Maze">Bludiště</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Quiz">Kvíz</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="MainPage">Test</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>*@
-
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <div class="footer">
-        <div class="footer-bottom">
-            <span id="home"><a asp-controller="Home" asp-action="MainPage" style="margin-left: 100px">&#127968 Hlavní stránka</a></span>
-            <span><a href="mailto:michael.kozak02@upol.cz">&#128231 Kontakt</a></span>
-            <span><a asp-controller="Home" asp-action="Manual">&#128195 O webu</a></span>
-            @if (Context.Session.GetString("UserName") == null)
-            {
-                <span><a id="login" asp-controller="Account" asp-action="Login" style="margin-left:1100px">&#128273 Přihlášení</a></span>
-                <span><a asp-controller="Account" asp-action="Register">&#128274 Registrace</a></span>
-            }
-            else
-            {
-                <span id="result"><a asp-controller="Home" asp-action="Table" style="margin-left:1100px">&#128209 Výsledky</a></span>
-                <span><a asp-controller="Account" asp-action="Logout">&#128275 Odhlášení</a></span>
-            }
-        </div>
-    </div>
+    <footer>
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="MainPage">&#127968 Hlavní stránka</a></li>
+                <li><a href="mailto:michael.kozak02@upol.cz">&#128231 Kontakt</a></li>
+                <li><a asp-controller="Home" asp-action="Manual">&#128195 O webu</a></li>
+                <ul class="f-right">
+                    <li><a id="login" asp-controller="Account" asp-action="Login">&#128273 Přihlášení</a></li>
+                    <li><a asp-controller="Account" asp-action="Register">&#128274 Registrace</a></liid=>
+                </ul>
+            </ul>
+        </nav>
+    </footer>
 </body>
 <div id="lastDiv"></div>
 </html>
