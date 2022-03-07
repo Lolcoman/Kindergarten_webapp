@@ -10,7 +10,8 @@ body {
 
 .background {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    /*grid-template-columns: repeat(2, 1fr);*/
+    grid-template-columns: 0.7fr 1fr;
     grid-template-rows: repeat(2, 1fr) 0.5fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -26,6 +27,8 @@ body {
 
 .dogDiv {
     grid-area: 1 / 1 / 2 / 2;
+    justify-self: end;
+    align-self:end;
 }
 
 .chickenDiv {
@@ -34,10 +37,16 @@ body {
 
 .frogDiv {
     grid-area: 2 / 1 / 3 / 2;
+    justify-self: end;
+    align-self: end;
 }
 
 .pigDiv {
     grid-area: 2 / 2 / 3 / 3;
+}
+.imgDiv {
+    grid-area: 3 / 1 / 4 / 3;
+    justify-self:end;
 }
 
 a,
@@ -88,9 +97,9 @@ a:hover {
     list-style: none;
 }
 
-    .nav_links li a {
-        transition: all 0.3s ease 0s;
-    }
+.nav_links li a {
+    transition: all 0.3s ease 0s;
+}
 
 button {
     padding: 4px 20px;
@@ -228,7 +237,8 @@ button {
     /*grid-area: 4 / 2 / 5 / 2;*/
     grid-area: 3 / 1 / 4 / 3;
     margin-left: auto;
-    margin-right: 0;
+    margin-right: 5px;
+    margin-bottom: 25px;
 }
 
 a:hover {
@@ -250,7 +260,7 @@ body {
     position: fixed;
 }*/
 
-ul a {
+a {
     color: #fff;
     text-decoration: none;
     font-family: Comic Sans MS;
@@ -262,12 +272,6 @@ li {
     padding-right: 10px;
 }
 
-nav > ul {
-    flex-wrap: wrap;
-    list-style: none;
-    display: flex;
-}
-
 .f-right {
     display: flex;
     flex-wrap: wrap;
@@ -276,14 +280,25 @@ nav > ul {
     list-style-type: none;
 }
 
+@media (max-width: 1050px) {
+    body {
+        background-size: cover !important;
+    }
+}
+@media (max-width: 830px) {
+    #btnPlay {
+        margin-bottom: 75px !important;
+        align-self: start !important;
+    }
+}
 @media (max-width: 600px) {
     .background {
         grid-template-rows: repeat(5, 0.5fr) !important;
         /* grid-template-columns: repeat(1, 1fr) !important; */
         grid-template-columns: 1fr !important;
         grid-row-gap: 25px;
+        height:0 !important;
     }
-
     .caption {
         margin-left: 20px !important;
     }
@@ -298,38 +313,17 @@ nav > ul {
 
     .frogDiv {
         grid-area: 4 / 1 / 5 / 2;
+        justify-self: auto;
     }
-
-    #btnPlay {
+    .imgDiv {
         grid-area: 5 / 1 / 6 / 2 !important;
         margin-left: 0 !important;
+        justify-self: center !important;
     }
-
-    /*footer {
-        grid-area: 6 / 1 / 7 / 2 !important;
-        position: static !important;
-    }*/
-
     .dogDiv {
         justify-self: center;
     }
-    .frogDiv{
-        margin-bottom:30px;
-    }
     #btnPlay{
         margin-bottom:100px !important;
-    }
-}
-
-@media only screen and (max-width: 830px) {
-    .f-right {
-        padding-left: 0;
-        margin-left: 0;
-    }
-}
-
-@media only screen and (max-width: 1050px) {
-    body {
-        background-size: cover !important;
     }
 }

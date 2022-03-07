@@ -11,10 +11,10 @@ body {
 
 footer {
     background-color: black;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    position: fixed;
 }
 
 ul a {
@@ -44,6 +44,16 @@ nav > ul {
 }
 
 @media only screen and (max-width: 750px) {
+    .f-right {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    nav > ul {
+        margin-bottom: 8px;
+        margin-top: 8px;
+    }
+}
+@media (max-width: 830px) {
     .f-right {
         padding-left: 0;
         margin-left: 0;

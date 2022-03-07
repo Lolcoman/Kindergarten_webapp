@@ -1,8 +1,6 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-size: 30px;
-    font-family: "Comic Sans MS", "Comic Sans";
     background-color: #fccec0;
 }
 
@@ -23,17 +21,33 @@ canvas {
     margin: auto;
     z-index: -1
 }
-
+#name {
+    font-size: 30px;
+    font-family: "Comic Sans MS", "Comic Sans";
+    text-align: center;
+}
 form {
     background-color: rgba(0, 0, 0, 0.486);
-    padding: 10px;
-    width: 550px;
+    /*padding: 10px;*/
+    width: 100%;
+    max-width: 500px;
     height: auto;
     margin: auto;
-    margin-top: 100px;
-    position: relative;
+    /*margin-top: 100px;*/
+    /*position: relative;*/
     border-radius: 10px;
     text-align: center;
+    font-size: 30px;
+    font-family: "Comic Sans MS", "Comic Sans";
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+
+    left: 50%;
+    top: 45%;
+    position: absolute;
+    transform: translate(-50%, -50%);
 }
 
 input[type=number]:focus {
@@ -127,5 +141,13 @@ input[type=submit] {
 
     100% {
         opacity: 1;
+    }
+}
+@media (max-width:500px){
+    form {
+        font-size: 17px !important;
+        top: auto !important;
+        left: auto !important;
+        transform:none !important;
     }
 }
