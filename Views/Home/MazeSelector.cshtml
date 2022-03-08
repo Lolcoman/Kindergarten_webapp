@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bludiště</title>
     <link rel="stylesheet" type="text/css" href="~/css/selectorStyle.css">
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script defer src="~/js/selectorScript.js"></script>
     <script src="~/js/someeAdsRemove.js"></script>
@@ -20,15 +21,32 @@
     <form name="myForm" onsubmit="myFunction(); return false;">
         <p id="name">Vytvoření bludiště</p>
         <label for="start">Obrázek startu:</label>
+        <label for="start" class="custom-file-upload">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i> Nahrání obrázku
+        </label>
         <input type="file" name="start" id="start" accept="image/jpeg, image/png, img/jpg">
-        <img id="startPreview" src="#" style="display:none" width="100" height="100" /> <br>
+        <img id="startPreview" src="#" style="display:none" width="100" height="100" />
         <label for="finish">Obrázek cíle:</label>
+        <label for="finish" class="custom-file-upload">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i> Nahrání obrázku
+        </label>
         <input type="file" name="finish" id="finish" accept="image/jpeg, image/png, img/jpg">
-        <img id="finishPreview" src="#" style="display:none" width="100" height="100" /> <br>
+        <img id="finishPreview" src="#" style="display:none" width="100" height="100" />
+        <div class="levels">
+            <button id="lvl1">
+                <i class="fa-solid fa-dice-one fa-xl"></i> Level 1
+            </button>
+            <button id="lvl2">
+                <i class="fa-solid fa-dice-one fa-xl"></i> Level 2
+            </button>
+            <button id="lvl3">
+                <i class="fa-solid fa-dice-one fa-xl"></i> Level 3
+            </button>
+        </div>
         <label for="numberCells">Velikost řádků/sloupců:</label>
-        <input type="number" id="numberCells" name="numberCells" value="100" min="10" step="5" max="100" required> <br>
+        <input type="number" id="numberCells" name="numberCells" value="100" min="10" step="5" max="100" required>
         <label for="numberCells">Velikost:</label>
-        <input type="number" id="canvasSize" name="canvasSize" value="800" min="400" max="800" step="100" required> <br>
+        <input type="number" id="canvasSize" name="canvasSize" value="800" min="400" max="800" step="100" required>
         <p>Velikost bludiště : Sloupec/Řádek = celé číslo!</p>
         <p>př. 500/10 = 50</p>
         <input type="submit" value="Hrát">
