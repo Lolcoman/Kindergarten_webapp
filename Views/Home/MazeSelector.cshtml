@@ -33,22 +33,25 @@
         <input type="file" name="finish" id="finish" accept="image/jpeg, image/png, img/jpg">
         <img id="finishPreview" src="#" style="display:none" width="100" height="100" />
         <div class="levels">
-            <button id="lvl1">
-                <i class="fa-solid fa-dice-one fa-xl"></i> Level 1
-            </button>
-            <button id="lvl2">
-                <i class="fa-solid fa-dice-one fa-xl"></i> Level 2
-            </button>
-            <button id="lvl3">
-                <i class="fa-solid fa-dice-one fa-xl"></i> Level 3
-            </button>
+            <div>
+                <input type="radio" id="radio-1" name="age">
+                <label for="radio-1" class="radio-custom-label"><i class="fa-solid fa-dice-one fa-lg"></i> Level 1</label>
+            </div>
+            <div>
+                <input type="radio" id="radio-2" name="age">
+                <label for="radio-2" class="radio-custom-label"><i class="fa-solid fa-dice-two fa-lg"></i> Level 2</label>
+            </div>
+            <div>
+                <input type="radio" id="radio-3" name="age">
+                <label for="radio-3" class="radio-custom-label"><i class="fa-solid fa-dice-three fa-lg"></i> Level 3</label>
+            </div>
         </div>
-        <label for="numberCells">Velikost řádků/sloupců:</label>
+        @*<label for="numberCells">Velikost řádků/sloupců:</label>
         <input type="number" id="numberCells" name="numberCells" value="100" min="10" step="5" max="100" required>
         <label for="numberCells">Velikost:</label>
         <input type="number" id="canvasSize" name="canvasSize" value="800" min="400" max="800" step="100" required>
         <p>Velikost bludiště : Sloupec/Řádek = celé číslo!</p>
-        <p>př. 500/10 = 50</p>
+        <p>př. 500/10 = 50</p>*@
         <input type="submit" value="Hrát">
     </form>
 </body>

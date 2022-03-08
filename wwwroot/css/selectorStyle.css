@@ -152,7 +152,7 @@ input[type=submit] {
 }
 .custom-file-upload {
     border: 1px solid #ccc;
-    padding: 6px 12px;
+    padding: 10px 10px;
     cursor: pointer;
     font-size: 15px;
     font-family: "Comic Sans MS", "Comic Sans";
@@ -164,6 +164,10 @@ input[type="file"] {
 .levels{
     display: inline-block;
 }
-input[type="checkbox"] {
-    padding-bottom:5px;
+.radio-custom-label{
+    vertical-align:middle;
+}
+input[type="radio"]{
+    margin-bottom:3px;
+    margin-right:5px;
 }
