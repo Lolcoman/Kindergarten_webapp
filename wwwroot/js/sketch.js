@@ -19,7 +19,6 @@ var message = document.querySelector(".message");
 var options = document.querySelector(".options");
 var something = true;
 var find = false;
-
 //*vytvoří canvas
 function setup() {
     createCanvas(x, x);

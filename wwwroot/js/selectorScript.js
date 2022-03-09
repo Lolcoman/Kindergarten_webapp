@@ -14,23 +14,21 @@ finish.onchange = evt => {
         finishPreview.src = URL.createObjectURL(file)
     }
 }
-
+//Test jestli je nastaveno správně
+function isInt(n) {
+    if (n % 1 === 0) {
+        return true;
+    }
+    return false
+}
 
 function myFunction() {
-    //let canvasSize = document.getElementById('canvasSize').value;
-    let canvasSize = document.querySelector('input[name="level"]:checked').value;
+    let canvasSize = 700;
+    let number = document.querySelector('input[name="level"]:checked').value;
     let img = document.getElementById('start');
-    //let number = document.getElementById('numberCells').value;
-    let number = 100;
 
     let checkNumber = canvasSize / number;
-    //Test jestli je nastaveno správně
-    function isInt(n) {
-        if (n % 1 === 0) {
-            return true;
-        }
-        return false
-    }
+
     if (isInt(checkNumber)) {
         localStorage.setItem("Cells", number)
         localStorage.setItem("Canvas", canvasSize)
