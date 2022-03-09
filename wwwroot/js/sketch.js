@@ -6,6 +6,7 @@ var cols, rows;
 var w = localStorage.getItem("Cells")
 var x = localStorage.getItem("Canvas")
 w = parseInt(w);
+x = parseInt(x);
 var grid = [];
 var img;
 var img1;
@@ -26,7 +27,7 @@ function setup() {
     rows = floor(height / w);
     frameRate();
 
-    if (window.localStorage.length >= 3) {
+    if (window.localStorage.length >= 4) {
         img = loadImage(localStorage.getItem("Start"));
         img1 = loadImage(localStorage.getItem("Finish"));
     }

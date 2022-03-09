@@ -14,12 +14,17 @@ finish.onchange = evt => {
         finishPreview.src = URL.createObjectURL(file)
     }
 }
+
+
 function myFunction() {
-    let canvasSize = document.getElementById('canvasSize').value;
+    //let canvasSize = document.getElementById('canvasSize').value;
+    let canvasSize = document.querySelector('input[name="level"]:checked').value;
     let img = document.getElementById('start');
-    let number = document.getElementById('numberCells').value;
+    //let number = document.getElementById('numberCells').value;
+    let number = 100;
 
     let checkNumber = canvasSize / number;
+    //Test jestli je nastaveno správně
     function isInt(n) {
         if (n % 1 === 0) {
             return true;

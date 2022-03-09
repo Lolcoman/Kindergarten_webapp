@@ -18,12 +18,12 @@ canvas {
     left: 0;
     right: 0;
     margin: auto;
-    z-index: -1
 }
 #name {
-    font-size: 30px;
+    font-size: 35px;
     font-family: "Comic Sans MS", "Comic Sans";
     text-align: center;
+    color:white;
 }
 form {
     background-color: rgba(0, 0, 0, 0.486);
@@ -163,11 +163,19 @@ input[type="file"] {
 }
 .levels{
     display: inline-block;
+    font-size:25px;
+    margin:15px
 }
 .radio-custom-label{
     vertical-align:middle;
 }
 input[type="radio"]{
     margin-bottom:3px;
-    margin-right:5px;
+    margin-right:0px;
+}
+#radio-1{
+    margin-left:0px;
+}
+.insideLevels{
+    padding:5px;
 }
