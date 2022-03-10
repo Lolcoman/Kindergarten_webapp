@@ -4,6 +4,10 @@
 * todo: dodělat
 * ? zamyslet se
 */
+
+let test = document.getElementsByClassName("container");
+console.log(test)
+
 localStorage.clear();
 const info = document.getElementById("info");
 const idname = document.getElementById("idname");
@@ -41,8 +45,10 @@ document.getElementById("gameName").onchange = function () {
         next.id = "btnCreate";
         next.setAttribute("onclick", "create()");
 
-        document.body.appendChild(again);
-        document.body.appendChild(next);
+        test[0].appendChild(again);
+        test[0].appendChild(next);
+        //document.body.appendChild(again);
+        //document.body.appendChild(next);
 
         btnNumber.style.display = "none";
         idname.style.display = "none";
@@ -170,7 +176,7 @@ function CreateNew() {
         var again = document.createElement("button");
         again.textContent = "Znovu?";
         again.id = "btnAgain";
-        again.setAttribute("onclick", "again()")
+        again.setAttribute("onclick", "again()");
         document.body.appendChild(again);
 
         //parent.onsubmit = post();

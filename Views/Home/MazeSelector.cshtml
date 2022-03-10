@@ -20,13 +20,13 @@
 <body>
     <form name="myForm" onsubmit="myFunction(); return false;">
         <p id="name">Vytvoření bludiště</p>
-        <label for="start">Obrázek startu:</label>
+        <label class="info" for="start" title="Obrázek začátku v bludišti">Obrázek startu <i class="fa-solid fa-flag-checkered fa-lg"></i></label>
         <label for="start" class="custom-file-upload">
             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Nahrání obrázku
         </label>
         <input type="file" name="start" id="start" accept="image/jpeg, image/png, img/jpg">
         <img id="startPreview" src="#" style="display:none" width="100" height="100" />
-        <label for="finish">Obrázek cíle:</label>
+        <label class="info" for="finish" title="Obrázek konce v bludišti">Obrázek cíle <i class="fa-solid fa-bullseye fa-lg"></i></label>
         <label for="finish" class="custom-file-upload">
             <i class="fa fa-cloud-upload" aria-hidden="true"></i> Nahrání obrázku
         </label>
@@ -34,7 +34,6 @@
         <img id="finishPreview" src="#" style="display:none" width="100" height="100" />
         <div class="levels">
             <div class="insideLevels">
-
                 <input type="radio" id="radio-1" name="level" value="100" required>
                 <label for="radio-1" class="radio-custom-label"><i class="fa-solid fa-dice-one fa-2xl"></i> Úroveň 1</label>
             </div>

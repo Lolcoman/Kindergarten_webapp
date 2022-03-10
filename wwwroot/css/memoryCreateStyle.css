@@ -218,3 +218,14 @@ input[type='file'] {
         width: 120px;
     }
 }
+@media (max-width: 830px) {
+    #btnCreate,#btnAgain{
+        width:auto;
+    }
+}
+@media (max-height:735px){
+    footer {
+        position: absolute;
+        bottom: auto;
+    }
+}

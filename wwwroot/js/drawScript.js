@@ -46,6 +46,12 @@ function setup() {
     circleDraw.id('circleDiv');
     var sprayDiv = createDiv().parent(settings);
     sprayDiv.id('sprayDiv');
+    var lineDiv = createDiv().parent(settings);
+    lineDiv.id('lineDiv');
+    var normalDiv = createDiv().parent(settings);
+    normalDiv.id('normalDiv');
+    var rubberDiv = createDiv().parent(settings);
+    rubberDiv.id('rubberDiv');
     createP('Barva štětce &#128396;').parent(settingsTitles).style('margin-left:5px');
     createP('Barva pozadí &#128444;').parent(settingsTitles).style('margin-left:5px');
     createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
@@ -65,16 +71,16 @@ function setup() {
     sprayBtn = createButton('').parent(sprayDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/spray_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     sprayBtn.id('spray');
     //obrázek čáry
-    lineBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px; backgroundImage: url(../images/line_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    lineBtn = createButton('').parent(lineDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px; backgroundImage: url(../images/line_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     lineBtn.id('line');
     //normální
-    drawBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    drawBtn = createButton('').parent(normalDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/normal_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     drawBtn.id('normal');
     //kolečko
     circleBtn = createButton('').parent(circleDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/circle_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     circleBtn.id('circle');
     //guma
-    rubberBtn = createButton('').parent(settings).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rubber_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
+    rubberBtn = createButton('').parent(rubberDiv).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rubber_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     rubberBtn.id('rubber');
     //čtverec
     rectBtn = createButton('').parent(rectDraw).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rect_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
