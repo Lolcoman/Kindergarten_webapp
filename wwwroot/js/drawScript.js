@@ -25,15 +25,19 @@ var onlyOneSpray = true;
 var IsSprayShow = false;
 var IsFillShow = false;
 
+function windowResized() {
+    resizeCanvas(windowWidth * 0.75, windowHeight - 300);
+}
+
 function setup() {
     if (window.innerWidth <= 1600) {
         x = 1100;
         y = 600;
     }
     lines = [];
-    drawplate = createCanvas(x, y);
+    drawplate = createCanvas(windowWidth * 0.85, windowHeight- 300);
     drawplate.id('my_canvas');
-    drawplate.position(260, 300,'sticky');
+    /*drawplate.position(5 * 100, 300,'sticky');*/
     var settings = createDiv();
     settings.id('settings');
     var settingsTitles = createDiv().parent(settings);

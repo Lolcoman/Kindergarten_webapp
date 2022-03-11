@@ -156,7 +156,9 @@ var view = {
             //};
             //questionImg.src = URL.createObjectURL(question.question);
             var elementHr = document.createElement('hr');
+            questionLi.id = "questionLi"
             questionLi.appendChild(elementHr);
+
             //! Správná odpověď
             var correctLi = document.createElement("li");
             //correctLi.setAttribute("class", "correct");
@@ -253,6 +255,10 @@ var view = {
     displayAnswersCorrect: function () {
         var questionDiv = document.querySelectorAll(".questionDiv");
         var answersCorrect = document.querySelector(".answersCorrect");
+        //TEST
+        var questions = questionDiv.length;
+        var quizQuestions = document.querySelector(".quizQuestions")
+        quizQuestions.textContent = "Počet zbývajících otázek: " + questions;
         answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
 
         //add click event to each question div if the element clicked has class correct then add 1 to correctAnswers and change the color of element to green.
@@ -263,13 +269,15 @@ var view = {
                 if (event.target.className === "correct" || event.target.parentNode.className === "correct") {
                     correctAnswers++;
                     answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
+                    //TEST
+                    quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
                     //event.target.style.color = "#2ecc71";
                     let correct = document.querySelector(".correct");
                     correct.style.backgroundColor = "green";
                     //event.target.style.backgroundColor = "green";
                 } else if (event.target.className === "wrong" || event.target.parentNode.className === "wrong") {
                     event.target.parentNode.style.backgroundColor = "#fc5b56";
-
+                    quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
                     //document.body.style.background = "#fc5b56";
                     //questionDiv = document.getElementsByClassName("questionDiv");
                     //questionDiv[0].style.backgroundColor = "#fc5b56";

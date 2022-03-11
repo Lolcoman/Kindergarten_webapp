@@ -60,20 +60,24 @@ button {
     position: absolute;
 }
 
-    .questionsWrapper div.is-active {
-        display: inline-block;
-        width: 200px;
-        text-align: center;
-        top: 30px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
+.questionsWrapper div.is-active {
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 25px;
+    grid-row-gap: 40px;
+    /*display: inline-block;
+    width: 200px;*/
+    text-align: center;
+}
 
 .questionDiv {
     margin: 20px auto;
     text-align: center;
     width: 100%;
+}
+#questionLi {
+    grid-area: 1 / 1 / 2 / 4;
 }
 
     .questionDiv li {
@@ -94,6 +98,7 @@ button {
 .nextButton {
     margin: 20px auto;
     border-radius: 10px;
+    grid-area: 3 / 1 / 4 / 4;
 }
 
 input[type="file"] {
@@ -183,4 +188,8 @@ option:first-child {
 }
 h4{
     font-size: 18px;
+}
+img{
+    width: 250px !important;
+    height: 250px !important;
 }

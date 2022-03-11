@@ -71,7 +71,6 @@ function FlipCardBack() {
 }
 
 function FlipCard(card, id) {
-    debugger
     // var gameName = localStorage.getItem("game");
     // var i = 0;
     // var urls = localStorage.getItem(gameName + 0);

@@ -25,3 +25,8 @@ button,p,select{
 body {
     background-color: #b1d23b;
 }
+#my_canvas{
+    display: block;
+    margin: 0 auto;
+    position: sticky;
+}
