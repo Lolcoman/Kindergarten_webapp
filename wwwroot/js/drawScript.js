@@ -26,7 +26,7 @@ var IsSprayShow = false;
 var IsFillShow = false;
 
 function windowResized() {
-    resizeCanvas(windowWidth * 0.75, windowHeight - 300);
+    resizeCanvas(windowWidth * 0.85, windowHeight - 300);
 }
 
 function setup() {
@@ -56,9 +56,12 @@ function setup() {
     normalDiv.id('normalDiv');
     var rubberDiv = createDiv().parent(settings);
     rubberDiv.id('rubberDiv');
-    createP('Barva štětce &#128396;').parent(settingsTitles).style('margin-left:5px');
-    createP('Barva pozadí &#128444;').parent(settingsTitles).style('margin-left:5px');
-    createP('Tloušťka štětce &#10687;').parent(settingsTitles).style('margin-left:5px');
+    createP('Barva štětce ').parent(settingsTitles).style('margin-left:5px').id('brush');
+    document.getElementById('brush').insertAdjacentHTML("beforeend", '<i class="fa-solid fa-paintbrush"></i>');
+    createP('Barva pozadí ').parent(settingsTitles).style('margin-left:5px').id('picture');
+    document.getElementById('picture').insertAdjacentHTML("beforeend", '<i class="fas fa-image"></i>');
+    createP('Tloušťka štětce ').parent(settingsTitles).style('margin-left:5px').id('brushSize');
+    document.getElementById('brushSize').insertAdjacentHTML("beforeend", '<i class="far fa-dot-circle"></i>');
     paintColor = createColorPicker('black').parent(settingsValues).style('margin-top:10px;width: 55px; height: 55px');
     backgroundColor = createColorPicker('white').parent(settingsValues).style('margin-top: 10px; width: 55px; height: 55px;');
     backgroundColor.id('background');

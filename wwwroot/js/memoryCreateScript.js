@@ -37,9 +37,10 @@ document.getElementById("gameName").onchange = function () {
         localStorage.clear();
         info.innerHTML = "Náhled pexesa";
         var again = document.createElement("button");
-        again.textContent = "Znovu?";
+        again.textContent = "Znovu ";
         again.id = "btnAgain";
         again.setAttribute("onclick", "again()");
+        again.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-repeat"></i>');
         var next = document.createElement("button");
         next.textContent = "Vytvořit";
         next.id = "btnCreate";

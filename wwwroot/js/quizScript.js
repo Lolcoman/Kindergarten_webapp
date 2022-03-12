@@ -161,6 +161,7 @@ var view = {
 
             //! Správná odpověď
             var correctLi = document.createElement("li");
+            correctLi.id = "correctLi"
             //correctLi.setAttribute("class", "correct");
             var correctImg = document.createElement('img');
             //correctImg.className = "correct";
@@ -179,6 +180,7 @@ var view = {
             //correctImg.src = URL.createObjectURL(question.correct);
             //! Špatná odpověď
             var wrongOneLi = document.createElement("li");
+            wrongOneLi.id = "wrongOneLi";
             //wrongOneLi.setAttribute("class", "wrong");
             var wrongOneImg = document.createElement('img');
             //wrongOneImg.className = "wrong"
@@ -197,6 +199,7 @@ var view = {
 
             //! Špatná odpověď
             var wrongTwoLi = document.createElement("li");
+            wrongTwoLi.id = "wrongTwoLi";
             //wrongTwoLi.setAttribute("class", "wrong");
             var wrongTwoImg = document.createElement('img');
             //wrongTwoImg.className = "wrong"

@@ -3,6 +3,7 @@ html, body {
     padding: 0;
     font-family: Comic Sans MS;
     background-color: #fcdbd1;
+    min-height:auto;
 }
 
 h1 {
@@ -72,7 +73,6 @@ button {
 }
 
 .questionDiv {
-    margin: 20px auto;
     text-align: center;
     width: 100%;
 }
@@ -126,6 +126,7 @@ label {
 p {
     text-align: center;
     font-size: 20px;
+    margin: 5px auto;
 }
 
 hr {
@@ -192,4 +193,43 @@ h4{
 img{
     width: 250px !important;
     height: 250px !important;
+}
+div > li {
+    padding-right: 0;
+}
+@media (max-width: 830px) {
+    .questionsWrapper div.is-active {
+        display: grid;
+        grid-auto-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr;
+        gap: 15px 0px;
+        grid-template-areas:
+            "question"
+            "correct"
+            "wrong"
+            "wrong2"
+            "button";
+    }
+    #questionLi {
+        grid-area: question;
+    }
+
+    #correctLi {
+        grid-area: correct;
+    }
+
+    #wrongOneLi {
+        grid-area: wrong;
+    }
+
+    #wrongTwoLi {
+        grid-area: wrong2;
+    }
+
+    .nextButton {
+        grid-area: button;
+        margin: 0 auto !important;
+        align-self:start;
+    }
 }
