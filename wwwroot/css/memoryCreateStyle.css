@@ -3,11 +3,9 @@ body {
     padding: 0;
     margin: 0;
     font-family: Comic Sans MS;
-    font-size: 20px;
 }
 h1 {
     text-align: center;
-    text-decoration: underline;
 }
 hr {
     border: 0;
@@ -88,11 +86,10 @@ input {
     margin-bottom: 5px;
     line-height: 18px;
     padding: 2px 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #CCC;
-    font-size: 24px;
+    font-family: Comic Sans MS;
+    font-size: 20px;
 }
 
 input[type="file"] {
@@ -107,13 +104,32 @@ input[type="file"] {
 #btnUpload{
     display:block;
 }
-
-#btnAgain {
+#btnDelete {
     text-align: center;
     width: 10%;
     margin-left: 45%;
     margin-right: 30%;
     margin-top: 100px;
+    font-family: Comic Sans MS;
+    align-items: center;
+    background-color: #ff3939;
+    background-position: 0 0;
+    border: 1px solid #FF8080;
+    border-radius: 7px;
+    color: black;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 6px 12px;
+    text-align: center;
+    transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
+}
+#btnAgain {
+    text-align: center;
+    width: 10%;
+    margin-left: 45%;
+    margin-right: 30%;
+    /*margin-top: 100px;*/
     font-family: Comic Sans MS;
     align-items: center;
     background-color: #FF5A5A;
@@ -128,7 +144,7 @@ input[type="file"] {
     text-align: center;
     transition: border .2s ease-in-out,box-shadow .2s ease-in-out;
 }
-#btnAgain:hover {
+#btnAgain:hover,#btnDelete:hover {
     background-color: #FFE3E3;
     border-color: #FAA4A4;
 }
@@ -219,13 +235,18 @@ input[type='file'] {
     }
 }
 @media (max-width: 830px) {
-    #btnCreate,#btnAgain{
+    #btnCreate,#btnAgain,#btnDelete{
         width:auto;
     }
-}
-@media (max-height:735px){
     footer {
+        bottom: 0;
         position: absolute;
-        bottom: auto;
     }
+}
+.btn-ok {
+    color:#555;
+    background-color: #48f048;
+}
+.swal-modal {
+    will-change: unset !important;
 }

@@ -5,16 +5,7 @@ var names;
 var IsLoaded = false;
 var IsAgainSelect = false;
 var correctAnswers = 0;
-//if (confirm('Chcete otázky uložit?')) {
-//    // Save it!
-//    quizName.style.display = "block";
-//    //quizName.addEventListener("focusout", disableInput);
-//    IsSaved = true;
-//    console.log('Thing was saved to the database.');
-//} else {
-//    // Do nothing!
-//    console.log('Thing was not saved to the database.');
-//}
+var deleted;
 
 
 function disableInput() {
@@ -47,8 +38,15 @@ var quiz = {
                 var elementClicked = event.target;
                 if (elementClicked.textContent == "Konec") {
                     SubmitScore();  
-                    alert("Výsledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
-                    location.reload();
+                    //alert("Výsledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
+                    swal({
+                        title:"Uložení výsledků",
+                        text: "Výsledky budou uloženy, pokud jste přihlášen\n<u>Výsledky</u>: správné odpovědi " + correctAnswers + " z " + quiz.questions.length,
+                        html: true,
+                        icon: "success",
+                    }).then(function () {
+                        location.reload();
+                    });
                     //continue;
                 }
                 //If it was a next button then remove the is-active class from it parent
@@ -77,12 +75,18 @@ var handlers = {
         var inputs = document.querySelectorAll("input[type=file")
         for (i = 0; i < inputs.length; i++) {
             if (inputs[i].files.length == 0 && inputs[i].value.length == 0) {
-                alert("Nejsou vybrány všechny obrázky!");
+                swal({
+                    text: "Nejsou vybrány všechny obrázky!",
+                    icon: "error",
+                });
                 return
             }
         }
         if (quizName.value == "" && IsSaved) {
-            alert("Vyplňte jméno kvízu!");
+            swal({
+                text: "Vyplňte jméno kvízu!",
+                icon: "error",
+            });
             return
         }
         //Get each of the inputs by id
@@ -119,21 +123,24 @@ var view = {
             }
         }
         if (quiz.questions.length == 0) {
-            alert("Nejsou vybrány všechny obrázky!");
+            swal({
+                text: "Nejsou vybrány všechny obrázky!",
+                icon: "error",
+            });
             return
         }
-        //Hide the options to add questions and the info
+        //Skryje možnost přidání další otázky a info
         //var hideh1 = document.querySelector("h1");
         var hideAdd = document.querySelector(".addQuestions");
         var hideInfo = document.querySelector(".info");
         hideAdd.style.display = "none";
         hideInfo.style.display = "none";
         //hideh1.style.display = "none";
-        //Clear the quesitons wrapper
+        //Vyčistí quesitons wrapper
         var questionsWrapper = document.querySelector(".questionsWrapper");
         questionsWrapper.innerHTML = "";
 
-        //for each quesiton in array create elements neede and give classes
+        //každá otázka musí obsahovat třídu pro identifikaci
         quiz.questions.forEach(function (question, index) {
             var questionDiv = document.createElement("div");
             questionDiv.setAttribute("class", "questionDiv");
@@ -142,8 +149,8 @@ var view = {
             //! Otázka
             var questionLi = document.createElement("li");
             var questionImg = document.createElement('img');
-            questionImg.width = 175;
-            questionImg.height = 175;
+            questionImg.width = 250;
+            questionImg.height = 250;
             questionLi.appendChild(questionImg);
             if (IsDownloaded) {
                 questionImg.src = "data:image/png;base64," + (question.question);
@@ -166,8 +173,8 @@ var view = {
             var correctImg = document.createElement('img');
             //correctImg.className = "correct";
             correctLi.setAttribute("class", "correct")
-            correctImg.width = 175;
-            correctImg.height = 175;
+            correctImg.width = 250;
+            correctImg.height = 250;
             correctLi.appendChild(correctImg)
             //correctLi.nextSibling(image);
             if (IsDownloaded) {
@@ -185,8 +192,8 @@ var view = {
             var wrongOneImg = document.createElement('img');
             //wrongOneImg.className = "wrong"
             wrongOneLi.setAttribute("class", "wrong");
-            wrongOneImg.width = 175;
-            wrongOneImg.height = 175;
+            wrongOneImg.width = 250;
+            wrongOneImg.height = 250;
             wrongOneLi.appendChild(wrongOneImg)
             //correctLi.nextSibling(image);
             if (IsDownloaded) {
@@ -204,8 +211,8 @@ var view = {
             var wrongTwoImg = document.createElement('img');
             //wrongTwoImg.className = "wrong"
             wrongTwoLi.setAttribute("class", "wrong");
-            wrongTwoImg.width = 175;
-            wrongTwoImg.height = 175;
+            wrongTwoImg.width = 250;
+            wrongTwoImg.height = 250;
             wrongTwoLi.appendChild(wrongTwoImg);
             if (IsDownloaded) {
                 wrongTwoImg.src = "data:image/png;base64," + (question.wrongTwo);
@@ -215,7 +222,7 @@ var view = {
             }
             //wrongTwoImg.src = URL.createObjectURL(question.wrongTwo);
 
-            //add each question div to the question wrapper
+            //přidání každé otázky do question wrapperu
             questionsWrapper.appendChild(questionDiv);
 
             questionsWrapper.firstChild.classList.add("is-active");
@@ -227,19 +234,17 @@ var view = {
             //wrongOneLi.textContent = question.wrongOne;
             //wrongTwoLi.textContent = question.wrongTwo;
 
-            //If its the last question the button should say finish if not it should say next
+            //Pokud je poslední otázka button ukáže konec
             if (index === quiz.questions.length - 1) {
                 nextButton.textContent = "Konec";
             } else {
                 nextButton.textContent = "Další";
             }
-            //TOHLE JINAM AŽ PO KLIKNUTÍ NA POSLEDNÍ OTÁZKU
-            //SubmitScore();
 
-            //Append elements to div
+            //Připojí elements do div
             questionDiv.appendChild(questionLi);
 
-            //put the answers in a random order before apprending them so correct isnt always 1st
+            //Proházení otázek
             var array = [correctLi, wrongOneLi, wrongTwoLi];
             array.sort(function (a, b) { return 0.5 - Math.random() });
             array.forEach(function (item) {
@@ -297,11 +302,10 @@ var view = {
             }
         }
     },
-    //count objects in array to show how many questions added to screen
+    //Ukážet počet otázek v kvízu
     displayNumberOfQuestions: function () {
         var numberLi = document.getElementById("NumberQuestionsInQuiz");
         if (IsDownloaded) {
-            //numberLi.textContent = "Počet otázek v kvízu je " + $("#customInput").data("value");
             numberLi.textContent = "Počet otázek v kvízu je " + quiz.questions.length;
         }
         else {
@@ -387,6 +391,7 @@ function post() {
 //výběr z dropdown
 document.getElementById("gameName").onchange = function () {
     var selectValue = document.getElementById("gameName").value;
+    deleted = selectValue;
     //schová možnosti přidat otázku
     hideAll();
     if (selectValue == "") {
@@ -425,6 +430,13 @@ $(document).ajaxStop(function () {
     view.displayNumberOfQuestions();
     IsLoaded = true;
     document.getElementById('startQuiz').style.display = 'inline';
+    if (deleted != null) {
+        document.getElementById('btnDelete').style.display = 'inline';
+        document.getElementById('btnAgain').innerHTML = 'Znovu <i class="fa-solid fa-repeat"></i>';
+    } else {
+        document.getElementById('btnAgain').innerHTML = 'Konec nahrávání <i class="fa-solid fa-flag-checkered"></i>';
+    }
+    document.getElementById('btnAgain').style.display = 'inline';
     //IsDownloaded = false;
     IsAgainSelect = false;
 });
@@ -450,19 +462,48 @@ function hideAll() {
         // Exists.
         document.querySelector('[for="correctInput"]').style.display = 'none';
     }
-    if (document.querySelector('[class="images"')) {
+    if (document.querySelectorAll('[class="images"')) {
         // Exists.
-        document.querySelector('[class="images"').style.display = 'none';
+        var imgList = document.querySelectorAll('[class="images"');
+        for (var x = 0; x < imgList.length; x++) {
+            imgList[x].style.display = 'none';
+        }
     }
     if (document.querySelector('button')) {
         // Exists.
         document.querySelector('button').style.display = 'none';
     }
-
-    //document.querySelector('[for="wrongOneInput"]').style.display = 'none';
-    //document.querySelector('[for="wrongTwoInput"]').style.display = 'none';
-    //document.querySelector('[for="questionInput"]').style.display = 'none';
-    //document.querySelector('[for="correctInput"]').style.display = 'none';
-    //document.querySelector('[class="images"]').style.display = 'none';
-    //document.querySelector('button').style.display = 'none';
+}
+function deleteQuiz() {
+    swal({
+        title: "Opravdu chcete kvíz smazat?",
+        text: "Změna je nevratná, kvíz nelze obnovit!",
+        icon: "warning",
+        buttons: ["Zrušit!", true],
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/DeleteFile/QuizDelete' + "?" + "name=" + deleted,
+                timeout: 0,
+                success: function (response) {
+                    swal("Kvíz byl smazán!", {
+                        icon: "success",
+                    }).then(function () {
+                        location.reload();
+                    });
+                },
+                error: function (err) {
+                    console.log(err.responseJSON.title);
+                    swal({
+                        title: "Pexeso nebylo smazáno!",
+                        text: err.responseJSON.title,
+                        icon: "error",
+                    });
+                }
+            })
+        }
+    });
 }

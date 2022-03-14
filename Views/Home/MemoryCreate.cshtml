@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="~/js/someeAdsRemove.js"></script>
     <script src="~/js/memoryCreateScript.js" type="text/javascript" defer></script>
@@ -31,7 +32,7 @@
         <p class="infoP">Maximum je 12 párů, po kliknutí na "vytvořit" je možné nahrávat obrázky .jpg a .png</p>
         <p class="infoP">Při nahrání bude zobrazen náhled obrázku</p>
         <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
-            <h4 id="info">Počet pexes:</h4>
+            <h3 id="info">Počet pexes:</h3>
             <input type="number" id="idname" value="" placeholder="počet" min="1" max="12" style="margin-left: 10px" required>
             <input type="text" id="name" placeholder="název" style="margin-left: 10px" required>
             <input id="btnNumber" type="submit" value="Vytvořit" style="margin-left: 10px">
@@ -40,7 +41,7 @@
     @if (Context.Session.GetString("Role") == null)
     {
         <form id="form" enctype="multipart/form-data" onsubmit="CreateNew();return false">
-            <h4 id="info">Zde bude náhled pexesa</h4>
+            <h3 id="info">Zde bude náhled pexesa</h3>
             <input type="number" id="idname" value="" placeholder="počet" min="1" max="12" style="margin-left: 10px; display:none;" required>
             <input type="text" id="name" placeholder="název" style="margin-left: 10px;display:none;" required>
             <input id="btnNumber" type="submit" value="Vytvořit" style="margin-left: 10px;display:none;">

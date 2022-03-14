@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="~/css/quizStyle.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="~/js/someeAdsRemove.js"></script>
     <script defer src="~/js/quizScript.js"></script>
     <title>Kvíz</title>
@@ -19,8 +21,11 @@
 <body>
     <div class="addQuestions">
         <h1>Kvíz</h1>
-        <p>Pro nahrání klikni na tlačítko příslušného obrázku</p>
-        <p>Kvíz obsahuje 3 odpovědi, ale pouze 1 správnou</p>
+        <article>
+            <p>Pro nahrání klikni na tlačítko příslušného obrázku</p>
+            <p>Kvíz obsahuje 3 odpovědi, ale pouze 1 správnou</p>
+            <p>Pokud kvíz chcete smazat, vyberte jej ze seznamu</p>
+        </article>
         <hr>
         <div style="text-align:center">
             <h4>Vyberte ze seznamu vytvořený kvíz:</h4>
@@ -31,38 +36,41 @@
         {
             <input type="text" id="quizName" value="" placeholder="Název kvízu:" style="display:block;" onchange="disableInput()" />
             <br>
-            <label for="questionInput" class="custom-file-upload">
-                <input id="questionInput" type="file" class="img-up" data-id="img_view0" id="img0" accept="image/*" value="" enctype="multipart/form-data">
-                Obrázek otázky
-            </label>
+            <div class="gridCreate">
+                <label for="questionInput" class="custom-file-upload">
+                    <input id="questionInput" type="file" class="img-up" data-id="img_view0" id="img0" accept="image/*" value="" enctype="multipart/form-data">
+                    Obrázek otázky <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </label>
 
-            <label for="correctInput" class="custom-file-upload" style="background-color: #2ecc71;">
-                <input id="correctInput" type="file" class="img-up" data-id="img_view1" id="img1" accept="image/*" value="" enctype="multipart/form-data">
-                1. Správný obrázek
-            </label>
+                <label for="correctInput" class="custom-file-upload" style="background-color: #2ecc71;">
+                    <input id="correctInput" type="file" class="img-up" data-id="img_view1" id="img1" accept="image/*" value="" enctype="multipart/form-data">
+                    1. Správný obrázek <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </label>
 
-            <label for="wrongOneInput" class="custom-file-upload" style="background-color: #cc2e2e;">
-                <input id="wrongOneInput" type="file" class="img-up" data-id="img_view2" id="img2" accept="image/*" value="" enctype="multipart/form-data">
-                2. Špatný obrázek
-            </label>
+                <label for="wrongOneInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+                    <input id="wrongOneInput" type="file" class="img-up" data-id="img_view2" id="img2" accept="image/*" value="" enctype="multipart/form-data">
+                    2. Špatný obrázek <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </label>
 
-            <label for="wrongTwoInput" class="custom-file-upload" style="background-color: #cc2e2e;">
-                <input id="wrongTwoInput" type="file" class="img-up" data-id="img_view3" id="img3" accept="image/*" value="" enctype="multipart/form-data">
-                3. Špatný obrázek
-            </label>
-            <div class="images">
-                <img id="img_view0" src="#" alt="Náhled" height="140" width="140" />
-                <img id="img_view1" src="#" alt="Náhled" height="140" width="140" />
-                <img id="img_view2" src="#" alt="Náhled" height="140" width="140" />
-                <img id="img_view3" src="#" alt="Náhled" height="140" width="140" />
+                <label for="wrongTwoInput" class="custom-file-upload" style="background-color: #cc2e2e;">
+                    <input id="wrongTwoInput" type="file" class="img-up" data-id="img_view3" id="img3" accept="image/*" value="" enctype="multipart/form-data">
+                    3. Špatný obrázek <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </label>
+                @*<span class="images">*@
+                <img class="images" id="img_view0" src="#" alt="Náhled" height="140" width="140" />
+                <img class="images" id="img_view1" src="#" alt="Náhled" height="140" width="140" />
+                <img class="images" id="img_view2" src="#" alt="Náhled" height="140" width="140" />
+                <img class="images" id="img_view3" src="#" alt="Náhled" height="140" width="140" />
+                @*</span>*@
             </div>
-            <button onclick="handlers.addQuestion()" style="margin-top: 40px;">Přidat otázku</button>
-            <button id="btnAgain" onclick="location.reload()" style="margin-top: 40px">Znovu</button>
+            <button onclick="handlers.addQuestion()">Přidat otázku</button>
         }
     </div>
     <div class="info">
         <li id="NumberQuestionsInQuiz">Počet otázek v kvízu je 0</li>
+        <button onclick="deleteQuiz()" id="btnDelete" style="display:none;">Smazat kvíz <i class="fa-solid fa-trash-can"></i></button>
         <button onclick="view.displayQuestions()" id="startQuiz">Start</button>
+        <button id="btnAgain" onclick="location.reload()" style="display:none;">Znovu <i class="fa-solid fa-repeat"></i></button>
     </div>
     <p class="answersCorrect"></p>
     <p class="quizQuestions"></p>

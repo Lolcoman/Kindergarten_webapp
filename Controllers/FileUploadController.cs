@@ -19,15 +19,7 @@ namespace MVCProject.Controllers
         SqlDataReader dr;
         SqlCommand command = new SqlCommand();
         //SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
-        //test API
-        public IActionResult Get()
-            {
-            return Ok("File Upload API running...");
-        }
-
         [HttpPost("[action]")]
-        //[HttpPost]
-        //[Route("upload")]
         public IActionResult Upload([FromForm]List<IFormFile> files, [FromForm] string name)
         {
             int i;
@@ -56,14 +48,12 @@ namespace MVCProject.Controllers
                     {
                         return BadRequest("Špatný formát");
                     }
-
-            
                 }
                 sqlConnection.Open(); //první otevření SQL
                 foreach (var file in files)
                 {
                     var image = Image.FromStream(file.OpenReadStream()); //načtení do StreamReaderu
-                    var resizedImg = new Bitmap(image, new Size(140, 140)); //zmenšení obrázku
+                    var resizedImg = new Bitmap(image, new Size(215, 215)); //zmenšení obrázku
 
                     var img = ImageToByteArray(resizedImg); //převod obrázku na ByteArray
                     SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image,Name) VALUES (@image,@name)", sqlConnection);

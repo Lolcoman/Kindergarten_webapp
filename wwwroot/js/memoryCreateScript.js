@@ -1,11 +1,4 @@
-﻿/**
-* * významné
-* ! důležité
-* todo: dodělat
-* ? zamyslet se
-*/
-
-let test = document.getElementsByClassName("container");
+﻿let test = document.getElementsByClassName("container");
 console.log(test)
 
 localStorage.clear();
@@ -25,27 +18,42 @@ var IsCreated = false;
 var i = 0;
 var k = 0;
 var names;
+var deleted;
 var IsDownloaded = false;
 
 //výběr z dropdown
 document.getElementById("gameName").onchange = function () {
+    if (window.innerWidth <= 735) {
+        document.body.querySelector('footer').style.bottom = "auto";
+    }
     var selectValue = document.getElementById("gameName").value;
+    deleted = selectValue;
     if (selectValue == "") {
         return;
     }
     if (!IsDownloaded) {
         localStorage.clear();
         info.innerHTML = "Náhled pexesa";
+
+        var del = document.createElement('button');
+        del.id = 'btnDelete';
+        del.textContent = "Smazat pexeso ";
+        del.setAttribute("onclick", "deletePex()");
+        del.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-trash-can"></i>');
+
         var again = document.createElement("button");
         again.textContent = "Znovu ";
         again.id = "btnAgain";
         again.setAttribute("onclick", "again()");
         again.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-repeat"></i>');
+
         var next = document.createElement("button");
         next.textContent = "Vytvořit";
         next.id = "btnCreate";
         next.setAttribute("onclick", "create()");
 
+
+        test[0].appendChild(del);
         test[0].appendChild(again);
         test[0].appendChild(next);
         //document.body.appendChild(again);
@@ -93,7 +101,8 @@ function disableInput() {
 //kontrola zda byl vybrán soubor
 function checkOnCancel(fileSelectEle) {
     if (fileSelectEle.value.length == 0) {
-        alert("Nebyl vybrán žádný soubor!");
+        //alert("Nebyl vybrán žádný soubor!");
+        swal("Nebyl vybrán žádný soubor!","warning");
         document.body.onfocus = null;
         return false
     }
@@ -131,7 +140,6 @@ function CreateNew() {
             inputField.accept = "image/png,image/jpeg";
             inputField.required = true;
             inputField.oninput = preview;
-
             //inputField.onclick = disableInput;
 
             inputField.onchange = disableInput
@@ -145,8 +153,6 @@ function CreateNew() {
             //textfield.appendChild(newlabel);
             // iDiv.appendChild(newlabel);
             // iDiv.appendChild(textfield);
-
-
             iDiv.appendChild(newlabel);
             iDiv.appendChild(inputField);
             iDiv.appendChild(newImg);
@@ -173,10 +179,19 @@ function CreateNew() {
         document.getElementById("secondLine").style.display = "none";
 
 
+
+        //var del = document.createElement('button');
+        //del.id = 'btnDelete';
+        //del.textContent = "Smazat pexeso ";
+        //del.setAttribute("onclick", "deletePex()");
+        //del.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-trash-can"></i>');
+        //document.body.appendChild(del);
+
         //! Test btn znovu
         var again = document.createElement("button");
-        again.textContent = "Znovu?";
+        again.textContent = "Znovu ";
         again.id = "btnAgain";
+        again.insertAdjacentHTML("beforeend", '<i class="fa-solid fa-repeat"></i>');
         again.setAttribute("onclick", "again()");
         document.body.appendChild(again);
 
@@ -187,11 +202,26 @@ function CreateNew() {
 }
 
 function again() {
-    if (confirm('Chcete začít znovu?')) {
-        i = 0;
-        k = 0;
-        location.reload();
-    }
+    swal({
+        title: "Chcete začít znovu?",
+        icon: "info",
+        buttons: ["Zrušit", true],
+        dangerMode: true,
+    })
+    .then((willAgain) => {
+        if (willAgain) {
+            i = 0;
+            k = 0;
+            location.reload();
+        } else {
+            return
+        }
+    });
+    //if (confirm('Chcete začít znovu?')) {
+    //    i = 0;
+    //    k = 0;
+    //    location.reload();
+    //}
 }
 
 
@@ -222,8 +252,14 @@ function post() {
         contentType: false,
         success: function (result) {
             console.log(result);
-            alert("Nyní vyberte vytvořené pexeso");
-            location.reload();
+            //alert("Nyní vyberte vytvořené pexeso");
+            swal({
+                title: "Pexeso bylo nahráno!",
+                text: "Nyní vyberte vytvořené pexeso",
+                type: "success"
+            }).then(function () {
+                location.reload();
+            });
             //localStorage.setItem("game", name);
             //localStorage.setItem("images", JSON.stringify(response));
             //window.location.href = '/Home/Memory';
@@ -268,9 +304,62 @@ function download() {
 }
 
 function create() {
-    if (confirm('Opravdu chcete vytvořit pexeso?')) {
-        window.location.href = '/Home/Memory';
-    } else {
-        return
-    }
+    swal({
+        title: "Opravdu chcete vytvořit pexeso?",
+        icon: "info",
+        buttons: ["Zrušit", {
+            text: "OK",
+            value: true,
+            visible: true,
+            className: "btn-ok",
+            closeModal: true,
+        }],
+        className: ["class1", "btn-ok"]
+    })
+    .then((willAgain) => {
+        if (willAgain) {
+            window.location.href = '/Home/Memory';
+        } else {
+            return
+        }
+    });
+    //if (confirm('Opravdu chcete vytvořit pexeso?')) {
+    //    window.location.href = '/Home/Memory';
+    //} else {
+    //    return
+    //}
+}
+
+function deletePex() {
+    swal({
+        title: "Opravdu chcete pexeso smazat?",
+        text: "Změna je nevratná, pexeso nelze obnovit!",
+        icon: "warning",
+        buttons: ["Zrušit!", true],
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/DeleteFile/PexDelete' + "?" + "name=" + deleted,
+                timeout: 0,
+                success: function (response) {
+                    swal("Pexeso bylo smazáno!", {
+                        icon: "success",
+                    }).then(function () {
+                        location.reload();
+                    });
+                },
+                error: function (err) {
+                    console.log(err.responseJSON.title);
+                    swal({
+                        title: "Pexeso nebylo smazáno!",
+                        text: err.responseJSON.title,
+                        icon: "error",
+                    });
+                }
+            })
+        }
+    });
 }
