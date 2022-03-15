@@ -120,7 +120,12 @@ namespace MVCProject.Controllers
         {
             //načtení role z databáze
             string name = HttpContext.Session.GetString("UserName");
-            string selectSql = "SELECT UserName,Role FROM UserTable WHERE UserName = @name";
+            string className = HttpContext.Session.GetString("ClassName");
+            string accentedStr = className;
+            byte[] tempBytes;
+            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(accentedStr);
+            string lowerClassName = System.Text.Encoding.UTF8.GetString(tempBytes);
+            string selectSql = "SELECT UserName,ClassName,Role FROM UserTable WHERE UserName = @name";
             SqlCommand com = new SqlCommand(selectSql, sqlConnection);
             com.Parameters.AddWithValue("@name", name);
             try
@@ -153,11 +158,12 @@ namespace MVCProject.Controllers
                 //TADY JE ROLE!!!
                 if (role == "pedagog")
                 {
-                    command.CommandText = "SELECT UserName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable";
+                    command.CommandText = "SELECT UserName,ClassName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable WHERE ClassName = @ClassName";
+                    command.Parameters.AddWithValue("@ClassName", lowerClassName);
                 }
                 else
                 {
-                    command.CommandText = "SELECT UserName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable WHERE UserName = @UserName";
+                    command.CommandText = "SELECT UserName,ClassName,Moves,Games,DateTime,CorrectAnswer,Question FROM ScoreTable WHERE UserName = @UserName";
                 }
                 command.Parameters.AddWithValue("@UserName", name);
                 dr = command.ExecuteReader();
@@ -167,6 +173,8 @@ namespace MVCProject.Controllers
                     datas.Add(new Data()
                     {
                         UserName = dr["UserName"].ToString()
+                    ,
+                        ClassName = dr["ClassName"].ToString()
                     ,
                         Moves = dr["Moves"].ToString()
                     ,

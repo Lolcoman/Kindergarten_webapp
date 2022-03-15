@@ -3,6 +3,7 @@
     ViewData["Title"] = "Výsledky";
  string[] tableHeaders = new string[] {
             "Jméno"
+            ,"Třída"
             ,"Pohyby - Otočení"
             ,"Správné odpovědi"
             ,"Počet otázek"
@@ -36,6 +37,7 @@
                         </th>
                     }*@
                         <th data-column="UserName" data-order="desc">Jméno</th>
+                        <th data-column="ClassName" data-order="desc">Třída</th>
                         <th id="score" data-column="Moves" data-order="desc">Pohyby - Otočení &#9650</th>
                         <th id="game" data-column="Games" data-order="desc">Hra &#9650</th>
                         <th id="date" data-column="DateTime" data-order="desc">Čas uložení &#9650</th>
@@ -52,6 +54,7 @@
                         {
                             <tr>
                                 <td>@data.UserName</td>
+                                <td>@data.ClassName</td>
                                 <td>@data.Moves</td>
                                 <td>@data.Games</td>
                                 <td>@data.DateTime</td>
@@ -130,6 +133,9 @@
             case 'UserName':
                 return
                 break;
+            case 'ClassName':
+                return
+                break;
             case 'Question':
                 return
                 break;
@@ -164,6 +170,7 @@
         for (var i = 0; i < data.length; i++) {
             var row = `<tr>
                             <td>${data[i].UserName}</td>
+                            <td>${data[i].ClassName}</td>
                             <td>${data[i].Moves}</td>
                             <td>${data[i].Games}</td>
                             <td>${data[i].DateTime}</td>

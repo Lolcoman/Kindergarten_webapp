@@ -25,6 +25,12 @@ namespace MVCProject.Controllers
         {
             //získání uživatele ze session
             var name = HttpContext.Session.GetString("UserName");
+            var className = HttpContext.Session.GetString("ClassName");
+            //převedení na malé písmena třída
+            string accentedStr = className;
+            byte[] tempBytes;
+            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(accentedStr);
+            string lowerClassName = System.Text.Encoding.UTF8.GetString(tempBytes);
             if (name == null)
             {
                 return BadRequest("Chyba");
@@ -43,8 +49,9 @@ namespace MVCProject.Controllers
             //SqlCommand command = new SqlCommand($"UPDATE [UserTable] SET Maze = ('{score.score}'), DateTime = ('{sqlDate}') WHERE UserName = @UserName", sqlConnection);
             if (score.game == "Kvíz")
             {
-                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,ClassName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@ClassName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
                 command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@ClassName", lowerClassName);
                 command.Parameters.AddWithValue("@Score", score.score);
                 command.Parameters.AddWithValue("@Game", score.game);
                 command.Parameters.AddWithValue("@DateTime", myDate);
@@ -53,8 +60,9 @@ namespace MVCProject.Controllers
             }
             if (score.game == "Bludiště")
             {
-                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,ClassName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@ClassName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
                 command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@ClassName", lowerClassName);
                 command.Parameters.AddWithValue("@Score", score.score);
                 command.Parameters.AddWithValue("@Game", score.game);
                 command.Parameters.AddWithValue("@DateTime", myDate);
@@ -63,8 +71,9 @@ namespace MVCProject.Controllers
             }
             if (score.game == "Pexeso")
             {
-                command.CommandText = $"INSERT INTO [ScoreTable](UserName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
+                command.CommandText = $"INSERT INTO [ScoreTable](UserName,ClassName,Moves,Games,DateTime,CorrectAnswer,Question) VALUES (@UserName,@ClassName,@Score,@Game,@DateTime,@CorrectAnswer,@Question)";
                 command.Parameters.AddWithValue("@UserName", name);
+                command.Parameters.AddWithValue("@ClassName", lowerClassName);
                 command.Parameters.AddWithValue("@Score", score.score);
                 command.Parameters.AddWithValue("@Game", score.game);
                 command.Parameters.AddWithValue("@DateTime", myDate);

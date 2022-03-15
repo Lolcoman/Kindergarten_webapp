@@ -32,6 +32,7 @@
                 else
                 {
                     <ul class="f-right">
+                        <li><a id="profile">&#128100 @Context.Session.GetString("UserName")</a></li>
                         <li><a id="result" asp-controller="Home" asp-action="Table">&#128209 Výsledky</a></li>
                         <li><a asp-controller="Account" asp-action="Logout">&#128275 Odhlášení</a></li>
                     </ul>

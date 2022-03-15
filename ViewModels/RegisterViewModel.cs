@@ -21,5 +21,8 @@ namespace MVCProject.ViewModels
         public string Password { get; set; }
         //[Required(ErrorMessage = "Zadejte kód!")]
         public string AdminKey { get; set; }
+        //název třídy 
+        [Required(ErrorMessage = "Zadejte název třídy!")]
+        public string ClassName { get; set; }
     }
 }

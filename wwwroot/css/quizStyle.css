@@ -122,7 +122,9 @@ input[type="file"] {
 label {
     color: black;
 }
-
+article p {
+    text-align: left !important;
+}
 p {
     text-align: center;
     font-size: 20px;

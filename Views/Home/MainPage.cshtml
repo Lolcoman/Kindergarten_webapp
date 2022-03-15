@@ -10,6 +10,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script defer src="~/js/mainScript.js"></script>
     <link rel="stylesheet" href="~/css/main.css">
     @*<script src="~/js/someeAdsRemove.js"></script>*@
@@ -547,17 +548,46 @@
 </body>
 
 </html>
-@if (TempData["Message"] != null)
+@if ((string)TempData["Message"] == "Logout")
 {
     <script type="text/javascript">
-        window.onload = function ()
+        $(function ()
         {
-            @*alert('@Html.Raw(TempData["Message"])')*@
             var x = document.getElementById("toast-success");
+            x.innerHTML = 'Byl jste odhlášen @ViewBag.Name !';
+            x.style.background = "rgb(235, 64, 52)";
             x.style.display = "block";
             setTimeout(function () {
                 x.classList.toggle('fade');
-            }, 2500);
-        };
+            }, 3500);
+        });
+    </script>
+}
+@if ((string)TempData["Message"] == "Sucess")
+{
+    <script type="text/javascript">
+        $(function ()
+        {
+            var x = document.getElementById("toast-success");
+            x.innerHTML = 'Vítej @ViewBag.Name !'
+            x.style.display = "block";
+            setTimeout(function () {
+                x.classList.toggle('fade');
+            }, 3500);
+        });
+    </script>
+}
+@if ((string)TempData["Message"] == "SucessRegister")
+{
+    <script type="text/javascript">
+        $(function ()
+        {
+            var x = document.getElementById("toast-success");
+            x.innerHTML = 'Registrace byla úspěšná, vítej @ViewBag.Name !'
+            x.style.display = "block";
+            setTimeout(function () {
+                x.classList.toggle('fade');
+            }, 3500);
+        });
     </script>
 }
