@@ -363,3 +363,15 @@ function deletePex() {
         }
     });
 }
+function checkValue() {
+    gameName = document.getElementById('name').value;
+    let option = document.getElementById('gameName').querySelector('[value="' + gameName + '"]').value;
+    if (gameName == option) {
+        swal({
+            text: "Jméno již existuje!",
+            icon: "error",
+        });
+        document.getElementById('name').value = "";
+        return
+    }
+}

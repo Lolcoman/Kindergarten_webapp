@@ -19,6 +19,7 @@ var message = document.querySelector(".message");
 var options = document.querySelector(".options");
 var something = true;
 var find = false;
+
 //*vytvoří canvas
 function setup() {
     createCanvas(x, x);
@@ -171,7 +172,8 @@ class Cell {
         this.show = function (r = 100, g = 0, b = 128, a = 100) {
             var x = this.i * w;
             var y = this.j * w;
-            stroke(255);
+            strokeWeight(2);
+            stroke('#FFFFFF');
             if (this.walls[0]) {
                 line(x, y, x + w, y);
             }
