@@ -90,9 +90,13 @@ input[type=submit] {
 #findPath {
     margin: 0;
     position: absolute;
-    top: 92%;
+    top: 90%;
     left: 47vw;
     border: 3px solid #73AD21;
+    border-radius: 5px;
+    font-family: "Comic Sans MS", "Comic Sans";
+    font-size: 15px;
+}
 }
 .message {
     position: absolute;
