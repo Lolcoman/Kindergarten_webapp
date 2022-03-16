@@ -38,11 +38,9 @@ var quiz = {
                 var elementClicked = event.target;
                 if (elementClicked.textContent == "Konec") {
                     SubmitScore();  
-                    //alert("Výsledky byly uloženy, správné odpovědi " + correctAnswers + " z " + quiz.questions.length);
                     swal({
                         title:"Uložení výsledků",
-                        text: "Výsledky budou uloženy, pokud jste přihlášen\n<u>Výsledky</u>: správné odpovědi " + correctAnswers + " z " + quiz.questions.length,
-                        html: true,
+                        text: "Výsledky budou uloženy, pokud jste přihlášen\nVýsledky: správné odpovědi " + correctAnswers + " z " + quiz.questions.length,
                         icon: "success",
                     }).then(function () {
                         location.reload();
@@ -263,42 +261,51 @@ var view = {
     displayAnswersCorrect: function () {
         var questionDiv = document.querySelectorAll(".questionDiv");
         var answersCorrect = document.querySelector(".answersCorrect");
-        //TEST
         var questions = questionDiv.length;
-        var quizQuestions = document.querySelector(".quizQuestions")
+        var quizQuestions = document.querySelector(".quizQuestions");
         quizQuestions.textContent = "Počet zbývajících otázek: " + questions;
         answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
+        var selectAnswer = document.querySelector(".selectAnswer");
+        selectAnswer.style.borderBottom = "3px solid black";
+        selectAnswer.style.padding = "2px";
+        selectAnswer.style.display = "inline";
+        selectAnswer.textContent = "Vyberte správný obrázek ";
+        selectAnswer.insertAdjacentHTML("beforeend", '<i class="fas fa-check-circle fa-lg"></i>');
 
-        //add click event to each question div if the element clicked has class correct then add 1 to correctAnswers and change the color of element to green.
-        //Else change the color of element to red and find the elemtn with correct class and make it green
         for (var i = 0; i < questionDiv.length; i++) {
-            questionDiv[i].onclick = function (event) {
-                event = event || window.event;
-                if (event.target.className === "correct" || event.target.parentNode.className === "correct") {
-                    correctAnswers++;
-                    answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
-                    //TEST
-                    quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
-                    //event.target.style.color = "#2ecc71";
-                    let correct = document.querySelector(".correct");
-                    correct.style.backgroundColor = "green";
-                    //event.target.style.backgroundColor = "green";
-                } else if (event.target.className === "wrong" || event.target.parentNode.className === "wrong") {
-                    event.target.parentNode.style.backgroundColor = "#fc5b56";
-                    quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
-                    //document.body.style.background = "#fc5b56";
-                    //questionDiv = document.getElementsByClassName("questionDiv");
-                    //questionDiv[0].style.backgroundColor = "#fc5b56";
+            questionDiv[i].onclick = function () {
+                /*event = event || window.event;*/
+                /*window.onclick = function (event) {*/
+                    let itemChildren;
+                    //načtení rodičů po kliku na odpoveď, nastavení barvy a smazaní tříd
+                    if (event.target.className === "correct" || event.target.parentNode.className === "correct") {
+                        if (event.target.parentNode.className === "correct") {
+                            itemChildren = event.target.parentNode.parentNode.children;
+                        } else {
+                            itemChildren = event.target.parentNode.children;
+                        }
+                        correctAnswers++;
+                        answersCorrect.textContent = "Správné odpovědi: " + correctAnswers;
+                        quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
+                        let correct = document.querySelector(".correct");
+                        correct.style.backgroundColor = "green";
+                    } else if (event.target.className === "wrong" || event.target.parentNode.className === "wrong") {
+                        if (event.target.parentNode.className === "wrong") {
+                            itemChildren = event.target.parentNode.parentNode.children;
+                            event.target.parentNode.style.backgroundColor = "#fc5b56";
+                        } else {
+                            itemChildren = event.target.parentNode.children;
+                            event.target.style.backgroundColor = "#fc5b56";
+                        }
+                        quizQuestions.textContent = "Počet zbývajících otázek: " + --questions;
 
-                    //let correct = document.querySelector(".correct");
-                    //correct.style.backgroundColor = "red";
-
-                }
-                let itemChildren = event.target.parentNode.parentNode.children;
-                for (i = 0; i < itemChildren.length; i++) {
-                    itemChildren[i].classList.remove("correct");
-                    itemChildren[i].classList.remove("wrong");
-                }
+                    }
+                    //smazání tříd
+                    for (i = 0; i < itemChildren.length; i++) {
+                        itemChildren[i].classList.remove("correct");
+                        itemChildren[i].classList.remove("wrong");
+                    }
+                //}
             }
         }
     },

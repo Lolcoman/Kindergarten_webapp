@@ -22,9 +22,11 @@
     <div class="addQuestions">
         <h1>Kvíz</h1>
         <article style="display:inline-block;">
-            <p>Pro nahrání klikni na tlačítko příslušného obrázku</p>
-            <p>Kvíz obsahuje 3 odpovědi, ale pouze 1 správnou</p>
-            <p>Pokud kvíz chcete smazat, vyberte jej ze seznamu</p>
+        <ul class="ulInfo">
+            <li>Pro nahrání klikni na tlačítko příslušného obrázku</li>
+            <li>Kvíz obsahuje 3 odpovědi, ale pouze 1 správnou</li>
+            <li>Pokud kvíz chcete smazat, vyberte jej ze seznamu</li>
+        </ul>
         </article>
         <hr>
         <div style="text-align:center">
@@ -72,8 +74,11 @@
         <button onclick="view.displayQuestions()" id="startQuiz">Start</button>
         <button id="btnAgain" onclick="location.reload()" style="display:none;">Znovu <i class="fa-solid fa-repeat"></i></button>
     </div>
-    <p class="answersCorrect"></p>
-    <p class="quizQuestions"></p>
+    <div class="infoTop">
+        <p class="answersCorrect"></p>
+        <p class="quizQuestions"></p>
+        <p class="selectAnswer"></p>
+    </div>
     <div class="questionsWrapper"></div>
 </body>
 </html>
