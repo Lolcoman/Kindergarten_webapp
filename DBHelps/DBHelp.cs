@@ -10,10 +10,11 @@ namespace MVCProject.DBHelps
     public class DBHelp
     {
         private IConfiguration configuration;
-
+        string connectionString;
         public DBHelp(IConfiguration cfg)
         {
             configuration = cfg;
+            connectionString = cfg["ConnectionStrings:DefaultConnection"];
         }
 
         /// <summary>
@@ -47,16 +48,12 @@ namespace MVCProject.DBHelps
         public int DMLTransaction(string query)
         {
             int result;
-            string connectionString = configuration["ConnectionStrings:DefaultConnection"];
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-
-                string sql = query;
-                SqlCommand sqlCommand = new SqlCommand(sql, con);
-                result = sqlCommand.ExecuteNonQuery();
-                con.Close();
-            }
+            using SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            string sql = query;
+            SqlCommand sqlCommand = new SqlCommand(sql, con);
+            result = sqlCommand.ExecuteNonQuery();
+            con.Close();
             return result;
         }
     }

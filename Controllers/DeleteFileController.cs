@@ -26,7 +26,7 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         public IActionResult PexDelete([FromQuery] string name)
         {
-            SqlConnection sqlConn = new SqlConnection(connectionString);
+            using SqlConnection sqlConn = new SqlConnection(connectionString);
             string sqlQuery = $"DELETE FROM [PexesoTable] WHERE Name = @Name";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
             sqlCommand.Parameters.AddWithValue("@Name", name);
@@ -60,7 +60,7 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         public IActionResult QuizDelete([FromQuery] string name)
         {
-            SqlConnection sqlConn = new SqlConnection(connectionString);
+            using SqlConnection sqlConn = new SqlConnection(connectionString);
             string sqlQuery = $"DELETE FROM [QuizTable] WHERE Name = @Name";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
             sqlCommand.Parameters.AddWithValue("@Name", name);

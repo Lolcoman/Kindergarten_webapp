@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 
 namespace MVCProject.Controllers
 {
@@ -22,15 +23,14 @@ namespace MVCProject.Controllers
         SqlCommand command = new SqlCommand();
         SqlDataReader dr;
         List<Data> datas = new List<Data>();
-        SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
         string role;
-        //pro debug při logování
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
+        private IConfiguration cfg;
+        string connectionString;
+        public HomeController(IConfiguration configuration)
+        {
+            cfg = configuration;
+            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+        }
 
         public IActionResult Manual()
         {
@@ -80,6 +80,7 @@ namespace MVCProject.Controllers
         //získání dat z DB pro select Pexeso
         public void SelectFromDB(string name)
         {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
             {
                 string query = "";
@@ -118,6 +119,7 @@ namespace MVCProject.Controllers
         //získání dat z DB pro tabulku výsledků
         private void FillData()
         {
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             //načtení role z databáze
             string name = HttpContext.Session.GetString("UserName");
             string className = HttpContext.Session.GetString("ClassName");

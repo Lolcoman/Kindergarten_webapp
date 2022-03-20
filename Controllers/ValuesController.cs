@@ -37,11 +37,13 @@ namespace MVCProject.Controllers
             }
             SqlCommand command = new SqlCommand();
             DateTime mydateTime = DateTime.Now;
-            string sqlDate = mydateTime.ToString("G");
+            TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time");
+            DateTime date2 = TimeZoneInfo.ConvertTime(mydateTime, tz);
+            string sqlDate = date2.ToString("G");
             //string sqlDate = mydateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime myDate = DateTime.Parse(sqlDate);
 
-            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
+            using SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
             command.Connection = sqlConnection;
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());

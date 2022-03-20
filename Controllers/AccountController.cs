@@ -15,6 +15,7 @@ namespace MVCProject.Controllers
     {
         private IConfiguration cfg;
         DBHelp help;
+        string connectionString;
         public IActionResult Index()
         {
             return View();
@@ -24,6 +25,7 @@ namespace MVCProject.Controllers
         {
             cfg = configuration;
             help = new DBHelp(cfg);
+            connectionString = cfg["ConnectionStrings:DefaultConnection"];
         }
         //REGISTRACE NOVÉHO UŽIVATELE
         [HttpGet]
@@ -34,9 +36,8 @@ namespace MVCProject.Controllers
 
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
-            string connectionString = cfg["ConnectionStrings:DefaultConnection"];
             //Ověření zda již uživetel je v databázi, ověří duplicitní jméno a email
-            SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = new SqlConnection(connectionString);
             //TEST
             //string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
             string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName";
@@ -120,9 +121,8 @@ namespace MVCProject.Controllers
             string role;
             string hashPassword;
             bool IsPasswordValid;
-            string connectionString = cfg["ConnectionStrings:DefaultConnection"];
             //string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStrings:DefaultConnection"].ConnectionString;
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             //string sqlQuery = "SELECT UserName,Password from [UserTable] where UserName=@UserName and Password=@Password";
             string sqlQueryHash = "SELECT Password,Role,ClassName from UserTable where [UserName] = @UserName";
             sqlConnection.Open();

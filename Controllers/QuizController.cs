@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MVCProject.Models;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,15 @@ namespace MVCProject.Controllers
     [ApiController]
     public class QuizController : ControllerBase
     {
+        private IConfiguration cfg;
+        string connectionString;
+        public QuizController(IConfiguration configuration)
+        {
+            cfg = configuration;
+            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+        }
         SqlDataReader dr;
         SqlCommand command = new SqlCommand();
-        //SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
         //test API
         public IActionResult Get()
         {
@@ -33,7 +40,7 @@ namespace MVCProject.Controllers
             byte[] img, question;
             Image image, resizedImg;
             int i;
-            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
             {
                 if (name == "")
@@ -44,7 +51,6 @@ namespace MVCProject.Controllers
                 {
                     return BadRequest("Žádný soubor");
                 }
-                //var file = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
                 {
@@ -99,11 +105,6 @@ namespace MVCProject.Controllers
                             break;
                     }
                 }
-
-                //var image = Image.FromStream(file.OpenReadStream()); //načtení do StreamReaderu
-                //var resizedImg = new Bitmap(image, new Size(170, 170)); //zmenšení obrázku
-
-                //var img = ImageToByteArray(resizedImg); //převod obrázku na ByteArray
                 command.Parameters.AddWithValue("@name", name);
                 i = command.ExecuteNonQuery();
                 return Ok("Data uložena");
@@ -147,36 +148,25 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public List<Question> QuizDownload([FromQuery] string name)
         {
-            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand($"SELECT question,answer,wrongOne,wrongTwo FROM QuizTable WHERE Name = @name", sqlConnection);
-            //"SELECT Password from UserTable where [UserName] = @UserName";
             command.Parameters.AddWithValue("@name", name);
             try
             {
-                //List<string> list = new List<string>();
-                //List<Image> photoList = new List<Image>();
                 var questionList = new List<Question>();
                 sqlConnection.Open();
                 byte[] question, answer, wrongOne, wrongTwo;
-                //Image fullQuestion,fullAnswer,fullWrongOne,fullWrongTwo;
                 dr = command.ExecuteReader();
                 var memory = new MemoryStream();
-                //int i = dr.FieldCount;
                 bool b = dr.HasRows;
                 if (dr.HasRows)
                 {
                     while (dr.Read())
                     {
-                        //dr.Read();
                         question = (byte[])dr["question"];
                         answer = (byte[])dr["answer"];
                         wrongOne = (byte[])dr["wrongOne"];
                         wrongTwo = (byte[])dr["wrongTwo"];
-
-                        //fullQuestion = ByteArrayToImage(question);
-                        //fullAnswer = ByteArrayToImage(answer);
-                        //fullWrongOne = ByteArrayToImage(wrongOne);
-                        //fullWrongTwo = ByteArrayToImage(wrongTwo);
                         string questionString = Convert.ToBase64String(question);
                         string answerString = Convert.ToBase64String(answer);
                         string wrongOneString = Convert.ToBase64String(wrongOne);
@@ -188,24 +178,10 @@ namespace MVCProject.Controllers
                             wrongOne = wrongOneString,
                             wrongTwo = wrongTwoString
                         });
-
-                        //fullImage.Save(memory, ImageFormat.Png);
-
-                        //photoList.Add(fullImage);
-                        //memory.Position = 0;
                     }
                 }
-                //Image[] imagesArray;
-                //imagesArray = File.ReadAllLines(memory);
-                //imagesArray = photoList.ToArray();
-                //ViewBag.countQuestion = questionList.Count;
                 return questionList;
-                //return File(memory.ToArray(),"image/png");
             }
-            //catch (SqlException e)
-            //{
-            //    return BadRequest("Error Generated. Details: " + e.ToString());
-            //}
             finally
             {
                 sqlConnection.Close();

@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #fccec0;
+    font-family: Comic Sans MS;
 }
 
 p {
@@ -123,6 +124,7 @@ input[type=submit] {
     text-align: center;
     display: none;
     padding-left: 890px;
+    z-index:1;
 }
 .flash {
     -webkit-animation: flash linear 1s infinite; /*google chrome support web-kit*/
@@ -195,4 +197,7 @@ input[type="radio"]{
 }
 .info{
     padding:7px;
+}
+.swal-modal {
+    will-change: unset !important;
 }

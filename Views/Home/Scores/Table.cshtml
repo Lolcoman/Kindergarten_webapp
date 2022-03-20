@@ -191,7 +191,7 @@
         //Projde řádky a které neodpovídají filtru tak se skryjí
         for (let row of rows) { 
             cells = row.getElementsByTagName("td");
-            game = cells[2] || null; //Filtrování podle hry
+            game = cells[3] || null; //Filtrování podle hry
             //Pokud je filtr nastaven na vše nebo se položka rovná filtru, tak ostaní řádky skryje
             if (filter === "Vše" || !game || (filter === game.textContent)) {
                 row.style.display = ""; //zobrazení

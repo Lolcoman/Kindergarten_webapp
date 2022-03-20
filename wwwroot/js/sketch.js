@@ -297,6 +297,14 @@ function finish() {
         document.querySelector(".score span").innerHTML = moves;
         something = false;
         SubmitScore();
+        swal({
+            title: "Uložení výsledků",
+            text: "Pohyby budou uloženy, pokud jste přihlášen\nPohyby: " + moves,
+            icon: "success",
+        })
+        //.then(function () {
+        //    location.reload();
+        //});
     }
 
 }

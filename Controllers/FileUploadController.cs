@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,20 @@ namespace MVCProject.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
+        private IConfiguration cfg;
+        string connectionString;
+        public FileUploadController(IConfiguration configuration)
+        {
+            cfg = configuration;
+            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+        }
         SqlDataReader dr;
         SqlCommand command = new SqlCommand();
-        //SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
         [HttpPost("[action]")]
         public IActionResult Upload([FromForm]List<IFormFile> files, [FromForm] string name)
         {
             int i;
-            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             try
             {
                 if (name == "")
@@ -34,7 +41,6 @@ namespace MVCProject.Controllers
                 {
                     return BadRequest("Žádný soubor");
                 }
-                //var file = Request.Form.Files[0];
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
                 {   
@@ -102,9 +108,8 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public List<string> Download([FromQuery] string name)
         {
-            SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB;");
+            using SqlConnection sqlConnection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand($"SELECT Image FROM PexesoTable WHERE Name = @name", sqlConnection);
-            //"SELECT Password from UserTable where [UserName] = @UserName";
             command.Parameters.AddWithValue("@name",name);
             try
             {
@@ -122,7 +127,6 @@ namespace MVCProject.Controllers
                     while (dr.Read())
                     {
                         //jen test musí se ještě vyselectovat podle názvu hry jaké obrázky stáhnout
-                        //dr.Read();
                         imgArray = (byte[])dr["Image"];
                         fullImage = ByteArrayToImage(imgArray);
                         string imgString = Convert.ToBase64String(imgArray);
@@ -131,7 +135,6 @@ namespace MVCProject.Controllers
                         fullImage.Save(memory, ImageFormat.Png);
 
                         photoList.Add(fullImage);
-                        //memory.Position = 0;
                     }
                 }
                 Image[] imagesArray;
@@ -140,10 +143,6 @@ namespace MVCProject.Controllers
                 return list;
                 //return File(memory.ToArray(),"image/png");
             }
-            //catch (SqlException e)
-            //{
-            //    return BadRequest("Error Generated. Details: " + e.ToString());
-            //}
             finally
             {
                 sqlConnection.Close();
