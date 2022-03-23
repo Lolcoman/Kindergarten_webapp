@@ -67,8 +67,9 @@ namespace MVCProject.Controllers
             command.Parameters.AddWithValue("@className", lowerClassName);
             if (registerViewModel.AdminKey == "9qf+TZ")
             {
-                registerViewModel.AdminKey = "pedagog";
-                command.Parameters.AddWithValue("@role",registerViewModel.AdminKey);
+                //registerViewModel.AdminKey = "pedagog";
+                string addRole = "pedagog";
+                command.Parameters.AddWithValue("@role",addRole);
             }
             else
             {
@@ -83,7 +84,7 @@ namespace MVCProject.Controllers
                 //Přidá Pedagoga do session
                 if (registerViewModel.AdminKey == "9qf+TZ")
                 {
-                    EntryIntoSessionRole(registerViewModel.AdminKey);
+                    EntryIntoSessionRole("pedagog");
                 }
 
                 //změna zprávy když se zaregistruje
