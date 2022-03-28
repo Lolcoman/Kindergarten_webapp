@@ -47,7 +47,8 @@ namespace MVCProject.Controllers
             bool IsExist = help.IsUserExist(command1,sql);
             if (IsExist == true)
             {
-                ViewBag.Exist = "Jméno již existuje!";
+                //ViewBag.Exist = "Jméno již existuje!";
+                TempData["Message"] = "nameExist";
                 return View();
             }
             //Kryptování hesla pomocí BCrypt

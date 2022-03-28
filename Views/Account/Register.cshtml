@@ -14,10 +14,11 @@
     <script defer src="~/js/authScript.js"></script>
     <title>Registrace</title>
     <script defer src="~/js/someeAdsRemove.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </head>
 
 <body>
+    <div id="toast-success"></div>
     <div class="container">
         <form id="form" asp-action="Register" method="post">
             <h1>Registrace</h1>
@@ -54,14 +55,28 @@
             <button type="submit" class="btn">Registrace</button>
             <a id="back-link" asp-controller="Home" asp-action="MainPage">Zpět</a>
 
-            @if (ViewBag.Exist != null)
+            @if ((string)TempData["Message"] == "nameExist")
             {
                 <script type="text/javascript">
+                    $(function ()
+                    {
+                        var x = document.getElementById("toast-success");
+                        x.innerHTML = 'Jméno již existuje!';
+                        x.style.background = "rgb(235, 64, 52)";
+                        x.style.top = "150px";
+                        x.style.maxWidth = "auto";
+                        x.style.display = "block";
+                        setTimeout(function () {
+                            x.classList.toggle('fade');
+                        }, 3500);
+                    });
+                </script>
+@*                <script type="text/javascript">
                     window.onload = function ()
                     {
                         alert('@Html.Raw(ViewBag.Exist)')
                     };
-                </script>
+                </script>*@
             }
         </form>
     </div>
