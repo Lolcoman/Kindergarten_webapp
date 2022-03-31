@@ -23,14 +23,22 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         public IActionResult Save([FromBody] Score score)
         {
+            string lowerClassName;
             //získání uživatele ze session
             var name = HttpContext.Session.GetString("UserName");
             var className = HttpContext.Session.GetString("ClassName");
             //převedení na malé písmena třída
-            string accentedStr = className;
-            byte[] tempBytes;
-            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(accentedStr);
-            string lowerClassName = System.Text.Encoding.UTF8.GetString(tempBytes);
+            if (className == null)
+            {
+                return BadRequest("Chyba");
+            }
+            else
+            {
+                string accentedStr = className;
+                byte[] tempBytes;
+                tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(accentedStr);
+                lowerClassName = System.Text.Encoding.UTF8.GetString(tempBytes);
+            }
             if (name == null)
             {
                 return BadRequest("Chyba");

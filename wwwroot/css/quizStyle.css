@@ -182,7 +182,7 @@ select {
 option:first-child {
     display: none;
 }
-@media (max-width: 1600px) {
+/*@media (max-width: 1600px) {
     #btnAgain {
         margin-top: 0 !important;
     }
@@ -191,7 +191,7 @@ option:first-child {
         padding-left: 375px !important;
         padding-right: 285px !important;
     }
-}
+}*/
 h4{
     font-size: 18px;
 }
@@ -240,6 +240,27 @@ div > li {
         grid-area: button;
         margin: 0 auto !important;
         align-self:start;
+    }
+}
+@media (max-height:820px){
+    input {
+        margin: 0 auto !important;
+    }
+    img {
+        height: 200px !important;
+        width: 200px !important;
+    }
+    h4 {
+        margin: 0 auto !important;
+    }
+    .info button {
+        margin: 0 0 !important;
+    }
+    h1{
+        margin:0 auto !important;
+    }
+    .gridCreate{
+        margin-bottom:5px !important;
     }
 }
 #btnDelete {
@@ -295,4 +316,13 @@ div > li {
 .infoTop {
     text-align: center;
     font-size: 20px;
+}
+@media (max-height: 825px) {
+    .questionsWrapper div.is-active {
+        grid-row-gap: 0px !important;
+    }
+    img{
+        height: 220px !important;
+        width: 220px !important;
+    }
 }

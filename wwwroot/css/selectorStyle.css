@@ -201,3 +201,13 @@ input[type="radio"]{
 .swal-modal {
     will-change: unset !important;
 }
+@media (max-height: 835px){
+    canvas {
+        width: 580px !important;
+        height: 580px !important;
+        top: -50px;
+    }
+    .options{
+        padding-left:530px !important;
+    }
+}

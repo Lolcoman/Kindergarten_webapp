@@ -325,4 +325,7 @@ li {
     #btnPlay{
         margin-bottom:100px !important;
     }
+    ul a{
+        font-size: 19px !important;
+    }
 }

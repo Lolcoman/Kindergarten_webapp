@@ -5,7 +5,7 @@ body {
 #game-board{
     background: #ccc;
     border: black 2px solid;
-    width: 1230px;
+    width: 1150px;
     height: 820px;
     padding: 10px;
     margin: 0 auto;
@@ -16,7 +16,7 @@ body {
     width: 120px;
     height: 120px;
     float: left;
-    margin: 15px;
+    margin: 10px;
     padding: 10px;
     font-size: 50px;
     cursor: pointer;
@@ -90,8 +90,8 @@ body {
 
 @media (max-width: 1600px) {
     img {
-        width: 120px !important;
-        height: 120px !important;
+        width: 110px !important;
+        height: 110px !important;
     }
     .images {
         padding-left: 375px !important;
@@ -101,11 +101,12 @@ body {
         font-size: 30px !important;
     }
     #game-board {
-        height: 745px !important;
+        height: 600px !important;
+        width: 1080px !important;
     }
     #game-board > div {
-         height: 120px !important;
-         width: 120px !important;
+         height: 110px !important;
+         width: 110px !important;
     }
 }
 #info {
