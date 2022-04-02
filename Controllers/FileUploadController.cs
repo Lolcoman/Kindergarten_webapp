@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using MVCProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace MVCProject.Controllers
 {
@@ -17,20 +15,17 @@ namespace MVCProject.Controllers
     [ApiController]
     public class FileUploadController : ControllerBase
     {
-        private IConfiguration cfg;
-        string connectionString;
-        public FileUploadController(IConfiguration configuration)
+        private readonly SqlConnectionFactory _factory;
+        public FileUploadController(SqlConnectionFactory factory)
         {
-            cfg = configuration;
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
         }
-        SqlDataReader dr;
-        SqlCommand command = new SqlCommand();
+
         [HttpPost("[action]")]
-        public IActionResult Upload([FromForm]List<IFormFile> files, [FromForm] string name)
+        public IActionResult Upload([FromForm] List<IFormFile> files, [FromForm] string name)
         {
             int i;
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             try
             {
                 if (name == "")
@@ -43,7 +38,7 @@ namespace MVCProject.Controllers
                 }
                 //Kontrola pouze .jpg a .png
                 foreach (var file in files)
-                {   
+                {
                     string ext = Path.GetExtension(file.FileName);
                     string extLower = ext.ToLower();
                     if (IsImage(extLower))
@@ -108,17 +103,17 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public List<string> Download([FromQuery] string name)
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             SqlCommand command = new SqlCommand($"SELECT Image FROM PexesoTable WHERE Name = @name", sqlConnection);
-            command.Parameters.AddWithValue("@name",name);
+            command.Parameters.AddWithValue("@name", name);
+            sqlConnection.Open();
+            using var dr = command.ExecuteReader();
             try
             {
                 List<string> list = new List<string>();
                 List<Image> photoList = new List<Image>();
-                sqlConnection.Open();
                 byte[] imgArray;
                 Image fullImage;
-                dr = command.ExecuteReader();
                 var memory = new MemoryStream();
                 int i = dr.FieldCount;
                 bool b = dr.HasRows;

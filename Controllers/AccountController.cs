@@ -1,31 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using MVCProject.DBHelps;
+using MVCProject.Services;
 using MVCProject.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCProject.Controllers
 {
     public class AccountController : Controller
     {
-        private IConfiguration cfg;
-        DBHelp help;
-        string connectionString;
+        private readonly SqlConnectionFactory _factory;
+        private readonly DBHelp _help;
         public IActionResult Index()
         {
             return View();
         }
 
-        public AccountController(IConfiguration configuration)
+        public AccountController(SqlConnectionFactory factory, DBHelp dbHelp)
         {
-            cfg = configuration;
-            help = new DBHelp(cfg);
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
+            _help = dbHelp;
         }
         //REGISTRACE NOVÉHO UŽIVATELE
         [HttpGet]
@@ -37,14 +32,14 @@ namespace MVCProject.Controllers
         public IActionResult Register(RegisterViewModel registerViewModel)
         {
             //Ověření zda již uživetel je v databázi, ověří duplicitní jméno a email
-            using SqlConnection sql = new SqlConnection(connectionString);
+            using SqlConnection sql = _factory.CreateConnection();
             //TEST
             //string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName OR Email = @email";
             string uQuery = $"SELECT * FROM [UserTable] WHERE UserName = @UserName";
             SqlCommand command1 = new SqlCommand(uQuery, sql);
             command1.Parameters.AddWithValue("@UserName", registerViewModel.UserName);
             //command1.Parameters.AddWithValue("@email", registerViewModel.Email);
-            bool IsExist = help.IsUserExist(command1,sql);
+            bool IsExist = _help.IsUserExist(command1, sql);
             if (IsExist == true)
             {
                 //ViewBag.Exist = "Jméno již existuje!";
@@ -61,7 +56,7 @@ namespace MVCProject.Controllers
             string lowerClassName = System.Text.Encoding.UTF8.GetString(tempBytes);
             //string query = "INSERT INTO [UserTable](UserName,Email,Password) VALUES (@username, @email, @password)";
             uQuery = "INSERT INTO [UserTable](UserName,Email,Password,Role,ClassName) VALUES (@username, @email, @password, @role, @className)";
-            SqlCommand command = new SqlCommand(uQuery,sql);
+            SqlCommand command = new SqlCommand(uQuery, sql);
             command.Parameters.AddWithValue("@username", registerViewModel.UserName);
             command.Parameters.AddWithValue("@email", registerViewModel.Email);
             command.Parameters.AddWithValue("@password", CrypPassword);
@@ -70,7 +65,7 @@ namespace MVCProject.Controllers
             {
                 //registerViewModel.AdminKey = "pedagog";
                 string addRole = "pedagog";
-                command.Parameters.AddWithValue("@role",addRole);
+                command.Parameters.AddWithValue("@role", addRole);
             }
             else
             {
@@ -103,7 +98,7 @@ namespace MVCProject.Controllers
             return View();
         }
 
-        public void EntryIntoSession(string userName,string className)
+        public void EntryIntoSession(string userName, string className)
         {
             HttpContext.Session.SetString("UserName", userName);
             HttpContext.Session.SetString("ClassName", className);
@@ -124,14 +119,14 @@ namespace MVCProject.Controllers
             string hashPassword;
             bool IsPasswordValid;
             //string connectionString = ConfigurationManager.ConnectionStrings["ConnectionStrings:DefaultConnection"].ConnectionString;
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             //string sqlQuery = "SELECT UserName,Password from [UserTable] where UserName=@UserName and Password=@Password";
             string sqlQueryHash = "SELECT Password,Role,ClassName from UserTable where [UserName] = @UserName";
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand(sqlQueryHash, sqlConnection);
             sqlCommand.Parameters.AddWithValue("@UserName", loginViewModel.UserName);
 
-            SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            using SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
             while (sqlDataReader.Read())
             {
                 hashPassword = sqlDataReader["Password"].ToString();
@@ -143,7 +138,7 @@ namespace MVCProject.Controllers
                 {
                     //string jmeno = sqlDataReader["UserName"].ToString();
                     //Session["userID"] = loginViewModel.UserName;
-                    EntryIntoSession(loginViewModel.UserName,className);
+                    EntryIntoSession(loginViewModel.UserName, className);
                     if (role == "pedagog")
                     {
                         EntryIntoSessionRole(role);

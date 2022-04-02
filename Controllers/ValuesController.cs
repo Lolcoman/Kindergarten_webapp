@@ -1,16 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using MVCProject.DBHelps;
 using MVCProject.Models;
-using Newtonsoft.Json.Serialization;
-using System.Web;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Authorization;
+using MVCProject.Services;
+using System;
+using System.Data.SqlClient;
 
 namespace MVCProject.Controllers
 {
@@ -18,7 +11,11 @@ namespace MVCProject.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        //SqlConnection sqlConnection = new SqlConnection("Server=tcp:sqlusersdb.database.windows.net,1433;Initial Catalog=UsersDB;Persist Security Info=False;User ID=kozami01;Password=sql123?!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        private readonly SqlConnectionFactory _factory;
+        public ValuesController(SqlConnectionFactory factory)
+        {
+            _factory = factory;
+        }
 
         [HttpPost("[action]")]
         public IActionResult Save([FromBody] Score score)
@@ -51,7 +48,7 @@ namespace MVCProject.Controllers
             //string sqlDate = mydateTime.Date.ToString("yyyy-MM-dd HH:mm:ss");
             DateTime myDate = DateTime.Parse(sqlDate);
 
-            using SqlConnection sqlConnection = new SqlConnection("workstation id=MainSiteDB.mssql.somee.com;packet size=4096;user id=Lolcoman_SQLLogin_1;pwd=crnnfr9adq;data source=MainSiteDB.mssql.somee.com;persist security info=False;initial catalog=MainSiteDB");
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             command.Connection = sqlConnection;
             //JArray array = (JArray)ojObject["chats"];
             //int id = Convert.ToInt32(array[0].ToString());

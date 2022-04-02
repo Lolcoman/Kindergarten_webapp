@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using MVCProject.Models;
+using MVCProject.Services;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 
 namespace MVCProject.Controllers
 {
@@ -15,18 +10,16 @@ namespace MVCProject.Controllers
     [ApiController]
     public class DeleteFileController : Controller
     {
-        private IConfiguration cfg;
-        string connectionString;
-        public DeleteFileController(IConfiguration configuration)
+        private readonly SqlConnectionFactory _factory;
+        public DeleteFileController(SqlConnectionFactory factory)
         {
-            cfg = configuration;
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
         }
         //smazání PEXESA z databáze
         [HttpPost("[action]")]
         public IActionResult PexDelete([FromQuery] string name)
         {
-            using SqlConnection sqlConn = new SqlConnection(connectionString);
+            using SqlConnection sqlConn = _factory.CreateConnection();
             string sqlQuery = $"DELETE FROM [PexesoTable] WHERE Name = @Name";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
             sqlCommand.Parameters.AddWithValue("@Name", name);
@@ -60,7 +53,7 @@ namespace MVCProject.Controllers
         [HttpPost("[action]")]
         public IActionResult QuizDelete([FromQuery] string name)
         {
-            using SqlConnection sqlConn = new SqlConnection(connectionString);
+            using SqlConnection sqlConn = _factory.CreateConnection();
             string sqlQuery = $"DELETE FROM [QuizTable] WHERE Name = @Name";
             SqlCommand sqlCommand = new SqlCommand(sqlQuery, sqlConn);
             sqlCommand.Parameters.AddWithValue("@Name", name);

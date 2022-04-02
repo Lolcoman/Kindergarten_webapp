@@ -1,20 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MVCProject.Services;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCProject.DBHelps
 {
     public class DBHelp
     {
-        private IConfiguration configuration;
-        string connectionString;
-        public DBHelp(IConfiguration cfg)
+        private readonly SqlConnectionFactory _factory;
+        public DBHelp(SqlConnectionFactory factory)
         {
-            configuration = cfg;
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
         }
 
         /// <summary>
@@ -22,7 +17,7 @@ namespace MVCProject.DBHelps
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public bool IsUserExist(SqlCommand command,SqlConnection con)
+        public bool IsUserExist(SqlCommand command, SqlConnection con)
         {
             bool help = false;
             try
@@ -31,7 +26,7 @@ namespace MVCProject.DBHelps
 
                 //string sql = query;
                 //SqlCommand sqlCommand = new SqlCommand(sql, con);
-                SqlDataReader sqlDataReader = command.ExecuteReader();
+                using SqlDataReader sqlDataReader = command.ExecuteReader();
                 if (sqlDataReader.HasRows)
                 {
                     help = true;
@@ -48,7 +43,7 @@ namespace MVCProject.DBHelps
         public int DMLTransaction(string query)
         {
             int result;
-            using SqlConnection con = new SqlConnection(connectionString);
+            using SqlConnection con = _factory.CreateConnection();
             con.Open();
             string sql = query;
             SqlCommand sqlCommand = new SqlCommand(sql, con);

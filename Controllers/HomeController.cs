@@ -1,20 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MVCProject.Models;
+using MVCProject.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
+using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace MVCProject.Controllers
 {
@@ -24,12 +17,10 @@ namespace MVCProject.Controllers
         SqlDataReader dr;
         List<Data> datas = new List<Data>();
         string role;
-        private IConfiguration cfg;
-        string connectionString;
-        public HomeController(IConfiguration configuration)
+        private readonly SqlConnectionFactory _factory;
+        public HomeController(SqlConnectionFactory factory)
         {
-            cfg = configuration;
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
         }
 
         public IActionResult Manual()
@@ -80,7 +71,7 @@ namespace MVCProject.Controllers
         //získání dat z DB pro select Pexeso
         public void SelectFromDB(string name)
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             try
             {
                 string query = "";
@@ -103,7 +94,7 @@ namespace MVCProject.Controllers
 
                 foreach (DataRow dr in ViewBag.gameName.Rows)
                 {
-                    gameName.Add(new SelectListItem { Text = @dr["Name"].ToString(),Value= @dr["Name"].ToString() });
+                    gameName.Add(new SelectListItem { Text = @dr["Name"].ToString(), Value = @dr["Name"].ToString() });
                 }
                 ViewBag.gameName = gameName;
                 //ViewBag.countQuestion = gameName.Count;
@@ -119,7 +110,7 @@ namespace MVCProject.Controllers
         //získání dat z DB pro tabulku výsledků
         private void FillData()
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             //načtení role z databáze
             string name = HttpContext.Session.GetString("UserName");
             string className = HttpContext.Session.GetString("ClassName");
@@ -201,7 +192,7 @@ namespace MVCProject.Controllers
         public IActionResult Table()
         {
             FillData();
-            return View("Scores/Table",datas);
+            return View("Scores/Table", datas);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
