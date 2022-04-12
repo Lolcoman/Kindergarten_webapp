@@ -15,6 +15,5 @@ Projekt je vytvořen pomocí:
 Pro spuštění použijte:
 
 ```
-$ webhttps
-$ Visual Studio or Code
+http://webprodeti.somee.com/
 ```
