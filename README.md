@@ -13,7 +13,4 @@ Projekt je vytvořen pomocí:
 	
 ## Setup
 Pro spuštění použijte:
-
-```
 http://webprodeti.somee.com/
-```
