@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using MVCProject.Models;
+using MVCProject.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MVCProject.Controllers
 {
@@ -17,15 +15,11 @@ namespace MVCProject.Controllers
     [ApiController]
     public class QuizController : ControllerBase
     {
-        private IConfiguration cfg;
-        string connectionString;
-        public QuizController(IConfiguration configuration)
+        private readonly SqlConnectionFactory _factory;
+        public QuizController(SqlConnectionFactory factory)
         {
-            cfg = configuration;
-            connectionString = cfg["ConnectionStrings:DefaultConnection"];
+            _factory = factory;
         }
-        SqlDataReader dr;
-        SqlCommand command = new SqlCommand();
         //test API
         public IActionResult Get()
         {
@@ -40,7 +34,7 @@ namespace MVCProject.Controllers
             byte[] img, question;
             Image image, resizedImg;
             int i;
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             try
             {
                 if (name == "")
@@ -148,15 +142,15 @@ namespace MVCProject.Controllers
         [HttpGet("[action]")]
         public List<Question> QuizDownload([FromQuery] string name)
         {
-            using SqlConnection sqlConnection = new SqlConnection(connectionString);
+            using SqlConnection sqlConnection = _factory.CreateConnection();
             SqlCommand command = new SqlCommand($"SELECT question,answer,wrongOne,wrongTwo FROM QuizTable WHERE Name = @name", sqlConnection);
             command.Parameters.AddWithValue("@name", name);
+            sqlConnection.Open();
+            using var dr = command.ExecuteReader();
             try
             {
                 var questionList = new List<Question>();
-                sqlConnection.Open();
                 byte[] question, answer, wrongOne, wrongTwo;
-                dr = command.ExecuteReader();
                 var memory = new MemoryStream();
                 bool b = dr.HasRows;
                 if (dr.HasRows)
