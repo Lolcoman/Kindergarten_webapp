@@ -99,7 +99,7 @@ function setup() {
     downloadBtn = createButton('Stáhnout').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 20px');
     downloadBtn.id('download');
     //kreslení do pexesa
-    resizeBtn = createButton('Zmenšení plátna').parent(settings).style('margin-top: 20px; width: 140px; height: 80px; margin-left: 20px');
+    resizeBtn = createButton('Zmenšení plátna').parent(settings).style('margin-top: 20px; width: 140px; height: 80px; margin-left: 10px');
     resizeBtn.id('smallDraw');
     //pro odstranění reklamy
     lastDiv = createDiv('posledni').parent(my_canvas);
