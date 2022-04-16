@@ -54,7 +54,7 @@ namespace MVCProject.Controllers
                 foreach (var file in files)
                 {
                     var image = Image.FromStream(file.OpenReadStream()); //načtení do StreamReaderu
-                    var resizedImg = new Bitmap(image, new Size(215, 215)); //zmenšení obrázku
+                    var resizedImg = new Bitmap(image, new Size(140, 140)); //zmenšení obrázku
 
                     var img = ImageToByteArray(resizedImg); //převod obrázku na ByteArray
                     SqlCommand command = new SqlCommand($"INSERT INTO [PexesoTable](Image,Name) VALUES (@image,@name)", sqlConnection);

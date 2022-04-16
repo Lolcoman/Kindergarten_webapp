@@ -9,6 +9,7 @@
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+	  <SatelliteResourceLanguages>cs</SatelliteResourceLanguages>
   </PropertyGroup>
 
   <ItemGroup>

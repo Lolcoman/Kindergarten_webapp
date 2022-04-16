@@ -13,7 +13,11 @@ button,p,select{
     border-radius: 10px;
     background-color: rgb(75, 231, 96, 0.8);
 }
-#clear{
+#smallDraw {
+    border-radius: 10px;
+    background-color: rgb(75, 140, 231, 0.8);
+}
+#clear {
     border-radius: 10px;
     background-color: rgba(253, 45, 45, 0.9);
 }

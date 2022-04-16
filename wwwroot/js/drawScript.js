@@ -92,10 +92,16 @@ function setup() {
     //čtverec
     rectBtn = createButton('').parent(rectDraw).style('margin-top: 20px; width: 55px; height: 55px; margin-left: 20px;backgroundImage: url(../images/rect_vector.png);backgroundRepeat: no-repeat;background-position: center;backgroundSize: 50px 50px;');
     rectBtn.id('rect');
+    //smazání
     clearBtn = createButton('Smazat').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 175px');
     clearBtn.id('clear');
+    //stáhnutí
     downloadBtn = createButton('Stáhnout').parent(settings).style('margin-top: 20px; width: 150px; height: 50px; margin-left: 20px');
     downloadBtn.id('download');
+    //kreslení do pexesa
+    resizeBtn = createButton('Zmenšení plátna').parent(settings).style('margin-top: 20px; width: 140px; height: 80px; margin-left: 20px');
+    resizeBtn.id('smallDraw');
+    //pro odstranění reklamy
     lastDiv = createDiv('posledni').parent(my_canvas);
     lastDiv.id('lastDiv');
 }
@@ -104,6 +110,7 @@ function draw() {
     background(backgroundColor.value());
     clearBtn.mousePressed(clearCanvas);
     downloadBtn.mousePressed(saveToFile);
+    resizeBtn.mousePressed(resize);
 
     //normální kreslení
     document.getElementById('normal').onclick = function () {
@@ -229,6 +236,10 @@ function draw() {
         };
         drawCircle();
     }
+}
+//změna velikosti canvasu
+function resize() {
+    resizeCanvas(500, 500, true);
 }
 //uložení canvasu jako 'png'
 function saveToFile() {
